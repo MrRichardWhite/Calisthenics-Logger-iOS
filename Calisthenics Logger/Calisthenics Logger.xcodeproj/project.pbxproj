@@ -1,0 +1,786 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D199DC22AC193800071894A /* Calisthenics_LoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DC12AC193800071894A /* Calisthenics_LoggerApp.swift */; };
+		8D199DC42AC193800071894A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DC32AC193800071894A /* MainView.swift */; };
+		8D199DC62AC193810071894A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D199DC52AC193810071894A /* Assets.xcassets */; };
+		8D199DCA2AC193810071894A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D199DC92AC193810071894A /* Preview Assets.xcassets */; };
+		8D199DD42AC193810071894A /* Calisthenics_LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DD32AC193810071894A /* Calisthenics_LoggerTests.swift */; };
+		8D199DDE2AC193810071894A /* Calisthenics_LoggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DDD2AC193810071894A /* Calisthenics_LoggerUITests.swift */; };
+		8D199DE02AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DDF2AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift */; };
+		8D30E0C52AC42F3B00455620 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D30E0C42AC42F3B00455620 /* GoogleService-Info.plist */; };
+		8D30E0C82AC436F500455620 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8D30E0C72AC436F500455620 /* FirebaseAuth */; };
+		8D30E0CA2AC436F500455620 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8D30E0C92AC436F500455620 /* FirebaseFirestore */; };
+		8D30E0CC2AC436F500455620 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8D30E0CB2AC436F500455620 /* FirebaseFirestoreSwift */; };
+		8D30E0D32AC43A5D00455620 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0D22AC43A5D00455620 /* ProfileView.swift */; };
+		8D30E0D52AC43A8700455620 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0D42AC43A8700455620 /* LoginView.swift */; };
+		8D30E0D72AC43AA800455620 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0D62AC43AA800455620 /* RegisterView.swift */; };
+		8D30E0D92AC43AF500455620 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0D82AC43AF500455620 /* User.swift */; };
+		8D30E0DB2AC43B3C00455620 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0DA2AC43B3C00455620 /* ProfileViewViewModel.swift */; };
+		8D30E0DD2AC43B5900455620 /* LoginViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0DC2AC43B5900455620 /* LoginViewViewModel.swift */; };
+		8D30E0DF2AC43B7000455620 /* RegisterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0DE2AC43B7000455620 /* RegisterViewViewModel.swift */; };
+		8D30E0E12AC443B100455620 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0E02AC443B100455620 /* HeaderView.swift */; };
+		8D30E0E32AC44CB300455620 /* CLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0E22AC44CB300455620 /* CLButton.swift */; };
+		8D30E0E52AC45CEB00455620 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0E42AC45CEB00455620 /* Extensions.swift */; };
+		8D30E0E72AC45F6900455620 /* MainViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0E62AC45F6900455620 /* MainViewViewModel.swift */; };
+		8D30E0E92AC4634900455620 /* WorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0E82AC4634900455620 /* WorkoutsView.swift */; };
+		8D30E0EB2AC4635A00455620 /* WorkoutsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0EA2AC4635A00455620 /* WorkoutsViewViewModel.swift */; };
+		8D30E0ED2AC4636900455620 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0EC2AC4636900455620 /* Workout.swift */; };
+		8D30E0EF2AC4637300455620 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0EE2AC4637300455620 /* Exercise.swift */; };
+		8D30E0F12AC46E3B00455620 /* TemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F02AC46E3B00455620 /* TemplatesView.swift */; };
+		8D30E0F32AC46E5100455620 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F22AC46E5100455620 /* StatsView.swift */; };
+		8D30E0F52AC4713600455620 /* TemplatesViewVieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F42AC4713600455620 /* TemplatesViewVieModel.swift */; };
+		8D30E0F72AC4714A00455620 /* StatsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */; };
+		8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */; };
+		8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8D199DD02AC193810071894A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D199DB62AC193800071894A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D199DBD2AC193800071894A;
+			remoteInfo = "Calisthenics Logger";
+		};
+		8D199DDA2AC193810071894A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D199DB62AC193800071894A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D199DBD2AC193800071894A;
+			remoteInfo = "Calisthenics Logger";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8D199DBE2AC193800071894A /* Calisthenics Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calisthenics Logger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D199DC12AC193800071894A /* Calisthenics_LoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calisthenics_LoggerApp.swift; sourceTree = "<group>"; };
+		8D199DC32AC193800071894A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		8D199DC52AC193810071894A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D199DC72AC193810071894A /* Calisthenics_Logger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Calisthenics_Logger.entitlements; sourceTree = "<group>"; };
+		8D199DC92AC193810071894A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8D199DCF2AC193810071894A /* Calisthenics LoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Calisthenics LoggerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D199DD32AC193810071894A /* Calisthenics_LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calisthenics_LoggerTests.swift; sourceTree = "<group>"; };
+		8D199DD92AC193810071894A /* Calisthenics LoggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Calisthenics LoggerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D199DDD2AC193810071894A /* Calisthenics_LoggerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calisthenics_LoggerUITests.swift; sourceTree = "<group>"; };
+		8D199DDF2AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calisthenics_LoggerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8D30E0C42AC42F3B00455620 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8D30E0D22AC43A5D00455620 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		8D30E0D42AC43A8700455620 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8D30E0D62AC43AA800455620 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		8D30E0D82AC43AF500455620 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8D30E0DA2AC43B3C00455620 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
+		8D30E0DC2AC43B5900455620 /* LoginViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewViewModel.swift; sourceTree = "<group>"; };
+		8D30E0DE2AC43B7000455620 /* RegisterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewViewModel.swift; sourceTree = "<group>"; };
+		8D30E0E02AC443B100455620 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		8D30E0E22AC44CB300455620 /* CLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLButton.swift; sourceTree = "<group>"; };
+		8D30E0E42AC45CEB00455620 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8D30E0E62AC45F6900455620 /* MainViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewModel.swift; sourceTree = "<group>"; };
+		8D30E0E82AC4634900455620 /* WorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsView.swift; sourceTree = "<group>"; };
+		8D30E0EA2AC4635A00455620 /* WorkoutsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewViewModel.swift; sourceTree = "<group>"; };
+		8D30E0EC2AC4636900455620 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		8D30E0EE2AC4637300455620 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		8D30E0F02AC46E3B00455620 /* TemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesView.swift; sourceTree = "<group>"; };
+		8D30E0F22AC46E5100455620 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		8D30E0F42AC4713600455620 /* TemplatesViewVieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesViewVieModel.swift; sourceTree = "<group>"; };
+		8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewViewModel.swift; sourceTree = "<group>"; };
+		8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutView.swift; sourceTree = "<group>"; };
+		8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D199DBB2AC193800071894A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D30E0C82AC436F500455620 /* FirebaseAuth in Frameworks */,
+				8D30E0CA2AC436F500455620 /* FirebaseFirestore in Frameworks */,
+				8D30E0CC2AC436F500455620 /* FirebaseFirestoreSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D199DCC2AC193810071894A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D199DD62AC193810071894A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8D199DB52AC193800071894A = {
+			isa = PBXGroup;
+			children = (
+				8D199DC02AC193800071894A /* Calisthenics Logger */,
+				8D199DD22AC193810071894A /* Calisthenics LoggerTests */,
+				8D199DDC2AC193810071894A /* Calisthenics LoggerUITests */,
+				8D199DBF2AC193800071894A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8D199DBF2AC193800071894A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DBE2AC193800071894A /* Calisthenics Logger.app */,
+				8D199DCF2AC193810071894A /* Calisthenics LoggerTests.xctest */,
+				8D199DD92AC193810071894A /* Calisthenics LoggerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D199DC02AC193800071894A /* Calisthenics Logger */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DC72AC193810071894A /* Calisthenics_Logger.entitlements */,
+				8D30E0D12AC4398500455620 /* Other */,
+				8D30E0D02AC4396400455620 /* Models */,
+				8D30E0CF2AC4395900455620 /* ViewModels */,
+				8D30E0CD2AC4391600455620 /* Views */,
+				8D199DC82AC193810071894A /* Preview Content */,
+			);
+			path = "Calisthenics Logger";
+			sourceTree = "<group>";
+		};
+		8D199DC82AC193810071894A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DC92AC193810071894A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8D199DD22AC193810071894A /* Calisthenics LoggerTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DD32AC193810071894A /* Calisthenics_LoggerTests.swift */,
+			);
+			path = "Calisthenics LoggerTests";
+			sourceTree = "<group>";
+		};
+		8D199DDC2AC193810071894A /* Calisthenics LoggerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DDD2AC193810071894A /* Calisthenics_LoggerUITests.swift */,
+				8D199DDF2AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift */,
+			);
+			path = "Calisthenics LoggerUITests";
+			sourceTree = "<group>";
+		};
+		8D30E0CD2AC4391600455620 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DC32AC193800071894A /* MainView.swift */,
+				8D30E0D22AC43A5D00455620 /* ProfileView.swift */,
+				8D30E0D42AC43A8700455620 /* LoginView.swift */,
+				8D30E0D62AC43AA800455620 /* RegisterView.swift */,
+				8D30E0E02AC443B100455620 /* HeaderView.swift */,
+				8D30E0E22AC44CB300455620 /* CLButton.swift */,
+				8D30E0E82AC4634900455620 /* WorkoutsView.swift */,
+				8D30E0F02AC46E3B00455620 /* TemplatesView.swift */,
+				8D30E0F22AC46E5100455620 /* StatsView.swift */,
+				8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8D30E0CF2AC4395900455620 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8D30E0DA2AC43B3C00455620 /* ProfileViewViewModel.swift */,
+				8D30E0DC2AC43B5900455620 /* LoginViewViewModel.swift */,
+				8D30E0DE2AC43B7000455620 /* RegisterViewViewModel.swift */,
+				8D30E0E62AC45F6900455620 /* MainViewViewModel.swift */,
+				8D30E0EA2AC4635A00455620 /* WorkoutsViewViewModel.swift */,
+				8D30E0F42AC4713600455620 /* TemplatesViewVieModel.swift */,
+				8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */,
+				8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8D30E0D02AC4396400455620 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8D30E0D82AC43AF500455620 /* User.swift */,
+				8D30E0EC2AC4636900455620 /* Workout.swift */,
+				8D30E0EE2AC4637300455620 /* Exercise.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8D30E0D12AC4398500455620 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				8D199DC52AC193810071894A /* Assets.xcassets */,
+				8D30E0C42AC42F3B00455620 /* GoogleService-Info.plist */,
+				8D199DC12AC193800071894A /* Calisthenics_LoggerApp.swift */,
+				8D30E0E42AC45CEB00455620 /* Extensions.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D199DBD2AC193800071894A /* Calisthenics Logger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D199DE32AC193810071894A /* Build configuration list for PBXNativeTarget "Calisthenics Logger" */;
+			buildPhases = (
+				8D199DBA2AC193800071894A /* Sources */,
+				8D199DBB2AC193800071894A /* Frameworks */,
+				8D199DBC2AC193800071894A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Calisthenics Logger";
+			packageProductDependencies = (
+				8D30E0C72AC436F500455620 /* FirebaseAuth */,
+				8D30E0C92AC436F500455620 /* FirebaseFirestore */,
+				8D30E0CB2AC436F500455620 /* FirebaseFirestoreSwift */,
+			);
+			productName = "Calisthenics Logger";
+			productReference = 8D199DBE2AC193800071894A /* Calisthenics Logger.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8D199DCE2AC193810071894A /* Calisthenics LoggerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D199DE62AC193810071894A /* Build configuration list for PBXNativeTarget "Calisthenics LoggerTests" */;
+			buildPhases = (
+				8D199DCB2AC193810071894A /* Sources */,
+				8D199DCC2AC193810071894A /* Frameworks */,
+				8D199DCD2AC193810071894A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D199DD12AC193810071894A /* PBXTargetDependency */,
+			);
+			name = "Calisthenics LoggerTests";
+			productName = "Calisthenics LoggerTests";
+			productReference = 8D199DCF2AC193810071894A /* Calisthenics LoggerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8D199DD82AC193810071894A /* Calisthenics LoggerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D199DE92AC193810071894A /* Build configuration list for PBXNativeTarget "Calisthenics LoggerUITests" */;
+			buildPhases = (
+				8D199DD52AC193810071894A /* Sources */,
+				8D199DD62AC193810071894A /* Frameworks */,
+				8D199DD72AC193810071894A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D199DDB2AC193810071894A /* PBXTargetDependency */,
+			);
+			name = "Calisthenics LoggerUITests";
+			productName = "Calisthenics LoggerUITests";
+			productReference = 8D199DD92AC193810071894A /* Calisthenics LoggerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8D199DB62AC193800071894A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					8D199DBD2AC193800071894A = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					8D199DCE2AC193810071894A = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8D199DBD2AC193800071894A;
+					};
+					8D199DD82AC193810071894A = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8D199DBD2AC193800071894A;
+					};
+				};
+			};
+			buildConfigurationList = 8D199DB92AC193800071894A /* Build configuration list for PBXProject "Calisthenics Logger" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8D199DB52AC193800071894A;
+			packageReferences = (
+				8D30E0C32AC42CE900455620 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8D30E0C62AC4347400455620 /* XCRemoteSwiftPackageReference "GoogleUtilities" */,
+			);
+			productRefGroup = 8D199DBF2AC193800071894A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D199DBD2AC193800071894A /* Calisthenics Logger */,
+				8D199DCE2AC193810071894A /* Calisthenics LoggerTests */,
+				8D199DD82AC193810071894A /* Calisthenics LoggerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D199DBC2AC193800071894A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D199DCA2AC193810071894A /* Preview Assets.xcassets in Resources */,
+				8D199DC62AC193810071894A /* Assets.xcassets in Resources */,
+				8D30E0C52AC42F3B00455620 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D199DCD2AC193810071894A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D199DD72AC193810071894A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D199DBA2AC193800071894A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D199DC42AC193800071894A /* MainView.swift in Sources */,
+				8D30E0E32AC44CB300455620 /* CLButton.swift in Sources */,
+				8D30E0D72AC43AA800455620 /* RegisterView.swift in Sources */,
+				8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */,
+				8D30E0EF2AC4637300455620 /* Exercise.swift in Sources */,
+				8D30E0ED2AC4636900455620 /* Workout.swift in Sources */,
+				8D30E0D92AC43AF500455620 /* User.swift in Sources */,
+				8D30E0DD2AC43B5900455620 /* LoginViewViewModel.swift in Sources */,
+				8D30E0D32AC43A5D00455620 /* ProfileView.swift in Sources */,
+				8D30E0E12AC443B100455620 /* HeaderView.swift in Sources */,
+				8D30E0F52AC4713600455620 /* TemplatesViewVieModel.swift in Sources */,
+				8D30E0E52AC45CEB00455620 /* Extensions.swift in Sources */,
+				8D30E0DB2AC43B3C00455620 /* ProfileViewViewModel.swift in Sources */,
+				8D30E0E72AC45F6900455620 /* MainViewViewModel.swift in Sources */,
+				8D30E0D52AC43A8700455620 /* LoginView.swift in Sources */,
+				8D199DC22AC193800071894A /* Calisthenics_LoggerApp.swift in Sources */,
+				8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */,
+				8D30E0F32AC46E5100455620 /* StatsView.swift in Sources */,
+				8D30E0F12AC46E3B00455620 /* TemplatesView.swift in Sources */,
+				8D30E0EB2AC4635A00455620 /* WorkoutsViewViewModel.swift in Sources */,
+				8D30E0F72AC4714A00455620 /* StatsViewViewModel.swift in Sources */,
+				8D30E0E92AC4634900455620 /* WorkoutsView.swift in Sources */,
+				8D30E0DF2AC43B7000455620 /* RegisterViewViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D199DCB2AC193810071894A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D199DD42AC193810071894A /* Calisthenics_LoggerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D199DD52AC193810071894A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D199DE02AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift in Sources */,
+				8D199DDE2AC193810071894A /* Calisthenics_LoggerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D199DD12AC193810071894A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D199DBD2AC193800071894A /* Calisthenics Logger */;
+			targetProxy = 8D199DD02AC193810071894A /* PBXContainerItemProxy */;
+		};
+		8D199DDB2AC193810071894A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D199DBD2AC193800071894A /* Calisthenics Logger */;
+			targetProxy = 8D199DDA2AC193810071894A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8D199DE12AC193810071894A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8D199DE22AC193810071894A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		8D199DE42AC193810071894A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Calisthenics Logger/Calisthenics_Logger.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Calisthenics Logger/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Calisthenics Logger";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Team-Alpha-Bar.Calisthenics-Logger";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8D199DE52AC193810071894A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Calisthenics Logger/Calisthenics_Logger.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Calisthenics Logger/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Calisthenics Logger";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Team-Alpha-Bar.Calisthenics-Logger";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8D199DE72AC193810071894A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Team-Alpha-Bar.Calisthenics-LoggerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Calisthenics Logger.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Calisthenics Logger";
+			};
+			name = Debug;
+		};
+		8D199DE82AC193810071894A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Team-Alpha-Bar.Calisthenics-LoggerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Calisthenics Logger.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Calisthenics Logger";
+			};
+			name = Release;
+		};
+		8D199DEA2AC193810071894A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Team-Alpha-Bar.Calisthenics-LoggerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Calisthenics Logger";
+			};
+			name = Debug;
+		};
+		8D199DEB2AC193810071894A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Team-Alpha-Bar.Calisthenics-LoggerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Calisthenics Logger";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8D199DB92AC193800071894A /* Build configuration list for PBXProject "Calisthenics Logger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D199DE12AC193810071894A /* Debug */,
+				8D199DE22AC193810071894A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D199DE32AC193810071894A /* Build configuration list for PBXNativeTarget "Calisthenics Logger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D199DE42AC193810071894A /* Debug */,
+				8D199DE52AC193810071894A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D199DE62AC193810071894A /* Build configuration list for PBXNativeTarget "Calisthenics LoggerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D199DE72AC193810071894A /* Debug */,
+				8D199DE82AC193810071894A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D199DE92AC193810071894A /* Build configuration list for PBXNativeTarget "Calisthenics LoggerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D199DEA2AC193810071894A /* Debug */,
+				8D199DEB2AC193810071894A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8D30E0C32AC42CE900455620 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.15.0;
+			};
+		};
+		8D30E0C62AC4347400455620 /* XCRemoteSwiftPackageReference "GoogleUtilities" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleUtilities.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8D30E0C72AC436F500455620 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D30E0C32AC42CE900455620 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		8D30E0C92AC436F500455620 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D30E0C32AC42CE900455620 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		8D30E0CB2AC436F500455620 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D30E0C32AC42CE900455620 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8D199DB62AC193800071894A /* Project object */;
+}
