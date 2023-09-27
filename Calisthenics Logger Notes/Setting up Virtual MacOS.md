@@ -1,0 +1,6 @@
+- [Mac OS 12 Monterey unter Windows installieren / nutzen | MacOS mit VirtualBox [Tutorial]](https://youtu.be/m3HTOuTqFTE?si=qIbv72OTJkjk8ku4)
+- [How to Install macOS Ventura on VirtualBox on Windows PC](https://youtu.be/dxoko6UR7Fc?si=5uWYBSFc72N-qdpL)
+- [How to Install Xcode On Windows - Xcode For Windows](https://youtu.be/ngo-EkD0tMw?si=BNFfR7AP2Ps3XTpO)
+- [How to Install macOS Monterey on VirtualBox on Windows](https://youtu.be/YC_PlSk7U8w?si=_CRrvfhWYzeUDDbX)
+- [So installieren Sie macOS 12 auf VirtualBox](https://www.youtube.com/watch?v=OPnrLrgphLM&t=169s)
+- [How to install XCode on Windows | Download and run XCode apps on windows | ios emulator for Windows](https://www.youtube.com/watch?v=CLTFPcXyvhQ&t=39s)
