@@ -14,6 +14,7 @@ Which work has been (and will be) done when?
 4. Milking [SwiftUI To Do List (Full Series)](https://youtube.com/playlist?list=PL5PR3UyfTWvei-pKlZN7d8r-0tHCK1EKE&si=dcfatP-yG6ez_5cW)
 	- just watching: 26.9.2023, all day
 	- watching & coding: 27.9.2023, all day
+	- watching & coding: 28.9.2023, late morning - early afternoon
 
 5. GitHub Repository
 	- setting up: 27.9.2023, evening

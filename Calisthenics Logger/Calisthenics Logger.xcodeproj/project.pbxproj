@@ -39,6 +39,7 @@
 		8D30E0F72AC4714A00455620 /* StatsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */; };
 		8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */; };
 		8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */; };
+		8D96FDBC2AC59E7600796A81 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewViewModel.swift; sourceTree = "<group>"; };
 		8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutView.swift; sourceTree = "<group>"; };
 		8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewViewModel.swift; sourceTree = "<group>"; };
+		8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				8D30E0C42AC42F3B00455620 /* GoogleService-Info.plist */,
 				8D199DC12AC193800071894A /* Calisthenics_LoggerApp.swift */,
 				8D30E0E42AC45CEB00455620 /* Extensions.swift */,
+				8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			files = (
 				8D199DCA2AC193810071894A /* Preview Assets.xcassets in Resources */,
 				8D199DC62AC193810071894A /* Assets.xcassets in Resources */,
+				8D96FDBC2AC59E7600796A81 /* Launch Screen.storyboard in Resources */,
 				8D30E0C52AC42F3B00455620 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,13 +561,15 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Calisthenics Logger/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Calisthenics Logger";
+				INFOPLIST_KEY_CFBundleDisplayName = CaliLog;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -593,13 +599,15 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Calisthenics Logger/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Calisthenics Logger";
+				INFOPLIST_KEY_CFBundleDisplayName = CaliLog;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Workout: Codable, Identifiable {
+    let id: String
+    let time: TimeInterval
+    let location: String
+    let created: TimeInterval
+}
