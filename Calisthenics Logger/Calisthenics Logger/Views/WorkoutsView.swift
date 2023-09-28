@@ -28,13 +28,18 @@ struct WorkoutsView: View {
         NavigationView {
             VStack {
                 List(workouts) { workout in
-                    VStack(alignment: .leading) {
-                        Text(workout.location)
+                    NavigationLink(
+                        destination: WorkoutView(id: workout.id)
+                    ) {
+                        VStack(alignment: .leading) {
+                            Text(workout.location)
 
-                        Text("\(Date(timeIntervalSince1970: workout.time).formatted(date: .abbreviated, time: .shortened))")
-                            .font(.footnote)
-                            .foregroundColor(Color(.secondaryLabel))
+                            Text("\(Date(timeIntervalSince1970: workout.time).formatted(date: .abbreviated, time: .shortened))")
+                                .font(.footnote)
+                                .foregroundColor(Color(.secondaryLabel))
+                        }
                     }
+                    
                     .swipeActions {
                         Button {
                             // Delete

@@ -40,6 +40,7 @@
 		8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */; };
 		8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */; };
 		8D96FDBC2AC59E7600796A81 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */; };
+		8D96FDBE2AC5A2C200796A81 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutView.swift; sourceTree = "<group>"; };
 		8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewViewModel.swift; sourceTree = "<group>"; };
 		8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				8D30E0F02AC46E3B00455620 /* TemplatesView.swift */,
 				8D30E0F22AC46E5100455620 /* StatsView.swift */,
 				8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */,
+				8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				8D30E0DD2AC43B5900455620 /* LoginViewViewModel.swift in Sources */,
 				8D30E0D32AC43A5D00455620 /* ProfileView.swift in Sources */,
 				8D30E0E12AC443B100455620 /* HeaderView.swift in Sources */,
+				8D96FDBE2AC5A2C200796A81 /* WorkoutView.swift in Sources */,
 				8D30E0F52AC4713600455620 /* TemplatesViewVieModel.swift in Sources */,
 				8D30E0E52AC45CEB00455620 /* Extensions.swift in Sources */,
 				8D30E0DB2AC43B3C00455620 /* ProfileViewViewModel.swift in Sources */,
