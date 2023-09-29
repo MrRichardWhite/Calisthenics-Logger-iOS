@@ -1,5 +1,5 @@
 //
-//  WorkoutsViewViewModel.swift
+//  LoggerViewViewModel.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 27.09.23.
@@ -8,7 +8,7 @@
 import FirebaseFirestore
 import Foundation
 
-class WorkoutsViewViewModel: ObservableObject {
+class LoggerViewViewModel: ObservableObject {
     @Published var showingNewWorkoutView = false
     
     private let userId: String
@@ -17,15 +17,13 @@ class WorkoutsViewViewModel: ObservableObject {
         self.userId = userId
     }
     
-    /// Delete workout
-    /// - Parameter id: Workout id to delete
-    func delete(id: String) {
+    func delete(workoutId: String) {
         let db = Firestore.firestore()
         
         db.collection("users")
             .document(userId)
             .collection("workouts")
-            .document(id)
+            .document(workoutId)
             .delete()
     }
 }

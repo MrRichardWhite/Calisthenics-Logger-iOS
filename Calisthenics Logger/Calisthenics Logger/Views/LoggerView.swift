@@ -1,5 +1,5 @@
 //
-//  WorkoutsView.swift
+//  LoggerView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 27.09.23.
@@ -9,7 +9,7 @@ import FirebaseFirestoreSwift
 import SwiftUI
 
 struct WorkoutsView: View {
-    @StateObject var viewModel: WorkoutsViewViewModel
+    @StateObject var viewModel: LoggerViewViewModel
     @FirestoreQuery var workouts: [Workout]
     
     private let userId: String
@@ -20,16 +20,19 @@ struct WorkoutsView: View {
             collectionPath: "users/\(userId)/workouts"
         )
         self._viewModel = StateObject(
-            wrappedValue: WorkoutsViewViewModel(userId: userId)
+            wrappedValue: LoggerViewViewModel(userId: userId)
         )
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 List(workouts) { workout in
                     NavigationLink(
-                        destination: WorkoutView(id: workout.id)
+                        destination: WorkoutView(
+                            userId: userId,
+                            workoutId: workout.id
+                        )
                     ) {
                         VStack(alignment: .leading) {
                             Text(workout.location)
@@ -43,7 +46,7 @@ struct WorkoutsView: View {
                     .swipeActions {
                         Button {
                             // Delete
-                            viewModel.delete(id: workout.id)
+                            viewModel.delete(workoutId: workout.id)
                         } label: {
                             Image(systemName: "trash")
                                 .tint(Color.red)
@@ -52,7 +55,7 @@ struct WorkoutsView: View {
                 }
 //                .listStyle(PlainListStyle())
             }
-            .navigationTitle("Workouts")
+            .navigationTitle("Logger")
             .toolbar {
                 Button {
                     // Action
@@ -69,5 +72,7 @@ struct WorkoutsView: View {
 }
 
 #Preview {
-    WorkoutsView(userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1")
+    WorkoutsView(
+        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
+    )
 }
