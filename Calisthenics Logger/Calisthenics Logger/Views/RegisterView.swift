@@ -21,24 +21,32 @@ struct RegisterView: View {
             
             Form {
                 TextField("Full Name", text: $viewModel.name)
-                    .textFieldStyle(DefaultTextFieldStyle())
                     .autocorrectionDisabled()
                 TextField("Email Address", text: $viewModel.email)
-                    .textFieldStyle(DefaultTextFieldStyle())
                     .autocorrectionDisabled()
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 SecureField("Password", text: $viewModel.password)
-                    .textFieldStyle(DefaultTextFieldStyle())
 
                 CLButton(
                     title: "Create Account",
                     background: .green
                 ) {
-                    viewModel.register()
+                    // Attempt registration
+                    if viewModel.canRegister {
+                        viewModel.register()
+                    } else {
+                        viewModel.showAlert = true
+                    }
                 }
                 .padding()
             }
             .offset(y: -50)
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(viewModel.errorMessage)
+                )
+            }
             
             Spacer()
         }

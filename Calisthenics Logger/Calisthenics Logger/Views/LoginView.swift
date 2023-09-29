@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-
     @StateObject var viewModel = LoginViewViewModel()
 
     var body: some View {
@@ -24,29 +23,31 @@ struct LoginView: View {
                 
                 // Login Form
                 Form {
-                    if !viewModel.errorMessage.isEmpty {
-                        Text(viewModel.errorMessage)
-                            .foregroundColor(Color.red)
-                    }
-                    
                     TextField("Email Address", text: $viewModel.email)
-                        .textFieldStyle(DefaultTextFieldStyle())
                         .autocorrectionDisabled()
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     SecureField("Password", text: $viewModel.password)
-                        .textFieldStyle(DefaultTextFieldStyle())
 
                     CLButton(
                         title: "Log In",
                         background: .blue
                     ) {
                         // Attempt log in
-                        viewModel.login()
+                        if viewModel.canLogIn {
+                            viewModel.login()
+                        } else {
+                            viewModel.showAlert = true
+                        }
                     }
                     .padding()
-
                 }
                 .offset(y: -50)
+                .alert(isPresented: $viewModel.showAlert) {
+                    Alert(
+                        title: Text("Error"),
+                        message: Text(viewModel.errorMessage)
+                    )
+                }
                 
                 // Create Account
                 VStack {

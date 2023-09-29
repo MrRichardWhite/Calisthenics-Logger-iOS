@@ -13,11 +13,13 @@ class RegisterViewViewModel: ObservableObject {
     @Published var name = ""
     @Published var email = ""
     @Published var password = ""
-
+    @Published var errorMessage = ""
+    @Published var showAlert = false
+    
     init() {}
     
     func register() {
-        guard validate() else {
+        guard canRegister else {
             return
         }
         
@@ -43,18 +45,21 @@ class RegisterViewViewModel: ObservableObject {
             .setData(newUser.asDictionary())
     }
     
-    private func validate() -> Bool {
+    var canRegister: Bool {
         guard !name.trimmingCharacters(in: .whitespaces).isEmpty,
               !email.trimmingCharacters(in: .whitespaces).isEmpty,
               !password.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorMessage = "Please fill in all fields!"
             return false
         }
         
-        guard email.contains("@") && email.contains(".") else {
+        guard email.contains("@"), email.contains(".") else {
+            errorMessage = "Please enter a valid email address!"
             return false
         }
         
         guard password.count >= 6 else {
+            errorMessage = "Please enter a password that is at least 6 characters long!"
             return false
         }
         
