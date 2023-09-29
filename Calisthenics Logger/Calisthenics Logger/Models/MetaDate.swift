@@ -1,14 +1,15 @@
 //
-//  Exercise.swift
+//  MetaDate.swift
 //  Calisthenics Logger
 //
-//  Created by Richard Weiss on 27.09.23.
+//  Created by Richard Weiss on 28.09.23.
 //
 
 import Foundation
 
-struct Exercise: Codable, Identifiable {
+struct MetaDate: Codable, Identifiable {
     let id: String
     let name: String
+    let unit: String
     let created: TimeInterval
 }

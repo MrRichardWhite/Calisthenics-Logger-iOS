@@ -1,5 +1,5 @@
 //
-//  WorkoutView.swift
+//  ExerciseView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 28.09.23.
@@ -8,23 +8,26 @@
 import FirebaseFirestoreSwift
 import SwiftUI
 
-struct WorkoutView: View {
-    @StateObject var viewModel: WorkoutViewViewModel
-    @FirestoreQuery var exercises: [Exercise]
+struct ExerciseView: View {
+    @StateObject var viewModel: ExerciseViewViewModel
+    @FirestoreQuery var metadata: [MetaDate]
     
     private let userId: String
     private let workoutId: String
+    private let exerciseId: String
 
-    init(userId: String, workoutId: String) {
+    init(userId: String, workoutId: String, exerciseId: String) {
         self.userId = userId
         self.workoutId = workoutId
-        self._exercises = FirestoreQuery(
-            collectionPath: "users/\(userId)/workouts/\(workoutId)/exercises"
+        self.exerciseId = exerciseId
+        self._metadata = FirestoreQuery(
+            collectionPath: "users/\(userId)/workouts/\(workoutId)/exercises/\(exerciseId)/metadata"
         )
         self._viewModel = StateObject(
-            wrappedValue: WorkoutViewViewModel(
+            wrappedValue: ExerciseViewViewModel(
                 userId: userId,
-                workoutId: workoutId
+                workoutId: workoutId,
+                exerciseId: exerciseId
             )
         )
     }
@@ -32,16 +35,17 @@ struct WorkoutView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List(exercises) { exercise in
+                List(metadata) { metadate in
                     NavigationLink(
-                        destination: ExerciseView(
+                        destination: MetaDateView(
                             userId: userId,
                             workoutId: workoutId,
-                            exerciseId: exercise.id
+                            exerciseId: exerciseId,
+                            metadateId: metadate.id
                         )
                     ) {
                         VStack(alignment: .leading) {
-                            Text(exercise.name)
+                            Text(metadate.name)
                         }
                     }
                     
@@ -49,7 +53,7 @@ struct WorkoutView: View {
                         Button {
                             // Delete
                             viewModel.delete(
-                                exerciseId: exercise.id
+                                metadateId: metadate.id
                             )
                         } label: {
                             Image(systemName: "trash")
@@ -59,19 +63,20 @@ struct WorkoutView: View {
                 }
 //                .listStyle(PlainListStyle())
             }
-            .navigationTitle("Workout")
+            .navigationTitle("Exercise")
             .toolbar {
                 Button {
                     // Action
-                    viewModel.showingNewExerciseView = true
+                    viewModel.showingNewMetaDateView = true
                 } label: {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $viewModel.showingNewExerciseView){
-                NewExerciseView(
-                    newExercisePresented: $viewModel.showingNewExerciseView,
-                    workoutId: workoutId
+            .sheet(isPresented: $viewModel.showingNewMetaDateView){
+                NewMetaDateView(
+                    newMetaDatePresented: $viewModel.showingNewMetaDateView,
+                    workoutId: workoutId,
+                    exerciseId: exerciseId
                 )
             }
         }
@@ -79,8 +84,9 @@ struct WorkoutView: View {
 }
 
 #Preview {
-    WorkoutView(
+    ExerciseView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354"
+        workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
+        exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1"
     )
 }

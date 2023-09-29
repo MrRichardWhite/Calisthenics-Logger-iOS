@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-var templates = ["🫥 empty", "🫸 push", "🤜 pull", "🦵 legs"]
-
 struct NewWorkoutView: View {
     @StateObject var viewModel = NewWorkoutViewViewModel()
     @Binding var newWorkoutPresented: Bool
     
+    let templates = ["🫥 empty", "🫸 push", "🤜 pull", "🦵 legs"]
+
     var body: some View {
         VStack {
             Text("New Workout")
