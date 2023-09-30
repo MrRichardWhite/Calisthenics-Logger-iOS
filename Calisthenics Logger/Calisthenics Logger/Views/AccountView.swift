@@ -21,7 +21,7 @@ struct AccountView: View {
     
     var body: some View {
         TabView {
-            WorkoutsView(userId: userId)
+            LoggerView(userId: userId)
                 .tabItem {
                     Label("Logger", systemImage: "pencil")
                 }

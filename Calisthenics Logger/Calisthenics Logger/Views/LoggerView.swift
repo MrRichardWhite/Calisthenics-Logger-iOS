@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import SwiftUI
 
-struct WorkoutsView: View {
+struct LoggerView: View {
     @StateObject var viewModel: LoggerViewViewModel
     @FirestoreQuery var workouts: [Workout]
     
