@@ -40,3 +40,9 @@ What work has been done when?
 	- 30.9.2023, morning
 		- created `View` and `ViewModel` files for `Account` and transferred relevant code
 		- `userId` is now exclusively passed inside `AccountView`, i.e. part for `// Get current user id` is commented out or deleted
+
+8. `Templates`
+	- 31.9.2023, afternoon - midnight:
+		- basic navigation
+		- ability to add templates
+		- one cannot edit them (jet)

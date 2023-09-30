@@ -25,7 +25,7 @@ struct AccountView: View {
                 .tabItem {
                     Label("Logger", systemImage: "pencil")
                 }
-            TemplatesView()
+            TemplatesView(userId: userId)
                 .tabItem {
                     Label("Templates", systemImage: "newspaper")
                 }
