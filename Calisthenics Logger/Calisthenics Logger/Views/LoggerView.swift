@@ -75,7 +75,7 @@ struct LoggerView: View {
 }
 
 #Preview {
-    WorkoutsView(
+    LoggerView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
     )
 }
