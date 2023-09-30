@@ -28,9 +28,9 @@ class NewWorkoutViewViewModel: ObservableObject {
 //        }
         
         // Create model
-        let newId = UUID().uuidString
+        let newWorkoutId = UUID().uuidString
         let newWorkout = Workout(
-            id: newId,
+            id: newWorkoutId,
             time: time.timeIntervalSince1970,
             location: location,
             created: Date().timeIntervalSince1970
@@ -42,7 +42,7 @@ class NewWorkoutViewViewModel: ObservableObject {
         db.collection("users")
             .document(userId)
             .collection("workouts")
-            .document(newId)
+            .document(newWorkoutId)
             .setData(newWorkout.asDictionary())
     }
     

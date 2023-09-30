@@ -16,9 +16,9 @@ class NewExerciseViewViewModel: ObservableObject {
     
     func save(userId: String, workoutId: String) {
         // Create model
-        let newId = UUID().uuidString
+        let newExerciseId = UUID().uuidString
         let newExercise = Exercise(
-            id: newId,
+            id: newExerciseId,
             name: template,
             created: Date().timeIntervalSince1970
         )
@@ -31,7 +31,7 @@ class NewExerciseViewViewModel: ObservableObject {
             .collection("workouts")
             .document(workoutId)
             .collection("exercises")
-            .document(newId)
+            .document(newExerciseId)
             .setData(newExercise.asDictionary())
     }
 }

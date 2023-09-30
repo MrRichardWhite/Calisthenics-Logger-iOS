@@ -22,9 +22,9 @@ class NewMetaDateViewViewModel: ObservableObject {
         } else if template == "Time" {
             unit = "s"
         }
-        let newId = UUID().uuidString
+        let newMetaDateId = UUID().uuidString
         let newMetaDate = MetaDate(
-            id: newId,
+            id: newMetaDateId,
             name: template,
             unit: unit,
             created: Date().timeIntervalSince1970
@@ -40,7 +40,7 @@ class NewMetaDateViewViewModel: ObservableObject {
             .collection("exercises")
             .document(exericseId)
             .collection("metadata")
-            .document(newId)
+            .document(newMetaDateId)
             .setData(newMetaDate.asDictionary())
     }
 }
