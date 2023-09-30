@@ -10,6 +10,8 @@ import SwiftUI
 struct NewMetaDateView: View {
     @StateObject var viewModel = NewMetaDateViewViewModel()
     @Binding var newMetaDatePresented: Bool
+    
+    let userId: String
     let workoutId: String
     let exerciseId: String
     
@@ -33,6 +35,7 @@ struct NewMetaDateView: View {
                 // Button
                 CLButton(title: "Save", background: .pink) {
                     viewModel.save(
+                        userId: userId,
                         workoutId: workoutId,
                         exericseId: exerciseId
                     )
@@ -47,13 +50,10 @@ struct NewMetaDateView: View {
 #Preview {
     NewMetaDateView(
         newMetaDatePresented: Binding(
-            get: {
-                return true
-            },
-            set: {_ in
-        
-            }
+            get: { return true },
+            set: { _ in }
         ),
+        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
         exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1"
     )

@@ -14,12 +14,7 @@ class NewExerciseViewViewModel: ObservableObject {
     
     init() {}
     
-    func save(workoutId: String) {
-        // Get current user id
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
-        
+    func save(userId: String, workoutId: String) {
         // Create model
         let newId = UUID().uuidString
         let newExercise = Exercise(

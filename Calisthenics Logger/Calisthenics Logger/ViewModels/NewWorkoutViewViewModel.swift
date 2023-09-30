@@ -17,15 +17,15 @@ class NewWorkoutViewViewModel: ObservableObject {
     
     init() {}
     
-    func save() {
+    func save(userId: String) {
         guard canSave else {
             return
         }
         
-        // Get current user id
-        guard let uId = Auth.auth().currentUser?.uid else {
-            return
-        }
+//        // Get current user id
+//        guard let uId = Auth.auth().currentUser?.uid else {
+//            return
+//        }
         
         // Create model
         let newId = UUID().uuidString
@@ -40,7 +40,7 @@ class NewWorkoutViewViewModel: ObservableObject {
         let db = Firestore.firestore()
         
         db.collection("users")
-            .document(uId)
+            .document(userId)
             .collection("workouts")
             .document(newId)
             .setData(newWorkout.asDictionary())

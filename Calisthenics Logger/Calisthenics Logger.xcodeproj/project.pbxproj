@@ -39,6 +39,8 @@
 		8D30E0F72AC4714A00455620 /* StatsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */; };
 		8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */; };
 		8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */; };
+		8D3982E72AC8090600B6793F /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982E62AC8090600B6793F /* AccountView.swift */; };
+		8D3982E92AC8093F00B6793F /* AccountViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982E82AC8093F00B6793F /* AccountViewViewModel.swift */; };
 		8D96FDBC2AC59E7600796A81 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */; };
 		8D96FDBE2AC5A2C200796A81 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */; };
 		8D96FDC02AC5BB0C00796A81 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDBF2AC5BB0C00796A81 /* ExerciseView.swift */; };
@@ -105,6 +107,8 @@
 		8D30E0F62AC4714A00455620 /* StatsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewViewModel.swift; sourceTree = "<group>"; };
 		8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutView.swift; sourceTree = "<group>"; };
 		8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewViewModel.swift; sourceTree = "<group>"; };
+		8D3982E62AC8090600B6793F /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		8D3982E82AC8093F00B6793F /* AccountViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewViewModel.swift; sourceTree = "<group>"; };
 		8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		8D96FDBF2AC5BB0C00796A81 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 				8D199DC32AC193800071894A /* MainView.swift */,
 				8D30E0D42AC43A8700455620 /* LoginView.swift */,
 				8D30E0D62AC43AA800455620 /* RegisterView.swift */,
+				8D3982E62AC8090600B6793F /* AccountView.swift */,
 				8D30E0E82AC4634900455620 /* LoggerView.swift */,
 				8D30E0F82AC471DE00455620 /* NewWorkoutView.swift */,
 				8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */,
@@ -235,6 +240,7 @@
 				8D30E0DA2AC43B3C00455620 /* ProfileViewViewModel.swift */,
 				8D30E0DC2AC43B5900455620 /* LoginViewViewModel.swift */,
 				8D30E0DE2AC43B7000455620 /* RegisterViewViewModel.swift */,
+				8D3982E82AC8093F00B6793F /* AccountViewViewModel.swift */,
 				8D30E0EA2AC4635A00455620 /* LoggerViewViewModel.swift */,
 				8D30E0FA2AC471FD00455620 /* NewWorkoutViewViewModel.swift */,
 				8D96FDCB2AC6EE5F00796A81 /* WorkoutViewViewModel.swift */,
@@ -437,6 +443,7 @@
 				8D30E0E52AC45CEB00455620 /* Extensions.swift in Sources */,
 				8D30E0DB2AC43B3C00455620 /* ProfileViewViewModel.swift in Sources */,
 				8D30E0E72AC45F6900455620 /* MainViewViewModel.swift in Sources */,
+				8D3982E72AC8090600B6793F /* AccountView.swift in Sources */,
 				8D30E0D52AC43A8700455620 /* LoginView.swift in Sources */,
 				8D199DC22AC193800071894A /* Calisthenics_LoggerApp.swift in Sources */,
 				8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */,
@@ -445,6 +452,7 @@
 				8D30E0F12AC46E3B00455620 /* TemplatesView.swift in Sources */,
 				8D30E0EB2AC4635A00455620 /* LoggerViewViewModel.swift in Sources */,
 				8D30E0F72AC4714A00455620 /* StatsViewViewModel.swift in Sources */,
+				8D3982E92AC8093F00B6793F /* AccountViewViewModel.swift in Sources */,
 				8D30E0E92AC4634900455620 /* LoggerView.swift in Sources */,
 				8D96FDC42AC5C1DE00796A81 /* ExerciseViewViewModel.swift in Sources */,
 				8D30E0DF2AC43B7000455620 /* RegisterViewViewModel.swift in Sources */,

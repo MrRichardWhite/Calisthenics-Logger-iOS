@@ -71,6 +71,7 @@ struct WorkoutView: View {
             .sheet(isPresented: $viewModel.showingNewExerciseView){
                 NewExerciseView(
                     newExercisePresented: $viewModel.showingNewExerciseView,
+                    userId: userId,
                     workoutId: workoutId
                 )
             }

@@ -16,7 +16,7 @@ struct MetaDateView: View {
     private let workoutId: String
     private let exerciseId: String
     private let metadateId: String
-
+    
     init(userId: String, workoutId: String, exerciseId: String, metadateId: String) {
         self.userId = userId
         self.workoutId = workoutId

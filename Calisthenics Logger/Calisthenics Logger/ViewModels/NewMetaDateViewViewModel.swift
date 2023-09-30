@@ -14,12 +14,7 @@ class NewMetaDateViewViewModel: ObservableObject {
     
     init() {}
     
-    func save(workoutId: String, exericseId: String) {
-        // Get current user id
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
-        
+    func save(userId: String, workoutId: String, exericseId: String) {
         // Create model
         var unit = ""
         if template == "Reps" {

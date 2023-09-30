@@ -13,7 +13,7 @@ struct WorkoutsView: View {
     @FirestoreQuery var workouts: [Workout]
     
     private let userId: String
-
+    
     init(userId: String) {
         self.userId = userId
         self._workouts = FirestoreQuery(
@@ -65,7 +65,10 @@ struct WorkoutsView: View {
                 }
             }
             .sheet(isPresented: $viewModel.showingNewWorkoutView){
-                NewWorkoutView(newWorkoutPresented: $viewModel.showingNewWorkoutView)
+                NewWorkoutView(
+                    newWorkoutPresented: $viewModel.showingNewWorkoutView,
+                    userId: userId
+                )
             }
         }
     }

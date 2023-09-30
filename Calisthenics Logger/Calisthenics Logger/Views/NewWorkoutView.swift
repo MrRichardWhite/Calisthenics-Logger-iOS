@@ -11,6 +11,8 @@ struct NewWorkoutView: View {
     @StateObject var viewModel = NewWorkoutViewViewModel()
     @Binding var newWorkoutPresented: Bool
     
+    let userId: String
+    
     let templates = ["🫥 empty", "🫸 push", "🤜 pull", "🦵 legs"]
 
     var body: some View {
@@ -38,7 +40,9 @@ struct NewWorkoutView: View {
                 // Button
                 CLButton(title: "Save", background: .pink) {
                     if viewModel.canSave {
-                        viewModel.save()
+                        viewModel.save(
+                            userId: userId
+                        )
                         newWorkoutPresented = false
                     } else {
                         viewModel.showAlert = true
@@ -57,9 +61,11 @@ struct NewWorkoutView: View {
 }
 
 #Preview {
-    NewWorkoutView(newWorkoutPresented: Binding(get: {
-        return true
-    }, set: {_ in
-        
-    }))
+    NewWorkoutView(
+        newWorkoutPresented: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
+        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
+    )
 }

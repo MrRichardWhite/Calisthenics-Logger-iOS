@@ -75,6 +75,7 @@ struct ExerciseView: View {
             .sheet(isPresented: $viewModel.showingNewMetaDateView){
                 NewMetaDateView(
                     newMetaDatePresented: $viewModel.showingNewMetaDateView,
+                    userId: userId,
                     workoutId: workoutId,
                     exerciseId: exerciseId
                 )
