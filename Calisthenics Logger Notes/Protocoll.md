@@ -27,7 +27,7 @@ What work has been done when?
 	- 27.9.2023, evening:
 		- setting up
 
-6. Workout Editor
+6. `Logger`
 	- 28.9.2023, 14:00
 		- changed displayed workout labels in `WorkoutsView` to buttons and added action that navigates to `WorkoutView`
 	- 29.9.2023, morning - late afternoon:
@@ -35,3 +35,8 @@ What work has been done when?
 		- changed `Workouts` to `Logger` (and changed `dumbbell` to `pencil icon`)
 	- 29.9.2023, evening
 		- implemented `Alerts` from `NewExercise` for `Login` and `Registration`
+
+7. `Main`
+	- 30.9.2023, morning
+		- created `View` and `ViewModel` files for `Account` and transferred relevant code
+		- `userId` is now exclusively passed inside `AccountView`, i.e. part for `// Get current user id` is commented out or deleted
