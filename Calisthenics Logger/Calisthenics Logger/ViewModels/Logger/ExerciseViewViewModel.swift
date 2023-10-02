@@ -9,7 +9,7 @@ import FirebaseFirestore
 import Foundation
 
 class ExerciseViewViewModel: ObservableObject {
-    @Published var showingNewMetaDateView = false
+    @Published var showingNewMetadateView = false
     
     private let userId: String
     private let workoutId: String

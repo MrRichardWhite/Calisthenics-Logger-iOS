@@ -1,5 +1,5 @@
 //
-//  MetaDateTemplatesView.swift
+//  MetadateTemplatesView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 30.09.23.
@@ -8,9 +8,9 @@
 import FirebaseFirestoreSwift
 import SwiftUI
 
-struct MetaDateTemplatesView: View {
-    @StateObject var viewModel: MetaDateTemplatesViewViewModel
-    @FirestoreQuery var metadateTemplates: [MetaDateTemplate]
+struct MetadateTemplatesView: View {
+    @StateObject var viewModel: MetadateTemplatesViewViewModel
+    @FirestoreQuery var metadateTemplates: [MetadateTemplate]
     
     private let userId: String
     
@@ -20,7 +20,7 @@ struct MetaDateTemplatesView: View {
             collectionPath: "users/\(userId)/metadateTemplates"
         )
         self._viewModel = StateObject(
-            wrappedValue: MetaDateTemplatesViewViewModel(userId: userId)
+            wrappedValue: MetadateTemplatesViewViewModel(userId: userId)
         )
     }
     
@@ -29,7 +29,7 @@ struct MetaDateTemplatesView: View {
             VStack {
                 List(metadateTemplates) { metadateTemplate in
                     NavigationLink(
-                        destination: MetaDateTemplateComponentsView(
+                        destination: EditMetadateTemplateView(
                             userId: userId,
                             metadateTemplateId: metadateTemplate.id
                         )
@@ -51,14 +51,14 @@ struct MetaDateTemplatesView: View {
             .toolbar {
                 Button {
                     // Action
-                    viewModel.showingNewMetaDateTemplateView = true
+                    viewModel.showingNewMetadateTemplateView = true
                 } label: {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $viewModel.showingNewMetaDateTemplateView){
-                NewMetaDateTemplateView(
-                    newMetaDateTemplatePresented: $viewModel.showingNewMetaDateTemplateView,
+            .sheet(isPresented: $viewModel.showingNewMetadateTemplateView){
+                NewMetadateTemplateView(
+                    newMetadateTemplatePresented: $viewModel.showingNewMetadateTemplateView,
                     userId: userId
                 )
             }
@@ -67,7 +67,7 @@ struct MetaDateTemplatesView: View {
 }
 
 #Preview {
-    MetaDateTemplatesView(
+    MetadateTemplatesView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
     )
 }

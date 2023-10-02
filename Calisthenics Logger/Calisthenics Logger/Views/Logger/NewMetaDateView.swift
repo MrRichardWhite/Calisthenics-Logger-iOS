@@ -1,5 +1,5 @@
 //
-//  NewMetaDateView.swift
+//  NewMetadateView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 29.09.23.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NewMetaDateView: View {
-    @StateObject var viewModel = NewMetaDateViewViewModel()
-    @Binding var newMetaDatePresented: Bool
+struct NewMetadateView: View {
+    @StateObject var viewModel = NewMetadateViewViewModel()
+    @Binding var newMetadatePresented: Bool
     
     let userId: String
     let workoutId: String
@@ -19,7 +19,7 @@ struct NewMetaDateView: View {
 
     var body: some View {
         VStack {
-            Text("New MetaDate")
+            Text("New Metadate")
                 .font(.system(size: 32))
                 .bold()
                 .padding(.top)
@@ -33,13 +33,13 @@ struct NewMetaDateView: View {
                 }
                 
                 // Button
-                CLButton(title: "Save", background: .pink) {
+                CLButton(title: "Save", background: .green) {
                     viewModel.save(
                         userId: userId,
                         workoutId: workoutId,
                         exericseId: exerciseId
                     )
-                    newMetaDatePresented = false
+                    newMetadatePresented = false
                 }
                 .padding()
             }
@@ -48,8 +48,8 @@ struct NewMetaDateView: View {
 }
 
 #Preview {
-    NewMetaDateView(
-        newMetaDatePresented: Binding(
+    NewMetadateView(
+        newMetadatePresented: Binding(
             get: { return true },
             set: { _ in }
         ),

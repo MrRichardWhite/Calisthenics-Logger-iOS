@@ -1,24 +1,37 @@
 //
-//  NewMetadateTemplateView.swift
+//  EditMetadateTemplateView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 30.09.23.
 //
 
+import FirebaseFirestoreSwift
 import SwiftUI
 
-struct NewMetadateTemplateView: View {
-    @StateObject var viewModel = NewMetadateTemplateViewViewModel()
-    @Binding var newMetadateTemplatePresented: Bool
+struct EditMetadateTemplateView: View {
+    @StateObject var viewModel: EditMetadateTemplateViewViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    let userId: String
+    private let userId: String
+    private let metadateTemplateId: String
+
+    init(userId: String, metadateTemplateId: String) {
+        self.userId = userId
+        self.metadateTemplateId = metadateTemplateId
+        self._viewModel = StateObject(
+            wrappedValue: EditMetadateTemplateViewViewModel(
+                userId: userId,
+                metadateTemplateId: metadateTemplateId
+            )
+        )
+    }
     
     var body: some View {
         VStack {
-            Text("New Metadate Template")
-                .font(.system(size: 32))
-                .bold()
-                .padding(.top)
+//            Text("Edit Metadate Template")
+//                .font(.system(size: 32))
+//                .bold()
+//                .padding(.top)
             
             Form {
                 // Name
@@ -45,15 +58,15 @@ struct NewMetadateTemplateView: View {
                 )
                 
                 // Button
-                CLButton(title: "Save", background: .green) {
+                CLButton(title: "Save", background: .blue) {
                     if viewModel.canSave {
                         viewModel.save(
                             userId: userId
                         )
-                        newMetadateTemplatePresented = false
                     } else {
                         viewModel.showAlert = true
                     }
+                    self.presentationMode.wrappedValue.dismiss()
                 }
                 .padding()
             }
@@ -68,11 +81,8 @@ struct NewMetadateTemplateView: View {
 }
 
 #Preview {
-    NewMetadateTemplateView(
-        newMetadateTemplatePresented: Binding(
-            get: { return true },
-            set: { _ in }
-        ),
-        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
+    EditMetadateTemplateView(
+        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
+        metadateTemplateId: "356A799F-C391-4621-832F-5B8E449380D2"
     )
 }

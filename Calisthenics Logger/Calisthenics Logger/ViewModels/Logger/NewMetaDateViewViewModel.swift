@@ -1,5 +1,5 @@
 //
-//  NewMetaDateViewViewModel.swift
+//  NewMetadateViewViewModel.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 29.09.23.
@@ -9,7 +9,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import Foundation
 
-class NewMetaDateViewViewModel: ObservableObject {
+class NewMetadateViewViewModel: ObservableObject {
     @Published var template = ""
     
     init() {}
@@ -22,9 +22,9 @@ class NewMetaDateViewViewModel: ObservableObject {
         } else if template == "Time" {
             unit = "s"
         }
-        let newMetaDateId = UUID().uuidString
-        let newMetaDate = MetaDate(
-            id: newMetaDateId,
+        let newMetadateId = UUID().uuidString
+        let newMetadate = Metadate(
+            id: newMetadateId,
             name: template,
             unit: unit,
             created: Date().timeIntervalSince1970
@@ -40,7 +40,7 @@ class NewMetaDateViewViewModel: ObservableObject {
             .collection("exercises")
             .document(exericseId)
             .collection("metadata")
-            .document(newMetaDateId)
-            .setData(newMetaDate.asDictionary())
+            .document(newMetadateId)
+            .setData(newMetadate.asDictionary())
     }
 }

@@ -1,5 +1,5 @@
 //
-//  MetaDate.swift
+//  Metadate.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 28.09.23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MetaDate: Codable, Identifiable {
+struct Metadate: Codable, Identifiable {
     let id: String
     let name: String
     let unit: String

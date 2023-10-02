@@ -12,4 +12,5 @@ struct ExerciseTemplate: Codable, Identifiable {
     let name: String
     let metadateTemplateIds: [String]
     let created: TimeInterval
+    let edited: TimeInterval
 }

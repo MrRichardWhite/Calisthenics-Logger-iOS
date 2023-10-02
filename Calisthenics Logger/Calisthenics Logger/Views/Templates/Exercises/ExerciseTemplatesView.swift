@@ -29,14 +29,13 @@ struct ExerciseTemplatesView: View {
             VStack {
                 List(exerciseTemplates) { exerciseTemplate in
                     NavigationLink(
-                        destination: ExerciseTemplateComponentsView(
+                        destination: EditExerciseTemplateView(
                             userId: userId,
                             exerciseTemplateId: exerciseTemplate.id
                         )
                     ) {
                         Text(exerciseTemplate.name)
                     }
-                    
                     .swipeActions {
                         Button {
                             // Delete

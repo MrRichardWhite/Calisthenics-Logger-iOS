@@ -33,7 +33,7 @@ struct TemplatesView: View {
                     ExerciseTemplatesView(userId: userId)
                 }
                 if selectedTab == "Meta Data" {
-                    MetaDateTemplatesView(userId: userId)
+                    MetadateTemplatesView(userId: userId)
                 }
                 
                 Spacer()

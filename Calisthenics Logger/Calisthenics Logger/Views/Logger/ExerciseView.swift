@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExerciseView: View {
     @StateObject var viewModel: ExerciseViewViewModel
-    @FirestoreQuery var metadata: [MetaDate]
+    @FirestoreQuery var metadata: [Metadate]
     
     private let userId: String
     private let workoutId: String
@@ -37,7 +37,7 @@ struct ExerciseView: View {
             VStack {
                 List(metadata) { metadate in
                     NavigationLink(
-                        destination: MetaDateView(
+                        destination: MetadateView(
                             userId: userId,
                             workoutId: workoutId,
                             exerciseId: exerciseId,
@@ -67,14 +67,14 @@ struct ExerciseView: View {
             .toolbar {
                 Button {
                     // Action
-                    viewModel.showingNewMetaDateView = true
+                    viewModel.showingNewMetadateView = true
                 } label: {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $viewModel.showingNewMetaDateView){
-                NewMetaDateView(
-                    newMetaDatePresented: $viewModel.showingNewMetaDateView,
+            .sheet(isPresented: $viewModel.showingNewMetadateView){
+                NewMetadateView(
+                    newMetadatePresented: $viewModel.showingNewMetadateView,
                     userId: userId,
                     workoutId: workoutId,
                     exerciseId: exerciseId

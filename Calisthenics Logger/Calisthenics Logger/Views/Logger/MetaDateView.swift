@@ -1,5 +1,5 @@
 //
-//  MetaDateView.swift
+//  MetadateView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 28.09.23.
@@ -8,8 +8,8 @@
 import FirebaseFirestoreSwift
 import SwiftUI
 
-struct MetaDateView: View {
-    @StateObject var viewModel: MetaDateViewViewModel
+struct MetadateView: View {
+    @StateObject var viewModel: MetadateViewViewModel
     @FirestoreQuery var elements: [Element]
     
     private let userId: String
@@ -26,7 +26,7 @@ struct MetaDateView: View {
             collectionPath: "users/\(userId)/workouts/\(workoutId)/exercises/\(exerciseId)/metadata/\(metadateId)/elements"
         )
         self._viewModel = StateObject(
-            wrappedValue: MetaDateViewViewModel(
+            wrappedValue: MetadateViewViewModel(
                 userId: userId,
                 workoutId: workoutId,
                 exerciseId: exerciseId,
@@ -41,7 +41,7 @@ struct MetaDateView: View {
 }
 
 #Preview {
-    MetaDateView(
+    MetadateView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
         exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1",

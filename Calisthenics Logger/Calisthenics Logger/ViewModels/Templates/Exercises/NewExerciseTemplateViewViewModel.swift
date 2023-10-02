@@ -27,7 +27,8 @@ class NewExerciseTemplateViewViewModel: ObservableObject {
             id: newExerciseTemplateId,
             name: name,
             metadateTemplateIds: [],
-            created: Date().timeIntervalSince1970
+            created: Date().timeIntervalSince1970,
+            edited: Date().timeIntervalSince1970
         )
         
         // Save model

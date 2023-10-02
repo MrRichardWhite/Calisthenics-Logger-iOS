@@ -46,3 +46,5 @@ What work has been done when?
 		- basic navigation
 		- ability to add templates
 		- one cannot edit them (jet)
+	- 1.10.2023, all day & 2.10.2023 afternoon:
+		- implemented editing Templates except for `WorkoutTemplates`

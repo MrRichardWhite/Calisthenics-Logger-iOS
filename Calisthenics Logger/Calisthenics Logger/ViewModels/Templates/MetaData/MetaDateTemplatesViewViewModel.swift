@@ -1,5 +1,5 @@
 //
-//  MetaDateTemplatesViewViewModel.swift
+//  MetadateTemplatesViewViewModel.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 30.09.23.
@@ -8,8 +8,8 @@
 import FirebaseFirestore
 import Foundation
 
-class MetaDateTemplatesViewViewModel: ObservableObject {
-    @Published var showingNewMetaDateTemplateView = false
+class MetadateTemplatesViewViewModel: ObservableObject {
+    @Published var showingNewMetadateTemplateView = false
     
     private let userId: String
     
