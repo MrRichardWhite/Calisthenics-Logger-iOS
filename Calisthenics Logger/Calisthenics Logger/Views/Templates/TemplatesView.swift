@@ -22,7 +22,7 @@ struct TemplatesView: View {
                 Picker("", selection: $selectedTab) {
                     Text("Workouts").tag("Workouts")
                     Text("Exercises").tag("Exercises")
-                    Text("Meta Data").tag("Meta Data")
+                    Text("Metadata").tag("Metadata")
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 
@@ -32,7 +32,7 @@ struct TemplatesView: View {
                 if selectedTab == "Exercises" {
                     ExerciseTemplatesView(userId: userId)
                 }
-                if selectedTab == "Meta Data" {
+                if selectedTab == "Metadata" {
                     MetadateTemplatesView(userId: userId)
                 }
                 

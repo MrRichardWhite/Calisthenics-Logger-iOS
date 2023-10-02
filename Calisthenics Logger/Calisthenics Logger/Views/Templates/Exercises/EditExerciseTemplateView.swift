@@ -38,7 +38,7 @@ struct EditExerciseTemplateView: View {
                 NavigationLink(
                     destination: editExerciseTemplateContentView
                 ) {
-                    Text("Meta Data")
+                    Text("Metadata")
                 }
                 
                 CLButton(title: "Save", background: .blue) {
