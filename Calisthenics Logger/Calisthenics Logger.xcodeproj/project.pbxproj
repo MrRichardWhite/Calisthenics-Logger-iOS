@@ -49,8 +49,8 @@
 		8D3982F72AC87DC600B6793F /* MetaDateTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F62AC87DC600B6793F /* MetaDateTemplatesView.swift */; };
 		8D3982F92AC88A1300B6793F /* NewWorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F82AC88A1200B6793F /* NewWorkoutTemplateView.swift */; };
 		8D3982FD2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982FC2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift */; };
-		8D3982FF2AC88AEF00B6793F /* WorkoutTemplateComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982FE2AC88AEF00B6793F /* WorkoutTemplateComponentsView.swift */; };
-		8D3983012AC88BA000B6793F /* WorkoutTemplateComponentsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983002AC88BA000B6793F /* WorkoutTemplateComponentsViewViewModel.swift */; };
+		8D3982FF2AC88AEF00B6793F /* EditWorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982FE2AC88AEF00B6793F /* EditWorkoutTemplateView.swift */; };
+		8D3983012AC88BA000B6793F /* EditWorkoutTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983002AC88BA000B6793F /* EditWorkoutTemplateViewViewModel.swift */; };
 		8D3983032AC88E3D00B6793F /* NewWorkoutTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983022AC88E3D00B6793F /* NewWorkoutTemplateViewViewModel.swift */; };
 		8D3983052AC8C6C500B6793F /* ExerciseTemplatesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983042AC8C6C500B6793F /* ExerciseTemplatesViewViewModel.swift */; };
 		8D3983072AC8C6FD00B6793F /* NewExerciseTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983062AC8C6FD00B6793F /* NewExerciseTemplateView.swift */; };
@@ -140,8 +140,8 @@
 		8D3982F62AC87DC600B6793F /* MetaDateTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDateTemplatesView.swift; sourceTree = "<group>"; };
 		8D3982F82AC88A1200B6793F /* NewWorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutTemplateView.swift; sourceTree = "<group>"; };
 		8D3982FC2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplatesViewViewModel.swift; sourceTree = "<group>"; };
-		8D3982FE2AC88AEF00B6793F /* WorkoutTemplateComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateComponentsView.swift; sourceTree = "<group>"; };
-		8D3983002AC88BA000B6793F /* WorkoutTemplateComponentsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateComponentsViewViewModel.swift; sourceTree = "<group>"; };
+		8D3982FE2AC88AEF00B6793F /* EditWorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkoutTemplateView.swift; sourceTree = "<group>"; };
+		8D3983002AC88BA000B6793F /* EditWorkoutTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkoutTemplateViewViewModel.swift; sourceTree = "<group>"; };
 		8D3983022AC88E3D00B6793F /* NewWorkoutTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutTemplateViewViewModel.swift; sourceTree = "<group>"; };
 		8D3983042AC8C6C500B6793F /* ExerciseTemplatesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTemplatesViewViewModel.swift; sourceTree = "<group>"; };
 		8D3983062AC8C6FD00B6793F /* NewExerciseTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseTemplateView.swift; sourceTree = "<group>"; };
@@ -346,7 +346,7 @@
 			children = (
 				8D3982FC2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift */,
 				8D3983022AC88E3D00B6793F /* NewWorkoutTemplateViewViewModel.swift */,
-				8D3983002AC88BA000B6793F /* WorkoutTemplateComponentsViewViewModel.swift */,
+				8D3983002AC88BA000B6793F /* EditWorkoutTemplateViewViewModel.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -401,7 +401,7 @@
 			children = (
 				8D3982F22AC87DAA00B6793F /* WorkoutTemplatesView.swift */,
 				8D3982F82AC88A1200B6793F /* NewWorkoutTemplateView.swift */,
-				8D3982FE2AC88AEF00B6793F /* WorkoutTemplateComponentsView.swift */,
+				8D3982FE2AC88AEF00B6793F /* EditWorkoutTemplateView.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -573,7 +573,7 @@
 				8D30E0E32AC44CB300455620 /* CLButton.swift in Sources */,
 				8D30E0D72AC43AA800455620 /* RegisterView.swift in Sources */,
 				8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */,
-				8D3983012AC88BA000B6793F /* WorkoutTemplateComponentsViewViewModel.swift in Sources */,
+				8D3983012AC88BA000B6793F /* EditWorkoutTemplateViewViewModel.swift in Sources */,
 				8D3983152AC8CE3000B6793F /* EditMetaDateTemplateView.swift in Sources */,
 				8D96FDC02AC5BB0C00796A81 /* ExerciseView.swift in Sources */,
 				8D41D5A42AC9886E007EDE6E /* SwiftUIView.swift in Sources */,
@@ -618,7 +618,7 @@
 				8D30E0F12AC46E3B00455620 /* TemplatesView.swift in Sources */,
 				8D3983052AC8C6C500B6793F /* ExerciseTemplatesViewViewModel.swift in Sources */,
 				8D30E0EB2AC4635A00455620 /* LoggerViewViewModel.swift in Sources */,
-				8D3982FF2AC88AEF00B6793F /* WorkoutTemplateComponentsView.swift in Sources */,
+				8D3982FF2AC88AEF00B6793F /* EditWorkoutTemplateView.swift in Sources */,
 				8D3983032AC88E3D00B6793F /* NewWorkoutTemplateViewViewModel.swift in Sources */,
 				8D30E0F72AC4714A00455620 /* StatsViewViewModel.swift in Sources */,
 				8D3982E92AC8093F00B6793F /* AccountViewViewModel.swift in Sources */,

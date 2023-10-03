@@ -8,7 +8,6 @@
 import FirebaseFirestore
 import Foundation
 
-@MainActor
 class EditExerciseTemplateViewViewModel: ObservableObject {
     @Published var name = ""
     @Published var metadateTemplateIdsLocal: [String] = []
@@ -23,21 +22,6 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
         self.userId = userId
         self.exerciseTemplateId = exerciseTemplateId
         self.newMetadateTemplateId = ""
-        
-//        self.metadateTemplateIdsGlobal = [
-//            "356A799F-C391-4621-832F-5B8E449380D2",
-//            "3BD4E384-B701-46A9-AFCE-94C259DBFB29",
-//            "4BDE6066-2A9A-467D-9752-E14FAD0A19A3",
-//            "93179AA1-7097-4228-AEC1-9C040A157132",
-//            "E12073F6-AE6A-4A08-9B06-2A175ED8FD12"
-//        ]
-//        self.metadateTemplateNamesGlobal = [
-//            "Reps",
-//            "Weight",
-//            "Time",
-//            "Variation",
-//            "Ring Strap Length"
-//        ]
         
         Firestore.firestore()
             .collection("users")

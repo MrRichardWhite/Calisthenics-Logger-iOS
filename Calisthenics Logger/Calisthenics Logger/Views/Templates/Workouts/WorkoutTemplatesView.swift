@@ -29,7 +29,7 @@ struct WorkoutTemplatesView: View {
             VStack {
                 List(workoutTemplates) { workoutTemplate in
                     NavigationLink(
-                        destination: WorkoutTemplateComponentsView(
+                        destination: EditWorkoutTemplateView(
                             userId: userId,
                             workoutTemplateId: workoutTemplate.id
                         )
