@@ -46,10 +46,10 @@ struct EditWorkoutTemplateView: View {
                         viewModel.save(
                             userId: userId
                         )
+                        self.presentationMode.wrappedValue.dismiss()
                     } else {
                         viewModel.showAlert = true
                     }
-                    self.presentationMode.wrappedValue.dismiss()
                 }
                 .padding()
             }
