@@ -38,7 +38,7 @@ struct NewWorkoutView: View {
                 }
                 
                 // Button
-                CLButton(title: "Save", background: .green) {
+                CLButton(title: "Add", background: .green) {
                     if viewModel.canSave {
                         viewModel.save(
                             userId: userId

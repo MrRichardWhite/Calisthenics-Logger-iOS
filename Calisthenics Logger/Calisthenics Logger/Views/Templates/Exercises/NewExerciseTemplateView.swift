@@ -25,7 +25,7 @@ struct NewExerciseTemplateView: View {
                 TextField("Name", text: $viewModel.name)
                 
                 // Button
-                CLButton(title: "Save", background: .green) {
+                CLButton(title: "Add", background: .green) {
                     if viewModel.canSave {
                         viewModel.save(
                             userId: userId
