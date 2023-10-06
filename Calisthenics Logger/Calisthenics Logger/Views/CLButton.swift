@@ -11,7 +11,7 @@ struct CLButton: View {
     let title: String
     let background: Color
     let action: () -> Void
-
+    
     var body: some View {
         Button {
             action()
@@ -29,7 +29,5 @@ struct CLButton: View {
 }
 
 #Preview {
-    CLButton(title: "Value", background: .pink) {
-        // Action
-    }
+    CLButton(title: "Title", background: .pink) {}
 }

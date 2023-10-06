@@ -12,7 +12,6 @@ struct RegisterView: View {
     
     var body: some View {
         VStack {
-            // Header
             HeaderView(
                 title: "Register",
                 subtitle: "Start Logging",
@@ -21,6 +20,8 @@ struct RegisterView: View {
             
             Form {
                 TextField("Full Name", text: $viewModel.name)
+                    .autocorrectionDisabled()
+                TextField("Athlete Name", text: $viewModel.athleteName)
                     .autocorrectionDisabled()
                 TextField("Email Address", text: $viewModel.email)
                     .autocorrectionDisabled()
@@ -31,7 +32,6 @@ struct RegisterView: View {
                     title: "Create Account",
                     background: .green
                 ) {
-                    // Attempt registration
                     if viewModel.canRegister {
                         viewModel.register()
                     } else {

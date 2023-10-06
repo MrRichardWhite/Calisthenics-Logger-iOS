@@ -21,7 +21,6 @@ class LoginViewViewModel: ObservableObject {
             return
         }
         
-        // Try log in
         Auth.auth().signIn(withEmail: email, password: password)
         
     }
@@ -33,7 +32,6 @@ class LoginViewViewModel: ObservableObject {
             return false
         }
         
-        // email@foo.com
         guard email.contains("@"), email.contains(".") else {
             errorMessage = "Please enter a valid email address!"
             return false

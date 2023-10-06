@@ -11,6 +11,7 @@ import Foundation
 
 class RegisterViewViewModel: ObservableObject {
     @Published var name = ""
+    @Published var athleteName = ""
     @Published var email = ""
     @Published var password = ""
     @Published var errorMessage = ""
@@ -35,6 +36,7 @@ class RegisterViewViewModel: ObservableObject {
     private func insertUserRecord(id: String) {
         let newUser = User(id: id,
                            name: name,
+                           athleteName: athleteName,
                            email: email,
                            joined: Date().timeIntervalSince1970)
         
@@ -46,6 +48,7 @@ class RegisterViewViewModel: ObservableObject {
     
     var canRegister: Bool {
         guard !name.trimmingCharacters(in: .whitespaces).isEmpty,
+              !athleteName.trimmingCharacters(in: .whitespaces).isEmpty,
               !email.trimmingCharacters(in: .whitespaces).isEmpty,
               !password.trimmingCharacters(in: .whitespaces).isEmpty else {
             errorMessage = "Please fill in all fields!"

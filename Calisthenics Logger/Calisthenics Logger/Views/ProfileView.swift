@@ -10,9 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewViewModel()
     
-    init() {
-        
-    }
+    init() {}
 
     var body: some View {
         NavigationView {
@@ -33,45 +31,46 @@ struct ProfileView: View {
     
     @ViewBuilder
     func profile(user: User) -> some View {
-        // Avatar
+        Spacer()
+        
         Image(systemName: "person.circle")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .foregroundColor(Color.blue)
             .frame(width: 125, height: 125)
             .padding()
-
-        // Info: Name, Email, Member since
-        VStack(alignment: .leading){
-            HStack {
-                Text("Name: ")
-                    .bold()
-                Text(user.name)
-            }
-            .padding()
-            HStack {
-                Text("Email: ")
-                    .bold()
-                Text(user.email)
-            }
-            .padding()
-            HStack {
-                Text("Member Since: ")
-                    .bold()
-                Text("\(Date(timeIntervalSince1970: user.joined).formatted(date: .abbreviated, time: .shortened))")
-            }
-            .padding()
-        }
-        .padding()
         
-        // Sign Out
-        Button("Log Out") {
-            viewModel.logOut()
+        let memberSince = Date(timeIntervalSince1970: user.joined)
+            .formatted(date: .abbreviated, time: .shortened)
+        
+        Form {
+            infoField(title: "Full Name", content: user.name)
+            infoField(title: "Athlete Name", content: user.athleteName)
+            infoField(title: "Email", content: user.email)
+            infoField(title: "Member Since", content: "\(memberSince)")
+            
+            CLButton(title: "Log Out", background: .red) {
+                viewModel.logOut()
+            }
+            .padding()
         }
-        .tint(.red)
-        .padding()
         
         Spacer()
+    }
+    
+    @ViewBuilder
+    func infoField(title: String, content: String) -> some View {
+        VStack {
+            HStack {
+                Text(title)
+                    .bold()
+                Spacer()
+            }
+            HStack {
+                Spacer()
+                Text(content)
+            }
+        }
     }
 }
 
