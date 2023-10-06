@@ -13,7 +13,6 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Header
                 HeaderView(
                     title: "Calisthenics Logger",
                     subtitle: "Document & Analyze your Workouts!",
@@ -21,7 +20,6 @@ struct LoginView: View {
                     background: .pink
                 )
                 
-                // Login Form
                 Form {
                     TextField("Email Address", text: $viewModel.email)
                         .autocorrectionDisabled()
@@ -32,7 +30,6 @@ struct LoginView: View {
                         title: "Log In",
                         background: .blue
                     ) {
-                        // Attempt log in
                         if viewModel.canLogIn {
                             viewModel.login()
                         } else {
@@ -49,7 +46,6 @@ struct LoginView: View {
                     )
                 }
                 
-                // Create Account
                 VStack {
                     Text("New around here?")
                     NavigationLink("Create an Account",

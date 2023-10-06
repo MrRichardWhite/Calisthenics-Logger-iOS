@@ -35,38 +35,12 @@ struct ExerciseView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List(metadata) { metadate in
-                    NavigationLink(
-                        destination: MetadateView(
-                            userId: userId,
-                            workoutId: workoutId,
-                            exerciseId: exerciseId,
-                            metadateId: metadate.id
-                        )
-                    ) {
-                        VStack(alignment: .leading) {
-                            Text(metadate.name)
-                        }
-                    }
-                    
-                    .swipeActions {
-                        Button {
-                            // Delete
-                            viewModel.delete(
-                                metadateId: metadate.id
-                            )
-                        } label: {
-                            Image(systemName: "trash")
-                                .tint(Color.red)
-                        }
-                    }
-                }
-//                .listStyle(PlainListStyle())
+                metadataListView
+                editExerciseView
             }
             .navigationTitle("Exercise")
             .toolbar {
                 Button {
-                    // Action
                     viewModel.showingNewMetadateView = true
                 } label: {
                     Image(systemName: "plus")
@@ -74,12 +48,72 @@ struct ExerciseView: View {
             }
             .sheet(isPresented: $viewModel.showingNewMetadateView){
                 NewMetadateView(
-                    newMetadatePresented: $viewModel.showingNewMetadateView,
                     userId: userId,
                     workoutId: workoutId,
-                    exerciseId: exerciseId
+                    exerciseId: exerciseId,
+                    newMetadatePresented: $viewModel.showingNewMetadateView
                 )
             }
+        }
+    }
+    
+    @ViewBuilder
+    var metadataListView: some View {
+        List(metadata) { metadate in
+            NavigationLink(
+                destination: MetadateView(
+                    userId: userId,
+                    workoutId: workoutId,
+                    exerciseId: exerciseId,
+                    metadateId: metadate.id
+                )
+            ) {
+                VStack(alignment: .leading) {
+                    Text(metadate.name)
+                }
+            }
+            .swipeActions {
+                Button {
+                    viewModel.delete(
+                        metadateId: metadate.id
+                    )
+                } label: {
+                    Image(systemName: "trash")
+                        .tint(Color.red)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var editExerciseView: some View {
+        Form {
+            TextField("Name", text: $viewModel.name)
+            
+            CLButton(title: "Save", background: viewModel.background) {
+                if viewModel.canSave && !viewModel.dataIsInit {
+                    viewModel.save(
+                        userId: userId
+                    )
+                } else {
+                    if !viewModel.canSave {
+                        viewModel.alertTitle = "Error"
+                        viewModel.alertMessage = "Please fill in the name field!"
+                    }
+                    if !viewModel.dataIsInit {
+                        viewModel.alertTitle = "Warning"
+                        viewModel.alertMessage = "Data was not changed!"
+                    }
+                    viewModel.showAlert = true
+                }
+            }
+            .padding()
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text(viewModel.alertTitle),
+                message: Text(viewModel.alertMessage)
+            )
         }
     }
 }
@@ -88,6 +122,6 @@ struct ExerciseView: View {
     ExerciseView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
-        exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1"
+        exerciseId: "175BC775-8F64-4306-86FD-00569ACC2BFC"
     )
 }

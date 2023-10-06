@@ -57,8 +57,8 @@ struct ExerciseTemplatesView: View {
             }
             .sheet(isPresented: $viewModel.showingNewExerciseTemplateView){
                 NewExerciseTemplateView(
-                    newExerciseTemplatePresented: $viewModel.showingNewExerciseTemplateView,
-                    userId: userId
+                    userId: userId,
+                    newExerciseTemplatePresented: $viewModel.showingNewExerciseTemplateView
                 )
             }
         }

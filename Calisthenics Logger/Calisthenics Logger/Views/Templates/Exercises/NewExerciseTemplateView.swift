@@ -8,10 +8,22 @@
 import SwiftUI
 
 struct NewExerciseTemplateView: View {
-    @StateObject var viewModel = NewExerciseTemplateViewViewModel()
+    @StateObject var viewModel: NewExerciseTemplateViewViewModel
     @Binding var newExerciseTemplatePresented: Bool
     
-    let userId: String
+    private let userId: String
+    
+    init(userId: String, newExerciseTemplatePresented: Binding<Bool>) {
+        self.userId = userId
+        
+        self._newExerciseTemplatePresented = newExerciseTemplatePresented
+        
+        self._viewModel = StateObject(
+            wrappedValue: NewExerciseTemplateViewViewModel(
+                userId: userId
+            )
+        )
+    }
     
     var body: some View {
         VStack {
@@ -21,15 +33,11 @@ struct NewExerciseTemplateView: View {
                 .padding(.top)
             
             Form {
-                // Name
                 TextField("Name", text: $viewModel.name)
                 
-                // Button
-                CLButton(title: "Add", background: .green) {
+                CLButton(title: "Add", background: viewModel.background) {
                     if viewModel.canSave {
-                        viewModel.save(
-                            userId: userId
-                        )
+                        viewModel.save()
                         newExerciseTemplatePresented = false
                     } else {
                         viewModel.showAlert = true
@@ -49,10 +57,10 @@ struct NewExerciseTemplateView: View {
 
 #Preview {
     NewExerciseTemplateView(
+        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         newExerciseTemplatePresented: Binding(
             get: { return true },
             set: { _ in }
-        ),
-        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
+        )
     )
 }

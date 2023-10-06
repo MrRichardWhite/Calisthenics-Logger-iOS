@@ -7,34 +7,50 @@
 
 import FirebaseFirestore
 import Foundation
+import SwiftUI
 
 class EditExerciseTemplateViewViewModel: ObservableObject {
+    @Published var nameInit = ""
+    @Published var metadateTemplateIdsLocalInit: [String] = []
     @Published var name = ""
     @Published var metadateTemplateIdsLocal: [String] = []
     @Published var created = Date().timeIntervalSince1970
+    @Published var alertTitle = ""
+    @Published var alertMessage = ""
     @Published var showAlert = false
     @Published var newMetadateTemplateId: String
-    
+
     private let userId: String
-    @Published var exerciseTemplateId: String
+    private let exerciseTemplateId: String
+    
+    private let userRef: DocumentReference
+    private let exerciseTemplateRef: DocumentReference
     
     init(userId: String, exerciseTemplateId: String) {
         self.userId = userId
         self.exerciseTemplateId = exerciseTemplateId
-        self.newMetadateTemplateId = ""
         
-        Firestore.firestore()
+        self.userRef = Firestore.firestore()
             .collection("users")
             .document(userId)
+        self.exerciseTemplateRef = userRef
             .collection("exerciseTemplates")
             .document(exerciseTemplateId)
-            .getDocument { document, error in
+
+        self.newMetadateTemplateId = ""
+        
+        exerciseTemplateRef.getDocument { document, error in
                 guard let document = document, document.exists else {
                     return
                 }
                 let data = document.data()
-                self.name = data?["name"] as? String ?? "name"
-                self.metadateTemplateIdsLocal = data?["metadateTemplateIds"] as? [String] ?? []
+                let name = data?["name"] as? String ?? "name"
+                let metadateTemplateIdsLocal = data?["metadateTemplateIds"] as? [String] ?? []
+                
+                self.nameInit = name
+                self.metadateTemplateIdsLocalInit = metadateTemplateIdsLocal
+                self.name = name
+                self.metadateTemplateIdsLocal = metadateTemplateIdsLocal
                 self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
             }
     }
@@ -52,12 +68,7 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
             edited: Date().timeIntervalSince1970
         )
         
-        Firestore.firestore()
-            .collection("users")
-            .document(userId)
-            .collection("exerciseTemplates")
-            .document(exerciseTemplateId)
-            .updateData(updatedExerciseTemplate.asDictionary())
+        exerciseTemplateRef.updateData(updatedExerciseTemplate.asDictionary())
     }
     
     var canSave: Bool {
@@ -89,5 +100,23 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
             }
         }
         return "unknown"
+    }
+    
+    var dataIsInit: Bool {
+        guard name == nameInit else {
+            return false
+        }
+        guard metadateTemplateIdsLocal == metadateTemplateIdsLocalInit else {
+            return false
+        }
+        return true
+    }
+    
+    var background: Color {
+        if canSave && !dataIsInit {
+            return .blue
+        } else {
+            return .gray
+        }
     }
 }

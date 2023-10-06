@@ -12,4 +12,5 @@ struct Metadate: Codable, Identifiable {
     let name: String
     let unit: String
     let created: TimeInterval
+    let edited: TimeInterval
 }

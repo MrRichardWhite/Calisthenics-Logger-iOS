@@ -20,7 +20,9 @@ struct LoggerView: View {
             collectionPath: "users/\(userId)/workouts"
         )
         self._viewModel = StateObject(
-            wrappedValue: LoggerViewViewModel(userId: userId)
+            wrappedValue: LoggerViewViewModel(
+                userId: userId
+            )
         )
     }
     
@@ -35,17 +37,24 @@ struct LoggerView: View {
                         )
                     ) {
                         VStack(alignment: .leading) {
-                            Text(workout.location)
-
-                            Text("\(Date(timeIntervalSince1970: workout.time).formatted(date: .abbreviated, time: .shortened))")
+                            Text(workout.name)
+                            let date = Date(
+                                timeIntervalSince1970: workout.time
+                            )
+                                .formatted(date: .abbreviated, time: .shortened)
+                            Text("\(date)")
                                 .font(.footnote)
                                 .foregroundColor(Color(.secondaryLabel))
+
+                            Text("\(workout.location)")
+                                .font(.footnote)
+                                .foregroundColor(Color(.secondaryLabel))
+
                         }
                     }
                     
                     .swipeActions {
                         Button {
-                            // Delete
                             viewModel.delete(workoutId: workout.id)
                         } label: {
                             Image(systemName: "trash")
@@ -53,12 +62,10 @@ struct LoggerView: View {
                         }
                     }
                 }
-//                .listStyle(PlainListStyle())
             }
             .navigationTitle("Logger")
             .toolbar {
                 Button {
-                    // Action
                     viewModel.showingNewWorkoutView = true
                 } label: {
                     Image(systemName: "plus")
@@ -66,8 +73,8 @@ struct LoggerView: View {
             }
             .sheet(isPresented: $viewModel.showingNewWorkoutView){
                 NewWorkoutView(
-                    newWorkoutPresented: $viewModel.showingNewWorkoutView,
-                    userId: userId
+                    userId: userId,
+                    newWorkoutPresented: $viewModel.showingNewWorkoutView
                 )
             }
         }

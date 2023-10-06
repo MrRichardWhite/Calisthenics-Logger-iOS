@@ -8,6 +8,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 import Foundation
+import SwiftUI
 
 class NewMetadateTemplateViewViewModel: ObservableObject {
     @Published var time = Date()
@@ -16,14 +17,23 @@ class NewMetadateTemplateViewViewModel: ObservableObject {
     @Published var elementsCount = 1
     @Published var showAlert = false
     
-    init() {}
+    private let userId: String
     
-    func save(userId: String) {
+    private let userRef: DocumentReference
+    
+    init(userId: String) {
+        self.userId = userId
+        
+        self.userRef = Firestore.firestore()
+            .collection("users")
+            .document(userId)
+    }
+    
+    func save() {
         guard canSave else {
             return
         }
         
-        // Create model
         let newMetadateTemplateId = UUID().uuidString
         let newMetadateTemplate = MetadateTemplate(
             id: newMetadateTemplateId,
@@ -34,14 +44,11 @@ class NewMetadateTemplateViewViewModel: ObservableObject {
             edited: Date().timeIntervalSince1970
         )
         
-        // Save model
-        let db = Firestore.firestore()
-        
-        db.collection("users")
-            .document(userId)
+        let newMetadateTemplateRef = userRef
             .collection("metadateTemplates")
             .document(newMetadateTemplateId)
-            .setData(newMetadateTemplate.asDictionary())
+        
+        newMetadateTemplateRef.setData(newMetadateTemplate.asDictionary())
     }
     
     var canSave: Bool {
@@ -50,5 +57,13 @@ class NewMetadateTemplateViewViewModel: ObservableObject {
         }
         
         return true
+    }
+    
+    var background: Color {
+        if canSave {
+            return .green
+        } else {
+            return .gray
+        }
     }
 }

@@ -18,8 +18,12 @@ class ProfileViewViewModel: ObservableObject {
         guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
-        let db = Firestore.firestore()
-        db.collection("users").document(userId).getDocument { [weak self] snapshot, error in
+        
+        let userRef = Firestore.firestore()
+            .collection("users")
+            .document(userId)
+        
+        userRef.getDocument { [weak self] snapshot, error in
             guard let data = snapshot?.data(), error == nil else {
                 return
             }

@@ -41,13 +41,21 @@ struct EditExerciseTemplateView: View {
                     Text("Metadata")
                 }
                 
-                CLButton(title: "Save", background: .blue) {
-                    if viewModel.canSave {
+                CLButton(title: "Save", background: viewModel.background) {
+                    if viewModel.canSave && !viewModel.dataIsInit {
                         viewModel.save(
                             userId: userId
                         )
                         self.presentationMode.wrappedValue.dismiss()
                     } else {
+                        if !viewModel.canSave {
+                            viewModel.alertTitle = "Error"
+                            viewModel.alertMessage = "Please fill in the name field!"
+                        }
+                        if viewModel.dataIsInit {
+                            viewModel.alertTitle = "Warning"
+                            viewModel.alertMessage = "Data was not changed!"
+                        }
                         viewModel.showAlert = true
                     }
                 }
@@ -55,8 +63,8 @@ struct EditExerciseTemplateView: View {
             }
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(
-                    title: Text("Error"),
-                    message: Text("Please fill in the name field!")
+                    title: Text(viewModel.alertTitle),
+                    message: Text(viewModel.alertMessage)
                 )
             }
         }
@@ -87,7 +95,7 @@ struct EditExerciseTemplateView: View {
     @ViewBuilder
     var addExerciseTemplateContentView: some View {
         Form {
-            Picker("New Metadate", selection: $viewModel.newMetadateTemplateId) {
+            Picker("Metadate", selection: $viewModel.newMetadateTemplateId) {
                 ForEach(viewModel.newMetadateTemplateIds(metadateTemplates: metadateTemplates), id: \.self) { metadateTemplateId in
                     let text = viewModel.id2name(
                         metadateTemplates: metadateTemplates,

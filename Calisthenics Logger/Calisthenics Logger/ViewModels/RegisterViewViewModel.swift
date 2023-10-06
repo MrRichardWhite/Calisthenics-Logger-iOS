@@ -38,9 +38,8 @@ class RegisterViewViewModel: ObservableObject {
                            email: email,
                            joined: Date().timeIntervalSince1970)
         
-        let db = Firestore.firestore()
-        
-        db.collection("users")
+        Firestore.firestore()
+            .collection("users")
             .document(id)
             .setData(newUser.asDictionary())
     }

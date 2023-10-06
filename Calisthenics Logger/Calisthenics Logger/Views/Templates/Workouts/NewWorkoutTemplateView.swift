@@ -8,10 +8,22 @@
 import SwiftUI
 
 struct NewWorkoutTemplateView: View {
-    @StateObject var viewModel = NewWorkoutTemplateViewViewModel()
+    @StateObject var viewModel: NewWorkoutTemplateViewViewModel
     @Binding var newWorkoutTemplatePresented: Bool
     
-    let userId: String
+    private let userId: String
+    
+    init(userId: String, newWorkoutTemplatePresented: Binding<Bool>) {
+        self.userId = userId
+        
+        self._newWorkoutTemplatePresented = newWorkoutTemplatePresented
+        
+        self._viewModel = StateObject(
+            wrappedValue: NewWorkoutTemplateViewViewModel(
+                userId: userId
+            )
+        )
+    }
     
     var body: some View {
         VStack {
@@ -21,11 +33,9 @@ struct NewWorkoutTemplateView: View {
                 .padding(.top)
             
             Form {
-                // Name
                 TextField("Name", text: $viewModel.name)
                 
-                // Button
-                CLButton(title: "Add", background: .green) {
+                CLButton(title: "Add", background: viewModel.background) {
                     if viewModel.canSave {
                         viewModel.save(
                             userId: userId
@@ -49,10 +59,9 @@ struct NewWorkoutTemplateView: View {
 
 #Preview {
     NewWorkoutTemplateView(
+        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         newWorkoutTemplatePresented: Binding(
             get: { return true },
             set: { _ in }
-        ),
-        userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1"
-    )
+        )    )
 }

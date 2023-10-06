@@ -35,6 +35,8 @@ What work has been done when?
 		- changed `Workouts` to `Logger` (and changed `dumbbell` to `pencil icon`)
 	- 29.9.2023, evening
 		- implemented `Alerts` from `NewExercise` for `Login` and `Registration`
+	- 5.10.2023-6.10.2023, all day
+		- implemented editing `Workouts`, `Exercises` and `Metadata`
 
 7. `Main`
 	- 30.9.2023, morning

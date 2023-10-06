@@ -8,13 +8,24 @@
 import FirebaseAuth
 import FirebaseFirestore
 import Foundation
+import SwiftUI
 
 class NewWorkoutTemplateViewViewModel: ObservableObject {
     @Published var time = Date()
     @Published var name = ""
     @Published var showAlert = false
     
-    init() {}
+    private let userId: String
+    
+    private let userRef: DocumentReference
+    
+    init(userId: String) {
+        self.userId = userId
+        
+        self.userRef = Firestore.firestore()
+            .collection("users")
+            .document(userId)
+    }
     
     func save(userId: String) {
         guard canSave else {
@@ -31,14 +42,11 @@ class NewWorkoutTemplateViewViewModel: ObservableObject {
             edited: Date().timeIntervalSince1970
         )
         
-        // Save model
-        let db = Firestore.firestore()
-        
-        db.collection("users")
-            .document(userId)
+        let workoutTemplateRef = userRef
             .collection("workoutTemplates")
             .document(newWorkoutTemplateId)
-            .setData(newWorkoutTemplate.asDictionary())
+        
+        workoutTemplateRef.setData(newWorkoutTemplate.asDictionary())
     }
     
     var canSave: Bool {
@@ -47,5 +55,13 @@ class NewWorkoutTemplateViewViewModel: ObservableObject {
         }
         
         return true
+    }
+    
+    var background: Color {
+        if canSave {
+            return .green
+        } else {
+            return .gray
+        }
     }
 }

@@ -13,17 +13,21 @@ class WorkoutTemplatesViewViewModel: ObservableObject {
     
     private let userId: String
     
+    private let userRef: DocumentReference
+    
     init(userId: String) {
         self.userId = userId
+        
+        self.userRef = Firestore.firestore()
+            .collection("users")
+            .document(userId)
     }
     
     func delete(workoutTemplateId: String) {
-        let db = Firestore.firestore()
-        
-        db.collection("users")
-            .document(userId)
+        let workoutTemplateRef = userRef
             .collection("workoutTemplates")
             .document(workoutTemplateId)
-            .delete()
+        
+        workoutTemplateRef.delete()
     }
 }

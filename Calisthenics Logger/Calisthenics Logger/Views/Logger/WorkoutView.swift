@@ -32,37 +32,12 @@ struct WorkoutView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List(exercises) { exercise in
-                    NavigationLink(
-                        destination: ExerciseView(
-                            userId: userId,
-                            workoutId: workoutId,
-                            exerciseId: exercise.id
-                        )
-                    ) {
-                        VStack(alignment: .leading) {
-                            Text(exercise.name)
-                        }
-                    }
-                    
-                    .swipeActions {
-                        Button {
-                            // Delete
-                            viewModel.delete(
-                                exerciseId: exercise.id
-                            )
-                        } label: {
-                            Image(systemName: "trash")
-                                .tint(Color.red)
-                        }
-                    }
-                }
-//                .listStyle(PlainListStyle())
+                exerciseListView
+                editWorkoutView
             }
             .navigationTitle("Workout")
             .toolbar {
                 Button {
-                    // Action
                     viewModel.showingNewExerciseView = true
                 } label: {
                     Image(systemName: "plus")
@@ -70,11 +45,76 @@ struct WorkoutView: View {
             }
             .sheet(isPresented: $viewModel.showingNewExerciseView){
                 NewExerciseView(
-                    newExercisePresented: $viewModel.showingNewExerciseView,
                     userId: userId,
-                    workoutId: workoutId
+                    workoutId: workoutId,
+                    newExercisePresented: $viewModel.showingNewExerciseView
                 )
             }
+        }
+    }
+    
+    @ ViewBuilder
+    var exerciseListView: some View {
+        List(exercises) { exercise in
+            NavigationLink(
+                destination: ExerciseView(
+                    userId: userId,
+                    workoutId: workoutId,
+                    exerciseId: exercise.id
+                )
+            ) {
+                VStack(alignment: .leading) {
+                    Text(exercise.name)
+                }
+            }
+            .swipeActions {
+                Button {
+                    // Delete
+                    viewModel.delete(
+                        exerciseId: exercise.id
+                    )
+                } label: {
+                    Image(systemName: "trash")
+                        .tint(Color.red)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var editWorkoutView: some View {
+        Form {
+            TextField("Name", text: $viewModel.name)
+
+            DatePicker("Time", selection: $viewModel.time)
+                .padding(1)
+            
+            TextField("Location", text: $viewModel.location)
+            
+            CLButton(title: "Save", background: viewModel.background) {
+                if viewModel.canSave && !viewModel.dataIsInit {
+                    viewModel.save(
+                        userId: userId
+                    )
+                } else {
+                    if !viewModel.canSave {
+                        viewModel.alertTitle = "Error"
+                        viewModel.alertMessage = "Please fill in all fields!"
+                    }
+                    if viewModel.dataIsInit {
+                        viewModel.alertTitle = "Warning"
+                        viewModel.alertMessage = "Data was not changed!"
+                    }
+                    viewModel.showAlert = true
+                }
+            }
+            .padding()
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text(viewModel.alertTitle),
+                message: Text(viewModel.alertMessage)
+            )
         }
     }
 }

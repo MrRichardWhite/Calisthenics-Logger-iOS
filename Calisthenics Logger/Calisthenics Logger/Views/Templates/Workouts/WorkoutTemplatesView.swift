@@ -39,7 +39,6 @@ struct WorkoutTemplatesView: View {
                     
                     .swipeActions {
                         Button {
-                            // Delete
                             viewModel.delete(workoutTemplateId: workoutTemplate.id)
                         } label: {
                             Image(systemName: "trash")
@@ -47,7 +46,6 @@ struct WorkoutTemplatesView: View {
                         }
                     }
                 }
-//                .listStyle(PlainListStyle())
             }
             .toolbar {
                 Button {
@@ -59,8 +57,8 @@ struct WorkoutTemplatesView: View {
             }
             .sheet(isPresented: $viewModel.showingNewWorkoutTemplateView){
                 NewWorkoutTemplateView(
-                    newWorkoutTemplatePresented: $viewModel.showingNewWorkoutTemplateView,
-                    userId: userId
+                    userId: userId,
+                    newWorkoutTemplatePresented: $viewModel.showingNewWorkoutTemplateView
                 )
             }
         }

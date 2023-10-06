@@ -58,8 +58,8 @@ struct MetadateTemplatesView: View {
             }
             .sheet(isPresented: $viewModel.showingNewMetadateTemplateView){
                 NewMetadateTemplateView(
-                    newMetadateTemplatePresented: $viewModel.showingNewMetadateTemplateView,
-                    userId: userId
+                    userId: userId,
+                    newMetadateTemplatePresented: $viewModel.showingNewMetadateTemplateView
                 )
             }
         }

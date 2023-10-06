@@ -41,13 +41,21 @@ struct EditWorkoutTemplateView: View {
                     Text("Exercises")
                 }
                 
-                CLButton(title: "Save", background: .blue) {
-                    if viewModel.canSave {
+                CLButton(title: "Save", background: viewModel.background) {
+                    if viewModel.canSave && !viewModel.dataIsInit {
                         viewModel.save(
                             userId: userId
                         )
                         self.presentationMode.wrappedValue.dismiss()
                     } else {
+                        if !viewModel.canSave {
+                            viewModel.alertTitle = "Error"
+                            viewModel.alertMessage = "Please fill in the name field!"
+                        }
+                        if viewModel.dataIsInit {
+                            viewModel.alertTitle = "Warning"
+                            viewModel.alertMessage = "Data was not changed!"
+                        }
                         viewModel.showAlert = true
                     }
                 }
@@ -55,8 +63,8 @@ struct EditWorkoutTemplateView: View {
             }
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(
-                    title: Text("Error"),
-                    message: Text("Please fill in the name field!")
+                    title: Text(viewModel.alertTitle),
+                    message: Text(viewModel.alertMessage)
                 )
             }
         }
@@ -87,7 +95,7 @@ struct EditWorkoutTemplateView: View {
     @ViewBuilder
     var addWorkoutTemplateContentView: some View {
         Form {
-            Picker("New Exercise", selection: $viewModel.newExerciseTemplateId) {
+            Picker("Exercise", selection: $viewModel.newExerciseTemplateId) {
                 ForEach(viewModel.newExerciseTemplateIds(exerciseTemplates: exerciseTemplates), id: \.self) { exerciseTemplateId in
                     let text = viewModel.id2name(
                         exerciseTemplates: exerciseTemplates,
@@ -120,6 +128,6 @@ struct EditWorkoutTemplateView: View {
 #Preview {
     EditWorkoutTemplateView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutTemplateId: "KkKTJbKlzHqJLSKeSn2V"
+        workoutTemplateId: "F5D8494D-8C96-484B-99D9-2A4AE6569B2A"
     )
 }

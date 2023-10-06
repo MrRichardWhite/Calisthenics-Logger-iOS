@@ -43,10 +43,10 @@
 		8D3982E92AC8093F00B6793F /* AccountViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982E82AC8093F00B6793F /* AccountViewViewModel.swift */; };
 		8D3982EB2AC8775400B6793F /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982EA2AC8775400B6793F /* WorkoutTemplate.swift */; };
 		8D3982ED2AC8775E00B6793F /* ExerciseTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982EC2AC8775E00B6793F /* ExerciseTemplate.swift */; };
-		8D3982EF2AC8777600B6793F /* MetaDateTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982EE2AC8777600B6793F /* MetaDateTemplate.swift */; };
+		8D3982EF2AC8777600B6793F /* MetadateTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982EE2AC8777600B6793F /* MetadateTemplate.swift */; };
 		8D3982F32AC87DAA00B6793F /* WorkoutTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F22AC87DAA00B6793F /* WorkoutTemplatesView.swift */; };
 		8D3982F52AC87DB400B6793F /* ExerciseTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F42AC87DB400B6793F /* ExerciseTemplatesView.swift */; };
-		8D3982F72AC87DC600B6793F /* MetaDateTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F62AC87DC600B6793F /* MetaDateTemplatesView.swift */; };
+		8D3982F72AC87DC600B6793F /* MetadateTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F62AC87DC600B6793F /* MetadateTemplatesView.swift */; };
 		8D3982F92AC88A1300B6793F /* NewWorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982F82AC88A1200B6793F /* NewWorkoutTemplateView.swift */; };
 		8D3982FD2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982FC2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift */; };
 		8D3982FF2AC88AEF00B6793F /* EditWorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3982FE2AC88AEF00B6793F /* EditWorkoutTemplateView.swift */; };
@@ -57,26 +57,27 @@
 		8D3983092AC8C70A00B6793F /* NewExerciseTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983082AC8C70A00B6793F /* NewExerciseTemplateViewViewModel.swift */; };
 		8D39830B2AC8C73500B6793F /* EditExerciseTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39830A2AC8C73500B6793F /* EditExerciseTemplateView.swift */; };
 		8D39830D2AC8C74700B6793F /* EditExerciseTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39830C2AC8C74700B6793F /* EditExerciseTemplateViewViewModel.swift */; };
-		8D39830F2AC8CDBA00B6793F /* MetaDateTemplatesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39830E2AC8CDBA00B6793F /* MetaDateTemplatesViewViewModel.swift */; };
-		8D3983112AC8CDDF00B6793F /* NewMetaDateTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983102AC8CDDF00B6793F /* NewMetaDateTemplateView.swift */; };
-		8D3983132AC8CE0000B6793F /* NewMetaDateTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983122AC8CE0000B6793F /* NewMetaDateTemplateViewViewModel.swift */; };
-		8D3983152AC8CE3000B6793F /* EditMetaDateTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983142AC8CE3000B6793F /* EditMetaDateTemplateView.swift */; };
-		8D3983172AC8CE4200B6793F /* EditMetaDateTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983162AC8CE4200B6793F /* EditMetaDateTemplateViewViewModel.swift */; };
+		8D39830F2AC8CDBA00B6793F /* MetadateTemplatesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39830E2AC8CDBA00B6793F /* MetadateTemplatesViewViewModel.swift */; };
+		8D3983112AC8CDDF00B6793F /* NewMetadateTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983102AC8CDDF00B6793F /* NewMetadateTemplateView.swift */; };
+		8D3983132AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983122AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift */; };
+		8D3983152AC8CE3000B6793F /* EditMetadateTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983142AC8CE3000B6793F /* EditMetadateTemplateView.swift */; };
+		8D3983172AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983162AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift */; };
 		8D41D5A02AC95A8D007EDE6E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8D41D59F2AC95A8D007EDE6E /* FirebaseDatabase */; };
 		8D41D5A42AC9886E007EDE6E /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */; };
+		8D72E50C2ACEDE1A00EAB0ED /* CLSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */; };
 		8D96FDBC2AC59E7600796A81 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */; };
 		8D96FDBE2AC5A2C200796A81 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */; };
 		8D96FDC02AC5BB0C00796A81 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDBF2AC5BB0C00796A81 /* ExerciseView.swift */; };
-		8D96FDC22AC5BCD300796A81 /* MetaDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC12AC5BCD300796A81 /* MetaDate.swift */; };
+		8D96FDC22AC5BCD300796A81 /* Metadate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC12AC5BCD300796A81 /* Metadate.swift */; };
 		8D96FDC42AC5C1DE00796A81 /* ExerciseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC32AC5C1DE00796A81 /* ExerciseViewViewModel.swift */; };
-		8D96FDC62AC5D07F00796A81 /* MetaDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC52AC5D07F00796A81 /* MetaDateView.swift */; };
-		8D96FDC82AC5D64600796A81 /* MetaDateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC72AC5D64600796A81 /* MetaDateViewViewModel.swift */; };
+		8D96FDC62AC5D07F00796A81 /* MetadateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC52AC5D07F00796A81 /* MetadateView.swift */; };
+		8D96FDC82AC5D64600796A81 /* MetadateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC72AC5D64600796A81 /* MetadateViewViewModel.swift */; };
 		8D96FDCA2AC6E02900796A81 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDC92AC6E02900796A81 /* Element.swift */; };
 		8D96FDCC2AC6EE5F00796A81 /* WorkoutViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDCB2AC6EE5F00796A81 /* WorkoutViewViewModel.swift */; };
 		8D96FDCE2AC6F37200796A81 /* NewExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDCD2AC6F37200796A81 /* NewExerciseView.swift */; };
 		8D96FDD02AC6F47200796A81 /* NewExerciseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDCF2AC6F47200796A81 /* NewExerciseViewViewModel.swift */; };
-		8D96FDD22AC70B1A00796A81 /* NewMetaDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDD12AC70B1A00796A81 /* NewMetaDateView.swift */; };
-		8D96FDD42AC70B4700796A81 /* NewMetaDateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDD32AC70B4700796A81 /* NewMetaDateViewViewModel.swift */; };
+		8D96FDD22AC70B1A00796A81 /* NewMetadateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDD12AC70B1A00796A81 /* NewMetadateView.swift */; };
+		8D96FDD42AC70B4700796A81 /* NewMetadateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDD32AC70B4700796A81 /* NewMetadateViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,10 +135,10 @@
 		8D3982E82AC8093F00B6793F /* AccountViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewViewModel.swift; sourceTree = "<group>"; };
 		8D3982EA2AC8775400B6793F /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		8D3982EC2AC8775E00B6793F /* ExerciseTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTemplate.swift; sourceTree = "<group>"; };
-		8D3982EE2AC8777600B6793F /* MetaDateTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDateTemplate.swift; sourceTree = "<group>"; };
+		8D3982EE2AC8777600B6793F /* MetadateTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadateTemplate.swift; sourceTree = "<group>"; };
 		8D3982F22AC87DAA00B6793F /* WorkoutTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplatesView.swift; sourceTree = "<group>"; };
 		8D3982F42AC87DB400B6793F /* ExerciseTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTemplatesView.swift; sourceTree = "<group>"; };
-		8D3982F62AC87DC600B6793F /* MetaDateTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDateTemplatesView.swift; sourceTree = "<group>"; };
+		8D3982F62AC87DC600B6793F /* MetadateTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadateTemplatesView.swift; sourceTree = "<group>"; };
 		8D3982F82AC88A1200B6793F /* NewWorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutTemplateView.swift; sourceTree = "<group>"; };
 		8D3982FC2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplatesViewViewModel.swift; sourceTree = "<group>"; };
 		8D3982FE2AC88AEF00B6793F /* EditWorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkoutTemplateView.swift; sourceTree = "<group>"; };
@@ -148,25 +149,26 @@
 		8D3983082AC8C70A00B6793F /* NewExerciseTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseTemplateViewViewModel.swift; sourceTree = "<group>"; };
 		8D39830A2AC8C73500B6793F /* EditExerciseTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseTemplateView.swift; sourceTree = "<group>"; };
 		8D39830C2AC8C74700B6793F /* EditExerciseTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseTemplateViewViewModel.swift; sourceTree = "<group>"; };
-		8D39830E2AC8CDBA00B6793F /* MetaDateTemplatesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDateTemplatesViewViewModel.swift; sourceTree = "<group>"; };
-		8D3983102AC8CDDF00B6793F /* NewMetaDateTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetaDateTemplateView.swift; sourceTree = "<group>"; };
-		8D3983122AC8CE0000B6793F /* NewMetaDateTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetaDateTemplateViewViewModel.swift; sourceTree = "<group>"; };
-		8D3983142AC8CE3000B6793F /* EditMetaDateTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMetaDateTemplateView.swift; sourceTree = "<group>"; };
-		8D3983162AC8CE4200B6793F /* EditMetaDateTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMetaDateTemplateViewViewModel.swift; sourceTree = "<group>"; };
+		8D39830E2AC8CDBA00B6793F /* MetadateTemplatesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadateTemplatesViewViewModel.swift; sourceTree = "<group>"; };
+		8D3983102AC8CDDF00B6793F /* NewMetadateTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateTemplateView.swift; sourceTree = "<group>"; };
+		8D3983122AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateTemplateViewViewModel.swift; sourceTree = "<group>"; };
+		8D3983142AC8CE3000B6793F /* EditMetadateTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMetadateTemplateView.swift; sourceTree = "<group>"; };
+		8D3983162AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMetadateTemplateViewViewModel.swift; sourceTree = "<group>"; };
 		8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLSaved.swift; sourceTree = "<group>"; };
 		8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		8D96FDBF2AC5BB0C00796A81 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
-		8D96FDC12AC5BCD300796A81 /* MetaDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDate.swift; sourceTree = "<group>"; };
+		8D96FDC12AC5BCD300796A81 /* Metadate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadate.swift; sourceTree = "<group>"; };
 		8D96FDC32AC5C1DE00796A81 /* ExerciseViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewViewModel.swift; sourceTree = "<group>"; };
-		8D96FDC52AC5D07F00796A81 /* MetaDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDateView.swift; sourceTree = "<group>"; };
-		8D96FDC72AC5D64600796A81 /* MetaDateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDateViewViewModel.swift; sourceTree = "<group>"; };
+		8D96FDC52AC5D07F00796A81 /* MetadateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadateView.swift; sourceTree = "<group>"; };
+		8D96FDC72AC5D64600796A81 /* MetadateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadateViewViewModel.swift; sourceTree = "<group>"; };
 		8D96FDC92AC6E02900796A81 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		8D96FDCB2AC6EE5F00796A81 /* WorkoutViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewViewModel.swift; sourceTree = "<group>"; };
 		8D96FDCD2AC6F37200796A81 /* NewExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseView.swift; sourceTree = "<group>"; };
 		8D96FDCF2AC6F47200796A81 /* NewExerciseViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseViewViewModel.swift; sourceTree = "<group>"; };
-		8D96FDD12AC70B1A00796A81 /* NewMetaDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetaDateView.swift; sourceTree = "<group>"; };
-		8D96FDD32AC70B4700796A81 /* NewMetaDateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetaDateViewViewModel.swift; sourceTree = "<group>"; };
+		8D96FDD12AC70B1A00796A81 /* NewMetadateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateView.swift; sourceTree = "<group>"; };
+		8D96FDD32AC70B4700796A81 /* NewMetadateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 				8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */,
 				8D30E0E02AC443B100455620 /* HeaderView.swift */,
 				8D30E0E22AC44CB300455620 /* CLButton.swift */,
+				8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */,
 				8D199DC32AC193800071894A /* MainView.swift */,
 				8D30E0D42AC43A8700455620 /* LoginView.swift */,
 				8D30E0D62AC43AA800455620 /* RegisterView.swift */,
@@ -295,11 +298,11 @@
 				8D30E0D82AC43AF500455620 /* User.swift */,
 				8D30E0EC2AC4636900455620 /* Workout.swift */,
 				8D30E0EE2AC4637300455620 /* Exercise.swift */,
-				8D96FDC12AC5BCD300796A81 /* MetaDate.swift */,
+				8D96FDC12AC5BCD300796A81 /* Metadate.swift */,
 				8D96FDC92AC6E02900796A81 /* Element.swift */,
 				8D3982EA2AC8775400B6793F /* WorkoutTemplate.swift */,
 				8D3982EC2AC8775E00B6793F /* ExerciseTemplate.swift */,
-				8D3982EE2AC8777600B6793F /* MetaDateTemplate.swift */,
+				8D3982EE2AC8777600B6793F /* MetadateTemplate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -324,8 +327,8 @@
 				8D96FDCB2AC6EE5F00796A81 /* WorkoutViewViewModel.swift */,
 				8D96FDCF2AC6F47200796A81 /* NewExerciseViewViewModel.swift */,
 				8D96FDC32AC5C1DE00796A81 /* ExerciseViewViewModel.swift */,
-				8D96FDD32AC70B4700796A81 /* NewMetaDateViewViewModel.swift */,
-				8D96FDC72AC5D64600796A81 /* MetaDateViewViewModel.swift */,
+				8D96FDD32AC70B4700796A81 /* NewMetadateViewViewModel.swift */,
+				8D96FDC72AC5D64600796A81 /* MetadateViewViewModel.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -336,7 +339,7 @@
 				8D30E0F42AC4713600455620 /* TemplatesViewVieModel.swift */,
 				8D41D5972AC95269007EDE6E /* Workouts */,
 				8D41D5982AC9529C007EDE6E /* Exercises */,
-				8D41D5992AC952AC007EDE6E /* MetaData */,
+				8D41D5992AC952AC007EDE6E /* Metadata */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -361,14 +364,14 @@
 			path = Exercises;
 			sourceTree = "<group>";
 		};
-		8D41D5992AC952AC007EDE6E /* MetaData */ = {
+		8D41D5992AC952AC007EDE6E /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				8D39830E2AC8CDBA00B6793F /* MetaDateTemplatesViewViewModel.swift */,
-				8D3983122AC8CE0000B6793F /* NewMetaDateTemplateViewViewModel.swift */,
-				8D3983162AC8CE4200B6793F /* EditMetaDateTemplateViewViewModel.swift */,
+				8D39830E2AC8CDBA00B6793F /* MetadateTemplatesViewViewModel.swift */,
+				8D3983122AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift */,
+				8D3983162AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift */,
 			);
-			path = MetaData;
+			path = Metadata;
 			sourceTree = "<group>";
 		};
 		8D41D59A2AC952E7007EDE6E /* Logger */ = {
@@ -379,8 +382,8 @@
 				8D96FDBD2AC5A2C200796A81 /* WorkoutView.swift */,
 				8D96FDCD2AC6F37200796A81 /* NewExerciseView.swift */,
 				8D96FDBF2AC5BB0C00796A81 /* ExerciseView.swift */,
-				8D96FDD12AC70B1A00796A81 /* NewMetaDateView.swift */,
-				8D96FDC52AC5D07F00796A81 /* MetaDateView.swift */,
+				8D96FDD12AC70B1A00796A81 /* NewMetadateView.swift */,
+				8D96FDC52AC5D07F00796A81 /* MetadateView.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -391,7 +394,7 @@
 				8D30E0F02AC46E3B00455620 /* TemplatesView.swift */,
 				8D41D59C2AC9533C007EDE6E /* Workouts */,
 				8D41D59D2AC9534C007EDE6E /* Exercises */,
-				8D41D59E2AC95354007EDE6E /* MetaData */,
+				8D41D59E2AC95354007EDE6E /* Metadata */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -416,14 +419,14 @@
 			path = Exercises;
 			sourceTree = "<group>";
 		};
-		8D41D59E2AC95354007EDE6E /* MetaData */ = {
+		8D41D59E2AC95354007EDE6E /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				8D3982F62AC87DC600B6793F /* MetaDateTemplatesView.swift */,
-				8D3983102AC8CDDF00B6793F /* NewMetaDateTemplateView.swift */,
-				8D3983142AC8CE3000B6793F /* EditMetaDateTemplateView.swift */,
+				8D3982F62AC87DC600B6793F /* MetadateTemplatesView.swift */,
+				8D3983102AC8CDDF00B6793F /* NewMetadateTemplateView.swift */,
+				8D3983142AC8CE3000B6793F /* EditMetadateTemplateView.swift */,
 			);
-			path = MetaData;
+			path = Metadata;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -569,36 +572,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D199DC42AC193800071894A /* MainView.swift in Sources */,
-				8D96FDC62AC5D07F00796A81 /* MetaDateView.swift in Sources */,
+				8D96FDC62AC5D07F00796A81 /* MetadateView.swift in Sources */,
 				8D30E0E32AC44CB300455620 /* CLButton.swift in Sources */,
 				8D30E0D72AC43AA800455620 /* RegisterView.swift in Sources */,
 				8D30E0FB2AC471FD00455620 /* NewWorkoutViewViewModel.swift in Sources */,
 				8D3983012AC88BA000B6793F /* EditWorkoutTemplateViewViewModel.swift in Sources */,
-				8D3983152AC8CE3000B6793F /* EditMetaDateTemplateView.swift in Sources */,
+				8D3983152AC8CE3000B6793F /* EditMetadateTemplateView.swift in Sources */,
 				8D96FDC02AC5BB0C00796A81 /* ExerciseView.swift in Sources */,
 				8D41D5A42AC9886E007EDE6E /* SwiftUIView.swift in Sources */,
 				8D96FDD02AC6F47200796A81 /* NewExerciseViewViewModel.swift in Sources */,
-				8D39830F2AC8CDBA00B6793F /* MetaDateTemplatesViewViewModel.swift in Sources */,
+				8D39830F2AC8CDBA00B6793F /* MetadateTemplatesViewViewModel.swift in Sources */,
 				8D30E0EF2AC4637300455620 /* Exercise.swift in Sources */,
 				8D30E0ED2AC4636900455620 /* Workout.swift in Sources */,
-				8D96FDD42AC70B4700796A81 /* NewMetaDateViewViewModel.swift in Sources */,
-				8D3982EF2AC8777600B6793F /* MetaDateTemplate.swift in Sources */,
+				8D96FDD42AC70B4700796A81 /* NewMetadateViewViewModel.swift in Sources */,
+				8D3982EF2AC8777600B6793F /* MetadateTemplate.swift in Sources */,
 				8D30E0D92AC43AF500455620 /* User.swift in Sources */,
 				8D30E0DD2AC43B5900455620 /* LoginViewViewModel.swift in Sources */,
-				8D96FDC82AC5D64600796A81 /* MetaDateViewViewModel.swift in Sources */,
+				8D96FDC82AC5D64600796A81 /* MetadateViewViewModel.swift in Sources */,
 				8D39830D2AC8C74700B6793F /* EditExerciseTemplateViewViewModel.swift in Sources */,
 				8D3982F52AC87DB400B6793F /* ExerciseTemplatesView.swift in Sources */,
 				8D30E0D32AC43A5D00455620 /* ProfileView.swift in Sources */,
-				8D96FDC22AC5BCD300796A81 /* MetaDate.swift in Sources */,
-				8D3983112AC8CDDF00B6793F /* NewMetaDateTemplateView.swift in Sources */,
-				8D96FDD22AC70B1A00796A81 /* NewMetaDateView.swift in Sources */,
+				8D96FDC22AC5BCD300796A81 /* Metadate.swift in Sources */,
+				8D3983112AC8CDDF00B6793F /* NewMetadateTemplateView.swift in Sources */,
+				8D96FDD22AC70B1A00796A81 /* NewMetadateView.swift in Sources */,
 				8D96FDCE2AC6F37200796A81 /* NewExerciseView.swift in Sources */,
-				8D3983172AC8CE4200B6793F /* EditMetaDateTemplateViewViewModel.swift in Sources */,
+				8D3983172AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift in Sources */,
 				8D39830B2AC8C73500B6793F /* EditExerciseTemplateView.swift in Sources */,
 				8D3982F32AC87DAA00B6793F /* WorkoutTemplatesView.swift in Sources */,
 				8D30E0E12AC443B100455620 /* HeaderView.swift in Sources */,
 				8D3982FD2AC88A4900B6793F /* WorkoutTemplatesViewViewModel.swift in Sources */,
-				8D3983132AC8CE0000B6793F /* NewMetaDateTemplateViewViewModel.swift in Sources */,
+				8D3983132AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift in Sources */,
 				8D96FDBE2AC5A2C200796A81 /* WorkoutView.swift in Sources */,
 				8D30E0F52AC4713600455620 /* TemplatesViewVieModel.swift in Sources */,
 				8D3983072AC8C6FD00B6793F /* NewExerciseTemplateView.swift in Sources */,
@@ -608,7 +611,7 @@
 				8D30E0E72AC45F6900455620 /* MainViewViewModel.swift in Sources */,
 				8D3982E72AC8090600B6793F /* AccountView.swift in Sources */,
 				8D30E0D52AC43A8700455620 /* LoginView.swift in Sources */,
-				8D3982F72AC87DC600B6793F /* MetaDateTemplatesView.swift in Sources */,
+				8D3982F72AC87DC600B6793F /* MetadateTemplatesView.swift in Sources */,
 				8D199DC22AC193800071894A /* Calisthenics_LoggerApp.swift in Sources */,
 				8D30E0F92AC471DE00455620 /* NewWorkoutView.swift in Sources */,
 				8D3983092AC8C70A00B6793F /* NewExerciseTemplateViewViewModel.swift in Sources */,
@@ -626,6 +629,7 @@
 				8D96FDC42AC5C1DE00796A81 /* ExerciseViewViewModel.swift in Sources */,
 				8D3982EB2AC8775400B6793F /* WorkoutTemplate.swift in Sources */,
 				8D30E0DF2AC43B7000455620 /* RegisterViewViewModel.swift in Sources */,
+				8D72E50C2ACEDE1A00EAB0ED /* CLSaved.swift in Sources */,
 				8D3982F92AC88A1300B6793F /* NewWorkoutTemplateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
 //
-//  NewExerciseView.swift
+//  NewMetadateView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 29.09.23.
@@ -7,38 +7,41 @@
 
 import SwiftUI
 
-struct NewExerciseView: View {
-    @StateObject var viewModel: NewExerciseViewViewModel
-    @Binding var newExercisePresented: Bool
+struct NewMetadateView: View {
+    @StateObject var viewModel: NewMetadateViewViewModel
+    @Binding var newMetadatePresented: Bool
     
     let userId: String
     let workoutId: String
+    let exerciseId: String
     
-    init(userId: String, workoutId: String, newExercisePresented: Binding<Bool>) {
+    init(userId: String, workoutId: String, exerciseId: String, newMetadatePresented: Binding<Bool>) {
         self.userId = userId
         self.workoutId = workoutId
-        self._newExercisePresented = newExercisePresented
+        self.exerciseId = exerciseId
+        self._newMetadatePresented = newMetadatePresented
         
         self._viewModel = StateObject(
-            wrappedValue: NewExerciseViewViewModel(
+            wrappedValue: NewMetadateViewViewModel(
                 userId: userId,
-                workoutId: workoutId
+                workoutId: workoutId,
+                exerciseId: exerciseId
             )
         )
     }
-
+    
     var body: some View {
         VStack {
-            Text("New Exercise")
+            Text("New Metadate")
                 .font(.system(size: 32))
                 .bold()
                 .padding(.top)
             
             Form {
-                Picker("Template", selection: $viewModel.pickedExerciseTemplateId) {
-                    ForEach(viewModel.exerciseTemplateIds, id: \.self) { exerciseTemplateId in
+                Picker("Template", selection: $viewModel.pickedMetadateTemplateId) {
+                    ForEach(viewModel.metadateTemplateIds, id: \.self) { metadateTemplateId in
                         let text = viewModel.id2name(
-                            id: exerciseTemplateId
+                            id: metadateTemplateId
                         )
                         Text(text)
                     }
@@ -47,9 +50,10 @@ struct NewExerciseView: View {
                 CLButton(title: "Add", background: .green) {
                     viewModel.save(
                         userId: userId,
-                        workoutId: workoutId
+                        workoutId: workoutId,
+                        exericseId: exerciseId
                     )
-                    newExercisePresented = false
+                    newMetadatePresented = false
                 }
                 .padding()
             }
@@ -58,10 +62,11 @@ struct NewExerciseView: View {
 }
 
 #Preview {
-    NewExerciseView(
+    NewMetadateView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
-        newExercisePresented: Binding(
+        exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1",
+        newMetadatePresented: Binding(
             get: { return true },
             set: { _ in }
         )

@@ -1,48 +1,44 @@
 //
-//  EditMetadateTemplateView.swift
+//  NewMetadateTemplateView.swift
 //  Calisthenics Logger
 //
 //  Created by Richard Weiss on 30.09.23.
 //
 
-import FirebaseFirestoreSwift
 import SwiftUI
 
-struct EditMetadateTemplateView: View {
-    @StateObject var viewModel: EditMetadateTemplateViewViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+struct NewMetadateTemplateView: View {
+    @StateObject var viewModel: NewMetadateTemplateViewViewModel
+    @Binding var newMetadateTemplatePresented: Bool
     
     private let userId: String
-    private let metadateTemplateId: String
-
-    init(userId: String, metadateTemplateId: String) {
+    
+    init(userId: String, newMetadateTemplatePresented: Binding<Bool>) {
         self.userId = userId
-        self.metadateTemplateId = metadateTemplateId
+        
+        self._newMetadateTemplatePresented = newMetadateTemplatePresented
+        
         self._viewModel = StateObject(
-            wrappedValue: EditMetadateTemplateViewViewModel(
-                userId: userId,
-                metadateTemplateId: metadateTemplateId
+            wrappedValue: NewMetadateTemplateViewViewModel(
+                userId: userId
             )
         )
     }
     
     var body: some View {
         VStack {
-//            Text("Edit Metadate Template")
-//                .font(.system(size: 32))
-//                .bold()
-//                .padding(.top)
+            Text("New Metadate Template")
+                .font(.system(size: 32))
+                .bold()
+                .padding(.top)
             
             Form {
-                // Name
                 TextField("name", text: $viewModel.name)
-                
-                // Unit
+
                 TextField("unit", text: $viewModel.unit)
                     .autocorrectionDisabled()
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 
-                // Number of Elements
                 var stepperTitle: String {
                     var d = "\(viewModel.elementsCount) element"
                     if viewModel.elementsCount != 1 {
@@ -57,13 +53,10 @@ struct EditMetadateTemplateView: View {
                     step: 1
                 )
                 
-                // Button
-                CLButton(title: "Save", background: .blue) {
+                CLButton(title: "Add", background: viewModel.background) {
                     if viewModel.canSave {
-                        viewModel.save(
-                            userId: userId
-                        )
-                        self.presentationMode.wrappedValue.dismiss()
+                        viewModel.save()
+                        newMetadateTemplatePresented = false
                     } else {
                         viewModel.showAlert = true
                     }
@@ -81,8 +74,11 @@ struct EditMetadateTemplateView: View {
 }
 
 #Preview {
-    EditMetadateTemplateView(
+    NewMetadateTemplateView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        metadateTemplateId: "356A799F-C391-4621-832F-5B8E449380D2"
+        newMetadateTemplatePresented: Binding(
+            get: { return true },
+            set: { _ in }
+        )
     )
 }

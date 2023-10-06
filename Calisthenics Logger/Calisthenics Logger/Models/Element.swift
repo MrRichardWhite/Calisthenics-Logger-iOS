@@ -9,6 +9,7 @@ import Foundation
 
 struct Element: Codable, Identifiable {
     let id: String
-    let content: String
+    var content: String
     let created: TimeInterval
+    let edited: TimeInterval
 }

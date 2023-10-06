@@ -11,4 +11,5 @@ struct Exercise: Codable, Identifiable {
     let id: String
     let name: String
     let created: TimeInterval
+    let edited: TimeInterval
 }
