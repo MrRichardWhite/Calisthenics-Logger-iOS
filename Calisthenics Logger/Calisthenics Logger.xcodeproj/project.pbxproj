@@ -78,6 +78,7 @@
 		8D96FDD02AC6F47200796A81 /* NewExerciseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDCF2AC6F47200796A81 /* NewExerciseViewViewModel.swift */; };
 		8D96FDD22AC70B1A00796A81 /* NewMetadateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDD12AC70B1A00796A81 /* NewMetadateView.swift */; };
 		8D96FDD42AC70B4700796A81 /* NewMetadateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96FDD32AC70B4700796A81 /* NewMetadateViewViewModel.swift */; };
+		8DF7464C2AD29E9A00817B64 /* SiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF7464B2AD29E9A00817B64 /* SiteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		8D96FDCF2AC6F47200796A81 /* NewExerciseViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseViewViewModel.swift; sourceTree = "<group>"; };
 		8D96FDD12AC70B1A00796A81 /* NewMetadateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateView.swift; sourceTree = "<group>"; };
 		8D96FDD32AC70B4700796A81 /* NewMetadateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateViewViewModel.swift; sourceTree = "<group>"; };
+		8DF7464B2AD29E9A00817B64 /* SiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 				8D3982EA2AC8775400B6793F /* WorkoutTemplate.swift */,
 				8D3982EC2AC8775E00B6793F /* ExerciseTemplate.swift */,
 				8D3982EE2AC8777600B6793F /* MetadateTemplate.swift */,
+				8DF7464B2AD29E9A00817B64 /* SiteView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				8D30E0D92AC43AF500455620 /* User.swift in Sources */,
 				8D30E0DD2AC43B5900455620 /* LoginViewViewModel.swift in Sources */,
 				8D96FDC82AC5D64600796A81 /* MetadateViewViewModel.swift in Sources */,
+				8DF7464C2AD29E9A00817B64 /* SiteView.swift in Sources */,
 				8D39830D2AC8C74700B6793F /* EditExerciseTemplateViewViewModel.swift in Sources */,
 				8D3982F52AC87DB400B6793F /* ExerciseTemplatesView.swift in Sources */,
 				8D30E0D32AC43A5D00455620 /* ProfileView.swift in Sources */,

@@ -15,7 +15,7 @@ What work has been done when?
 	- 19.9.2023 & 24.9.2023 - 25.9.2023, every now and then
 		- just watching
 
-4. Milking [SwiftUI To Do List (Full Series)](https://youtube.com/playlist?list=PL5PR3UyfTWvei-pKlZN7d8r-0tHCK1EKE&si=dcfatP-yG6ez_5cW)
+4. Milking [SwiftUI To Do List (Full Series)](https://youtube.com/playlist?list=PL5PR3UyfTWvei-pKlZN7d8r-0tHCK1EKE&si=dcfatP-yG6ez_5cW)  - App Base
 	- 26.9.2023, all day
 		- just watching
 	- 27.9.2023, all day
@@ -53,3 +53,7 @@ What work has been done when?
 		- one cannot edit them (jet)
 	- 1.10.2023, all day & 2.10.2023 afternoon:
 		- implemented editing Templates except for `WorkoutTemplates`
+
+9. `Stats`
+	- 8.10.2023, morning:
+		- Milking [SwiftUI 4.0 - New Swift Charts API - Customisation, Animations & Gestures - Xcode 14 - WWDC 2022](https://youtu.be/xS-fGYDD0qk?si=nl76TYboCmM90sXi) - Stats Base
