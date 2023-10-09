@@ -28,22 +28,20 @@ class LoggerViewViewModel: ObservableObject {
     }
     
     func deleteMetadate(metadateRef: DocumentReference) {
-        metadateRef
-            .collection("elements")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let elementId = data["id"] as? String ?? "id"
-                            let elementRef = metadateRef
-                                .collection("elements")
-                                .document(elementId)
-                            
-                            self.deleteElement(elementRef: elementRef)
-                        }
+        metadateRef.collection("elements").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let elementId = data["id"] as? String ?? ""
+                        let elementRef = metadateRef
+                            .collection("elements")
+                            .document(elementId)
+                        
+                        self.deleteElement(elementRef: elementRef)
                     }
                 }
             }
+        }
         
         metadateRef.delete()
     }
@@ -55,7 +53,7 @@ class LoggerViewViewModel: ObservableObject {
                 if error == nil {
                     if let snapshot = snapshot {
                         for data in snapshot.documents {
-                            let metadateId = data["id"] as? String ?? "id"
+                            let metadateId = data["id"] as? String ?? ""
                             let metadateRef = exerciseRef
                                 .collection("metadata")
                                 .document(metadateId)
@@ -71,22 +69,20 @@ class LoggerViewViewModel: ObservableObject {
     }
     
     func deleteWorkout(workoutRef: DocumentReference) {
-        workoutRef
-            .collection("exercises")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let exerciseId = data["id"] as? String ?? "id"
-                            let exerciseRef = workoutRef
-                                .collection("exercises")
-                                .document(exerciseId)
-                            
-                            self.deleteExercise(exerciseRef: exerciseRef)
-                        }
+        workoutRef.collection("exercises").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let exerciseId = data["id"] as? String ?? ""
+                        let exerciseRef = workoutRef
+                            .collection("exercises")
+                            .document(exerciseId)
+                        
+                        self.deleteExercise(exerciseRef: exerciseRef)
                     }
                 }
             }
+        }
         
         workoutRef.delete()
     }

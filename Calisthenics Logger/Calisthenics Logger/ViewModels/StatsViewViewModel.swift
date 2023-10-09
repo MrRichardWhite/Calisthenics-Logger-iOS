@@ -28,22 +28,20 @@ class StatsViewViewModel: ObservableObject {
     }
     
     func deleteStat(statRef: DocumentReference) {
-        statRef
-            .collection("stats")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let filterId = data["id"] as? String ?? "id"
-                            let filterRef = statRef
-                                .collection("filters")
-                                .document(filterId)
-                            
-                            self.deleteFilter(filterRef: filterRef)
-                        }
+        statRef.collection("stats").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let filterId = data["id"] as? String ?? ""
+                        let filterRef = statRef
+                            .collection("filters")
+                            .document(filterId)
+                        
+                        self.deleteFilter(filterRef: filterRef)
                     }
                 }
             }
+        }
         
         statRef.delete()
     }

@@ -13,6 +13,7 @@ import SwiftUI
 class NewExerciseTemplateViewViewModel: ObservableObject {
     @Published var time = Date()
     @Published var name = ""
+    @Published var category = ""
     @Published var showAlert = false
     
     private let userId: String
@@ -36,6 +37,7 @@ class NewExerciseTemplateViewViewModel: ObservableObject {
         let newExerciseTemplate = ExerciseTemplate(
             id: newExerciseTemplateId,
             name: name,
+            category: category,
             metadateTemplateIds: [],
             created: Date().timeIntervalSince1970,
             edited: Date().timeIntervalSince1970
@@ -52,7 +54,6 @@ class NewExerciseTemplateViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     

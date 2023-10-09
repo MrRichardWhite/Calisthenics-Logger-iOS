@@ -39,44 +39,40 @@ class WorkoutViewViewModel: ObservableObject {
     }
     
     func deleteMetadate(metadateRef: DocumentReference) {
-        metadateRef
-            .collection("elements")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let elementId = data["id"] as? String ?? "id"
-                            let elementRef = metadateRef
-                                .collection("elements")
-                                .document(elementId)
-                            
-                            self.deleteElement(elementRef: elementRef)
+        metadateRef.collection("elements").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let elementId = data["id"] as? String ?? ""
+                        let elementRef = metadateRef
+                            .collection("elements")
+                            .document(elementId)
+                        
+                        self.deleteElement(elementRef: elementRef)
 
-                        }
                     }
                 }
             }
+        }
         
         metadateRef.delete()
     }
     
     func deleteExercise(exerciseRef: DocumentReference) {
-        exerciseRef
-            .collection("metadata")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let metadateId = data["id"] as? String ?? "id"
-                            let metadateRef = exerciseRef
-                                .collection("metadata")
-                                .document(metadateId)
-                            
-                            self.deleteMetadate(metadateRef: metadateRef)
-                        }
+        exerciseRef.collection("metadata").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let metadateId = data["id"] as? String ?? ""
+                        let metadateRef = exerciseRef
+                            .collection("metadata")
+                            .document(metadateId)
+                        
+                        self.deleteMetadate(metadateRef: metadateRef)
                     }
                 }
             }
+        }
         
         exerciseRef.delete()
     }
@@ -100,23 +96,21 @@ class WorkoutViewViewModel: ObservableObject {
             .collection("metadata")
             .document(metadateId)
         
-        metadateRef
-            .collection("elements")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let element = Element(
-                                id: data["id"] as? String ?? "id",
-                                content: data["content"] as? String ?? "content",
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                            self.elements[exerciseId]?[metadateId]?.append(element)
-                        }
+        metadateRef.collection("elements").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let element = Element(
+                            id: data["id"] as? String ?? "",
+                            content: data["content"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
+                        self.elements[exerciseId]?[metadateId]?.append(element)
                     }
                 }
             }
+        }
     }
     
     func load_metadata(exerciseId: String) {
@@ -127,49 +121,56 @@ class WorkoutViewViewModel: ObservableObject {
             .collection("exercises")
             .document(exerciseId)
         
-        exerciseRef
-            .collection("metadata")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let metadate = Metadate(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
-                                unit: data["unit"] as? String ?? "unit",
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                            self.metadata[exerciseId]?.append(metadate)
-                            
-                            self.load_elements(exerciseId: exerciseId, metadateId: metadate.id)
-                        }
+        exerciseRef.collection("metadata").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let metadate = Metadate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            unit: data["unit"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
+                        self.metadata[exerciseId]?.append(metadate)
+                        
+                        self.load_elements(exerciseId: exerciseId, metadateId: metadate.id)
                     }
                 }
             }
+        }
     }
     
     func load_exercises() {
         exercises = []
         
-        workoutRef
-            .collection("exercises")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        for data in snapshot.documents {
-                            let exercise = Exercise(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                            self.exercises.append(exercise)
-                            
-                            self.load_metadata(exerciseId: exercise.id)
-                        }
+        workoutRef.collection("exercises").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
+                        let exercise = Exercise(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            category: data["category"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
+                        self.exercises.append(exercise)
+                        
+                        self.load_metadata(exerciseId: exercise.id)
                     }
                 }
             }
+        }
+    }
+    
+    func group(exercises: [Exercise]) -> (
+        dict: Dictionary<String, Array<Exercise>>,
+        keys: Array<String>
+    ) {
+        let dict = Dictionary(grouping: exercises) { $0.category }
+        let keys = dict.map { $0.key }
+        
+        return (dict, keys)
     }
 }

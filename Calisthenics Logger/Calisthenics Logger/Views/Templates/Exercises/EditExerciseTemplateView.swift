@@ -33,7 +33,9 @@ struct EditExerciseTemplateView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("name", text: $viewModel.name)
+                TextField("Name", text: $viewModel.name)
+                
+                TextField("Category", text: $viewModel.category)
                 
                 NavigationLink(
                     destination: editExerciseTemplateContentView

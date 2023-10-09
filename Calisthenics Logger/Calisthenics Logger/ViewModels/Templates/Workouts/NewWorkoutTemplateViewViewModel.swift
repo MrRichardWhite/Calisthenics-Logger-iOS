@@ -53,7 +53,6 @@ class NewWorkoutTemplateViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     

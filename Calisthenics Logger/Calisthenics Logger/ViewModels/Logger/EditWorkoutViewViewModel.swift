@@ -38,27 +38,28 @@ class EditWorkoutViewViewModel: ObservableObject {
             .document(workoutId)
         
         workoutRef.getDocument { document, error in
-                guard let document = document, document.exists else {
-                    return
-                }
-                let data = document.data()
-                let time = Date(
-                    timeIntervalSince1970: TimeInterval(
-                        data?["time"] as? TimeInterval ?? Date().timeIntervalSince1970
-                    )
-                )
-                let name = data?["name"] as? String ?? "name"
-                let location = data?["location"] as? String ?? "location"
-                let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
-                
-                self.nameInit = name
-                self.timeInit = time
-                self.locationInit = location
-                self.name = name
-                self.time = time
-                self.location = location
-                self.created = created
+            guard let document = document, document.exists else {
+                return
             }
+            
+            let data = document.data()
+            let time = Date(
+                timeIntervalSince1970: TimeInterval(
+                    data?["time"] as? TimeInterval ?? Date().timeIntervalSince1970
+                )
+            )
+            let name = data?["name"] as? String ?? ""
+            let location = data?["location"] as? String ?? ""
+            let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            
+            self.nameInit = name
+            self.timeInit = time
+            self.locationInit = location
+            self.name = name
+            self.time = time
+            self.location = location
+            self.created = created
+        }
     }
     
     func save(userId: String) {
@@ -86,7 +87,6 @@ class EditWorkoutViewViewModel: ObservableObject {
         guard !location.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     

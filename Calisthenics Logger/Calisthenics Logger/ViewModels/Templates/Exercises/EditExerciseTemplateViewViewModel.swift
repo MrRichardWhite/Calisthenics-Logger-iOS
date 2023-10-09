@@ -11,8 +11,10 @@ import SwiftUI
 
 class EditExerciseTemplateViewViewModel: ObservableObject {
     @Published var nameInit = ""
+    @Published var categoryInit = ""
     @Published var metadateTemplateIdsLocalInit: [String] = []
     @Published var name = ""
+    @Published var category = ""
     @Published var metadateTemplateIdsLocal: [String] = []
     @Published var created = Date().timeIntervalSince1970
     @Published var alertTitle = ""
@@ -40,19 +42,23 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
         self.newMetadateTemplateId = ""
         
         exerciseTemplateRef.getDocument { document, error in
-                guard let document = document, document.exists else {
-                    return
-                }
-                let data = document.data()
-                let name = data?["name"] as? String ?? "name"
-                let metadateTemplateIdsLocal = data?["metadateTemplateIds"] as? [String] ?? []
-                
-                self.nameInit = name
-                self.metadateTemplateIdsLocalInit = metadateTemplateIdsLocal
-                self.name = name
-                self.metadateTemplateIdsLocal = metadateTemplateIdsLocal
-                self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            guard let document = document, document.exists else {
+                return
             }
+            
+            let data = document.data()
+            let name = data?["name"] as? String ?? ""
+            let category = data?["category"] as? String ?? ""
+            let metadateTemplateIdsLocal = data?["metadateTemplateIds"] as? [String] ?? []
+            
+            self.nameInit = name
+            self.categoryInit = category
+            self.metadateTemplateIdsLocalInit = metadateTemplateIdsLocal
+            self.name = name
+            self.category = category
+            self.metadateTemplateIdsLocal = metadateTemplateIdsLocal
+            self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+        }
     }
     
     func save(userId: String) {
@@ -63,6 +69,7 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
         let updatedExerciseTemplate = ExerciseTemplate(
             id: exerciseTemplateId,
             name: name,
+            category: category,
             metadateTemplateIds: metadateTemplateIdsLocal,
             created: created,
             edited: Date().timeIntervalSince1970
@@ -75,7 +82,6 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     
@@ -104,6 +110,9 @@ class EditExerciseTemplateViewViewModel: ObservableObject {
     
     var dataIsInit: Bool {
         guard name == nameInit else {
+            return false
+        }
+        guard category == categoryInit else {
             return false
         }
         guard metadateTemplateIdsLocal == metadateTemplateIdsLocalInit else {

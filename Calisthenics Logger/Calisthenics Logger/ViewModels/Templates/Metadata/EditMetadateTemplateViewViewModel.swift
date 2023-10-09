@@ -44,8 +44,8 @@ class EditMetadateTemplateViewViewModel: ObservableObject {
                 return
             }
             let data = document.data()
-            let name = data?["name"] as? String ?? "name"
-            let unit = data?["unit"] as? String ?? "unit"
+            let name = data?["name"] as? String ?? ""
+            let unit = data?["unit"] as? String ?? ""
             let elementsCount = data?["elementsCount"] as? Int ?? 1
 
             self.nameInit = name
@@ -79,7 +79,6 @@ class EditMetadateTemplateViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     

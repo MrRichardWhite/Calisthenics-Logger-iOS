@@ -49,37 +49,36 @@ class MetadateViewViewModel: ObservableObject {
             .document(metadateId)
         
         metadateRef.getDocument { document, error in
-                guard let document = document, document.exists else {
-                    return
-                }
-                let data = document.data()
-                let name = data?["name"] as? String ?? "name"
-                let unit = data?["unit"] as? String ?? "unit"
-                self.nameInit = name
-                self.unitInit = unit
-                self.name = name
-                self.unit = unit
-                self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            guard let document = document, document.exists else {
+                return
             }
+            
+            let data = document.data()
+            let name = data?["name"] as? String ?? ""
+            let unit = data?["unit"] as? String ?? ""
+            self.nameInit = name
+            self.unitInit = unit
+            self.name = name
+            self.unit = unit
+            self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+        }
         
-        metadateRef
-            .collection("elements")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        let elements = snapshot.documents.map { data in
-                            Element(
-                                id: data["id"] as? String ?? "id",
-                                content: data["content"] as? String ?? "content",
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                        }
-                        self.elementsInit += elements
-                        self.elements += elements
+        metadateRef.collection("elements").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let elements = snapshot.documents.map { data in
+                        Element(
+                            id: data["id"] as? String ?? "",
+                            content: data["content"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
+                    self.elementsInit += elements
+                    self.elements += elements
                 }
             }
+        }
     }
     
     func delete(elementId: String) {
@@ -152,7 +151,6 @@ class MetadateViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     

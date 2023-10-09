@@ -38,24 +38,22 @@ class NewWorkoutViewViewModel: ObservableObject {
             .collection("users")
             .document(userId)
         
-        userRef
-            .collection("workoutTemplates")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        let workoutTemplates = snapshot.documents.map { data in
-                            WorkoutTemplate(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
-                                exerciseTemplateIds: data["exerciseTemplateIds"] as? [String] ?? [],
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                        }
-                        self.workoutTemplates += workoutTemplates
+        userRef.collection("workoutTemplates").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let workoutTemplates = snapshot.documents.map { data in
+                        WorkoutTemplate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            exerciseTemplateIds: data["exerciseTemplateIds"] as? [String] ?? [],
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
+                    self.workoutTemplates += workoutTemplates
                 }
             }
+        }
         
         userRef
             .collection("exerciseTemplates")
@@ -64,8 +62,9 @@ class NewWorkoutViewViewModel: ObservableObject {
                     if let snapshot = snapshot {
                         let exerciseTemplates = snapshot.documents.map { data in
                             ExerciseTemplate(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
+                                id: data["id"] as? String ?? "",
+                                name: data["name"] as? String ?? "",
+                                category: data["category"] as? String ?? "",
                                 metadateTemplateIds: data["metadateTemplateIds"] as? [String] ?? [],
                                 created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
                                 edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
@@ -76,25 +75,23 @@ class NewWorkoutViewViewModel: ObservableObject {
                 }
             }
         
-        userRef
-            .collection("metadateTemplates")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        let metadateTemplates = snapshot.documents.map { data in
-                            MetadateTemplate(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
-                                unit: data["unit"] as? String ?? "unit",
-                                elementsCount: data["elementsCount"] as? Int ?? 0,
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                        }
-                        self.metadateTemplates += metadateTemplates
+        userRef.collection("metadateTemplates").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let metadateTemplates = snapshot.documents.map { data in
+                        MetadateTemplate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            unit: data["unit"] as? String ?? "",
+                            elementsCount: data["elementsCount"] as? Int ?? 0,
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
+                    self.metadateTemplates += metadateTemplates
                 }
             }
+        }
     }
     
     func save(userId: String) {
@@ -125,6 +122,7 @@ class NewWorkoutViewViewModel: ObservableObject {
             let newExercise = Exercise(
                 id: newExerciseId,
                 name: exerciseTemplate.name,
+                category: exerciseTemplate.category,
                 created: Date().timeIntervalSince1970,
                 edited: Date().timeIntervalSince1970
             )
@@ -180,7 +178,6 @@ class NewWorkoutViewViewModel: ObservableObject {
         guard !location.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     
@@ -215,6 +212,7 @@ class NewWorkoutViewViewModel: ObservableObject {
         return ExerciseTemplate(
             id: "",
             name: "",
+            category: "",
             metadateTemplateIds: [],
             created: Date().timeIntervalSince1970,
             edited: Date().timeIntervalSince1970

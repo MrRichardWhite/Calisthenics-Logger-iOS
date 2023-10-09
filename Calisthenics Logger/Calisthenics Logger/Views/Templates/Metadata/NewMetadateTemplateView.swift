@@ -33,9 +33,9 @@ struct NewMetadateTemplateView: View {
                 .padding(.top)
             
             Form {
-                TextField("name", text: $viewModel.name)
+                TextField("Name", text: $viewModel.name)
 
-                TextField("unit", text: $viewModel.unit)
+                TextField("Unit", text: $viewModel.unit)
                     .autocorrectionDisabled()
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 

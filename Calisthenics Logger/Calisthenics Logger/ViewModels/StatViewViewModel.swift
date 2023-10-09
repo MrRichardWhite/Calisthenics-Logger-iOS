@@ -36,20 +36,21 @@ class StatViewViewModel: ObservableObject {
             .document(statId)
         
         statRef.getDocument { document, error in
-                guard let document = document, document.exists else {
-                    return
-                }
-                let data = document.data()
-                let exerciseTemplateId = data?["exerciseTemplateId"] as? String ?? "exerciseTemplateId"
-                let metadateTemplateId = data?["metadateTemplateId"] as? String ?? "metadateTemplateId"
-                let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
-                
-                self.exerciseTemplateIdInit = exerciseTemplateId
-                self.metadateTemplateIdInit = metadateTemplateId
-                self.exerciseTemplateId = exerciseTemplateId
-                self.metadateTemplateId = metadateTemplateId
-                self.created = created
+            guard let document = document, document.exists else {
+                return
             }
+            
+            let data = document.data()
+            let exerciseTemplateId = data?["exerciseTemplateId"] as? String ?? ""
+            let metadateTemplateId = data?["metadateTemplateId"] as? String ?? ""
+            let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            
+            self.exerciseTemplateIdInit = exerciseTemplateId
+            self.metadateTemplateIdInit = metadateTemplateId
+            self.exerciseTemplateId = exerciseTemplateId
+            self.metadateTemplateId = metadateTemplateId
+            self.created = created
+        }
     }
     
     func save() {

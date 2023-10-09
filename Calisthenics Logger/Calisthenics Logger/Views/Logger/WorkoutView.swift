@@ -31,9 +31,7 @@ struct WorkoutView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                exerciseListView
-            }
+            exerciseListView
             .navigationTitle("Workout")
             .toolbar {
                 HStack {
@@ -78,43 +76,62 @@ struct WorkoutView: View {
     
     @ViewBuilder
     var exerciseListView: some View {
-        List(viewModel.exercises) { exercise in
-            NavigationLink(
-                destination: ExerciseView(
-                    userId: userId,
-                    workoutId: workoutId,
-                    exerciseId: exercise.id
-                )
-            ) {
-                VStack(alignment: .leading) {
-                    Text(exercise.name)
-                        .padding(.bottom, 5)
+        VStack {
+            let dk = viewModel.group(exercises: exercises)
+            let dict = dk.dict
+            let keys = dk.keys
+            
+            Form {
+                ForEach(keys, id: \.self) { category in
                     
-                    ForEach(viewModel.metadata[exercise.id] ?? []) { metadate in
-                        HStack {
-                            Text(metadate.name)
-                                .font(.footnote)
-                                .foregroundColor(Color(.secondaryLabel))
-                            
-                            Spacer()
-                            
-                            let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map { $0.content }
-                            Text((contents?.joined(separator: ", "))!)
-                                .font(.footnote)
-                                .foregroundColor(Color(.secondaryLabel))
+                    var exercises = dict[category] ?? []
+                    
+                    Section(
+                        header: Text(category)
+                            .font(.title2)
+                            .padding()
+                    ) {
+                        List(exercises) { exercise in
+                            NavigationLink(
+                                destination: ExerciseView(
+                                    userId: userId,
+                                    workoutId: workoutId,
+                                    exerciseId: exercise.id
+                                )
+                            ) {
+                                VStack(alignment: .leading) {
+                                    Text(exercise.name)
+                                        .padding(.bottom, 5)
+                                    
+                                    ForEach(viewModel.metadata[exercise.id] ?? []) { metadate in
+                                        HStack {
+                                            Text(metadate.name)
+                                                .font(.footnote)
+                                                .foregroundColor(Color(.secondaryLabel))
+                                            
+                                            Spacer()
+                                            
+                                            let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map { $0.content }
+                                            Text((contents?.joined(separator: ", "))!)
+                                                .font(.footnote)
+                                                .foregroundColor(Color(.secondaryLabel))
+                                        }
+                                    }
+                                }
+                            }
+                            .swipeActions {
+                                Button {
+                                    viewModel.delete(
+                                        exerciseId: exercise.id
+                                    )
+                                    viewModel.load_exercises()
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .tint(Color.red)
+                                }
+                            }
                         }
                     }
-                }
-            }
-            .swipeActions {
-                Button {
-                    viewModel.delete(
-                        exerciseId: exercise.id
-                    )
-                    viewModel.load_exercises()
-                } label: {
-                    Image(systemName: "trash")
-                        .tint(Color.red)
                 }
             }
         }

@@ -12,6 +12,8 @@ import SwiftUI
 class EditExerciseViewViewModel: ObservableObject {
     @Published var nameInit = ""
     @Published var name = ""
+    @Published var categoryInit = ""
+    @Published var category = ""
     @Published var created = Date().timeIntervalSince1970
     
     @Published var alertTitle = ""
@@ -38,17 +40,21 @@ class EditExerciseViewViewModel: ObservableObject {
             .document(exerciseId)
         
         exerciseRef.getDocument { document, error in
-                guard let document = document, document.exists else {
-                    return
-                }
-                let data = document.data()
-                let name = data?["name"] as? String ?? "name"
-                let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
-
-                self.nameInit = name
-                self.name = name
-                self.created = created
+            guard let document = document, document.exists else {
+                return
             }
+            
+            let data = document.data()
+            let name = data?["name"] as? String ?? ""
+            let category = data?["category"] as? String ?? ""
+            let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            
+            self.nameInit = name
+            self.name = name
+            self.categoryInit = category
+            self.category = category
+            self.created = created
+        }
     }
     
     func save(userId: String) {
@@ -59,6 +65,7 @@ class EditExerciseViewViewModel: ObservableObject {
         let updatedExercise = Exercise(
             id: exerciseId,
             name: name,
+            category: category,
             created: created,
             edited: Date().timeIntervalSince1970
         )
@@ -72,12 +79,14 @@ class EditExerciseViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     
     var dataIsInit: Bool {
         guard name == nameInit else {
+            return false
+        }
+        guard category == categoryInit else {
             return false
         }
         return true

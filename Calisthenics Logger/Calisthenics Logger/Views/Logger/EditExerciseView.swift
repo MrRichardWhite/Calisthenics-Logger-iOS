@@ -33,11 +33,14 @@ struct EditExerciseView: View {
         Form {
             TextField("Name", text: $viewModel.name)
             
+            TextField("Category", text: $viewModel.category)
+            
             CLButton(title: "Save", background: viewModel.background) {
                 if viewModel.canSave && !viewModel.dataIsInit {
                     viewModel.save(
                         userId: userId
                     )
+                    editExercisePresented = false
                 } else {
                     if !viewModel.canSave {
                         viewModel.alertTitle = "Error"

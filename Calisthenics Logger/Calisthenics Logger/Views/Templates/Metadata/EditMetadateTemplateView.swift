@@ -30,9 +30,9 @@ struct EditMetadateTemplateView: View {
         VStack {
             Form {
                 HStack {
-                    TextField("name", text: $viewModel.name)
+                    TextField("Name", text: $viewModel.name)
                     Divider()
-                    TextField("unit", text: $viewModel.unit)
+                    TextField("Unit", text: $viewModel.unit)
                         .autocorrectionDisabled()
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 }

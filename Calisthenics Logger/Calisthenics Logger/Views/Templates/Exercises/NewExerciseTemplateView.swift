@@ -35,6 +35,8 @@ struct NewExerciseTemplateView: View {
             Form {
                 TextField("Name", text: $viewModel.name)
                 
+                TextField("Category", text: $viewModel.category)
+                
                 CLButton(title: "Add", background: viewModel.background) {
                     if viewModel.canSave {
                         viewModel.save()

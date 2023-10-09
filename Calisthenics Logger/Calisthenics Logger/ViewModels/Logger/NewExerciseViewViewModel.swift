@@ -14,6 +14,7 @@ class NewExerciseViewViewModel: ObservableObject {
         ExerciseTemplate(
             id: "",
             name: "",
+            category: "",
             metadateTemplateIds: [],
             created: Date().timeIntervalSince1970,
             edited: Date().timeIntervalSince1970
@@ -39,44 +40,41 @@ class NewExerciseViewViewModel: ObservableObject {
             .collection("workouts")
             .document(workoutId)
 
-        userRef
-            .collection("exerciseTemplates")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        let exerciseTemplates = snapshot.documents.map { data in
-                            ExerciseTemplate(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
-                                metadateTemplateIds: data["metadateTemplateIds"] as? [String] ?? [],
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                        }
-                        self.exerciseTemplates += exerciseTemplates
+        userRef.collection("exerciseTemplates").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let exerciseTemplates = snapshot.documents.map { data in
+                        ExerciseTemplate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            category: data["category"] as? String ?? "",
+                            metadateTemplateIds: data["metadateTemplateIds"] as? [String] ?? [],
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
+                    self.exerciseTemplates += exerciseTemplates
                 }
             }
+        }
         
-        userRef
-            .collection("metadateTemplates")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        let metadateTemplates = snapshot.documents.map { data in
-                            MetadateTemplate(
-                                id: data["id"] as? String ?? "id",
-                                name: data["name"] as? String ?? "name",
-                                unit: data["unit"] as? String ?? "unit",
-                                elementsCount: data["elementsCount"] as? Int ?? 0,
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                        }
-                        self.metadateTemplates += metadateTemplates
+        userRef.collection("metadateTemplates").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let metadateTemplates = snapshot.documents.map { data in
+                        MetadateTemplate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            unit: data["unit"] as? String ?? "",
+                            elementsCount: data["elementsCount"] as? Int ?? 0,
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
+                    self.metadateTemplates += metadateTemplates
                 }
             }
+        }
     }
     
     func save(userId: String, workoutId: String) {
@@ -84,6 +82,7 @@ class NewExerciseViewViewModel: ObservableObject {
         let newExercise = Exercise(
             id: newExerciseId,
             name: pickedExerciseTemplate.name,
+            category: pickedExerciseTemplate.category,
             created: Date().timeIntervalSince1970,
             edited: Date().timeIntervalSince1970
         )

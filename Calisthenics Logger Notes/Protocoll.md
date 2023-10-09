@@ -45,6 +45,8 @@ What work has been done when?
 		- Moved `EditExercise` into separate sheet (and files), like `NewMetadate`
 	- 9.10.2023, evening + night
 		- Grouped and sorted `Workout`s in `LoggerView` (respectively)
+	- 10.10.2023, after midnight
+		- Grouped `Exercise`s in `WorkoutView`
 
 7. `Main`
 	- 30.9.2023, morning

@@ -40,19 +40,20 @@ class EditWorkoutTemplateViewViewModel: ObservableObject {
         self.newExerciseTemplateId = ""
         
         workoutTemplateRef.getDocument { document, error in
-                guard let document = document, document.exists else {
-                    return
-                }
-                let data = document.data()
-                let name = data?["name"] as? String ?? "name"
-                let exerciseTemplateIdsLocal = data?["exerciseTemplateIds"] as? [String] ?? []
-                
-                self.name = name
-                self.exerciseTemplateIdsLocal = exerciseTemplateIdsLocal
-                self.nameInit = name
-                self.exerciseTemplateIdsLocalInit = exerciseTemplateIdsLocal
-                self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            guard let document = document, document.exists else {
+                return
             }
+            
+            let data = document.data()
+            let name = data?["name"] as? String ?? ""
+            let exerciseTemplateIdsLocal = data?["exerciseTemplateIds"] as? [String] ?? []
+            
+            self.name = name
+            self.exerciseTemplateIdsLocal = exerciseTemplateIdsLocal
+            self.nameInit = name
+            self.exerciseTemplateIdsLocalInit = exerciseTemplateIdsLocal
+            self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+        }
     }
     
     func save(userId: String) {
@@ -75,7 +76,6 @@ class EditWorkoutTemplateViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-        
         return true
     }
     
