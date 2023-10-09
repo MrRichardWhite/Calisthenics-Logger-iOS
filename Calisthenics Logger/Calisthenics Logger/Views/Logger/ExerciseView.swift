@@ -19,6 +19,7 @@ struct ExerciseView: View {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
+        
         self._viewModel = StateObject(
             wrappedValue: ExerciseViewViewModel(
                 userId: userId,
@@ -32,7 +33,6 @@ struct ExerciseView: View {
         NavigationStack {
             VStack {
                 metadataListView
-                editExerciseView
             }
             .navigationTitle("Exercise")
             .toolbar {
@@ -42,6 +42,12 @@ struct ExerciseView: View {
                     Image(systemName: "arrow.clockwise")
                 }
                 
+                Button {
+                    viewModel.showingEditExerciseView = true
+                } label: {
+                    Image(systemName: "pencil")
+                }
+
                 Button {
                     viewModel.showingNewMetadateView = true
                 } label: {
@@ -54,6 +60,14 @@ struct ExerciseView: View {
                     workoutId: workoutId,
                     exerciseId: exerciseId,
                     newMetadatePresented: $viewModel.showingNewMetadateView
+                )
+            }
+            .sheet(isPresented: $viewModel.showingEditExerciseView){
+                EditExerciseView(
+                    userId: userId,
+                    workoutId: workoutId,
+                    exerciseId: exerciseId,
+                    editExercisePresented: $viewModel.showingEditExerciseView
                 )
             }
         }
@@ -94,38 +108,6 @@ struct ExerciseView: View {
                         .tint(Color.red)
                 }
             }
-        }
-    }
-    
-    @ViewBuilder
-    var editExerciseView: some View {
-        Form {
-            TextField("Name", text: $viewModel.name)
-            
-            CLButton(title: "Save", background: viewModel.background) {
-                if viewModel.canSave && !viewModel.dataIsInit {
-                    viewModel.save(
-                        userId: userId
-                    )
-                } else {
-                    if !viewModel.canSave {
-                        viewModel.alertTitle = "Error"
-                        viewModel.alertMessage = "Please fill in the name field!"
-                    }
-                    if !viewModel.dataIsInit {
-                        viewModel.alertTitle = "Warning"
-                        viewModel.alertMessage = "Data was not changed!"
-                    }
-                    viewModel.showAlert = true
-                }
-            }
-            .padding()
-        }
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(
-                title: Text(viewModel.alertTitle),
-                message: Text(viewModel.alertMessage)
-            )
         }
     }
 }

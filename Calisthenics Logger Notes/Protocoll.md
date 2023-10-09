@@ -41,6 +41,8 @@ What work has been done when?
 		- Added info and a refresh button to `WorkoutView` and `ExerciseView` respectively
 	- 9.10.2023, 15:15-15:40
 		- Moved `EditWorkout` into separate sheet (and files), like `NewExercise`
+	- 9.10.2023, 18:00-18:30
+		- Moved `EditExercise` into separate sheet (and files), like `NewMetadate`
 
 7. `Main`
 	- 30.9.2023, morning
