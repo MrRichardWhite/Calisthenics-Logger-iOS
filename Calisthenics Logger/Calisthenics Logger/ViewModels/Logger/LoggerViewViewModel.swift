@@ -98,4 +98,28 @@ class LoggerViewViewModel: ObservableObject {
         
         deleteWorkout(workoutRef: workoutRef)
     }
+    
+    func group(workouts: [Workout]) -> (
+        dict: Dictionary<DateComponents, Array<Workout>>,
+        keys: Array<DateComponents>
+    ) {
+        let d = Dictionary(grouping: workouts) { workout in
+            Calendar.current.dateComponents(
+                [.year, .month],
+                from: Date(timeIntervalSince1970: workout.time)
+            )
+        }
+        let dict = Dictionary(
+            uniqueKeysWithValues: d.map { key, value in
+                var sorted = value
+                sorted.sort { $0.time > $1.time }
+                return (key, sorted)
+            }
+        )
+        
+        var keys = dict.map { $0.key }
+        keys.sort { $0.month ?? 0 > $1.month ?? 0 }
+        
+        return (dict, keys)
+    }
 }
