@@ -33,7 +33,6 @@ struct WorkoutView: View {
         NavigationStack {
             VStack {
                 exerciseListView
-                editWorkoutView
             }
             .navigationTitle("Workout")
             .toolbar {
@@ -42,6 +41,12 @@ struct WorkoutView: View {
                         viewModel.load_exercises()
                     } label: {
                         Image(systemName: "arrow.clockwise")
+                    }
+                    
+                    Button {
+                        viewModel.showingEditWorkoutView = true
+                    } label: {
+                        Image(systemName: "pencil")
                     }
                     
                     Button {
@@ -56,6 +61,13 @@ struct WorkoutView: View {
                     userId: userId,
                     workoutId: workoutId,
                     newExercisePresented: $viewModel.showingNewExerciseView
+                )
+            }
+            .sheet(isPresented: $viewModel.showingEditWorkoutView){
+                EditWorkoutView(
+                    userId: userId,
+                    workoutId: workoutId,
+                    editWorkoutPresented: $viewModel.showingEditWorkoutView
                 )
             }
         }
@@ -105,43 +117,6 @@ struct WorkoutView: View {
                         .tint(Color.red)
                 }
             }
-        }
-    }
-    
-    @ViewBuilder
-    var editWorkoutView: some View {
-        Form {
-            TextField("Name", text: $viewModel.name)
-
-            DatePicker("Time", selection: $viewModel.time)
-                .padding(1)
-            
-            TextField("Location", text: $viewModel.location)
-            
-            CLButton(title: "Save", background: viewModel.background) {
-                if viewModel.canSave && !viewModel.dataIsInit {
-                    viewModel.save(
-                        userId: userId
-                    )
-                } else {
-                    if !viewModel.canSave {
-                        viewModel.alertTitle = "Error"
-                        viewModel.alertMessage = "Please fill in all fields!"
-                    }
-                    if viewModel.dataIsInit {
-                        viewModel.alertTitle = "Warning"
-                        viewModel.alertMessage = "Data was not changed!"
-                    }
-                    viewModel.showAlert = true
-                }
-            }
-            .padding()
-        }
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(
-                title: Text(viewModel.alertTitle),
-                message: Text(viewModel.alertMessage)
-            )
         }
     }
 }
