@@ -47,13 +47,16 @@ What work has been done when?
 		- updated `ProfileView`
 
 8. `Templates`
-	- 31.9.2023, afternoon - midnight:
+	- 31.9.2023, afternoon - midnight
 		- basic navigation
 		- ability to add templates
 		- one cannot edit them (jet)
-	- 1.10.2023, all day & 2.10.2023 afternoon:
+	- 1.10.2023, all day & 2.10.2023 afternoon
 		- implemented editing Templates except for `WorkoutTemplates`
 
 9. `Stats`
-	- 8.10.2023, morning:
-		- Milking [SwiftUI 4.0 - New Swift Charts API - Customisation, Animations & Gestures - Xcode 14 - WWDC 2022](https://youtu.be/xS-fGYDD0qk?si=nl76TYboCmM90sXi) - Stats Base
+	- 8.10.2023, morning
+		- milked [SwiftUI 4.0 - New Swift Charts API - Customisation, Animations & Gestures - Xcode 14 - WWDC 2022](https://youtu.be/xS-fGYDD0qk?si=nl76TYboCmM90sXi) - `Stats` Base
+	- 8.10.2023 - 9.10.2023, evening - early morning
+		- adapted `Stats` base to my needs
+		- implemented adding, editing and deleting `Stats`

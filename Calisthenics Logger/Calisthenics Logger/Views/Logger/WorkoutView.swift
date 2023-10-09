@@ -53,7 +53,7 @@ struct WorkoutView: View {
         }
     }
     
-    @ ViewBuilder
+    @ViewBuilder
     var exerciseListView: some View {
         List(exercises) { exercise in
             NavigationLink(

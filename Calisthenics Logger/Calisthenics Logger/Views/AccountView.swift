@@ -29,7 +29,7 @@ struct AccountView: View {
                 .tabItem {
                     Label("Templates", systemImage: "newspaper")
                 }
-            StatsView()
+            StatsView(userId: userId)
                 .tabItem {
                     Label("Stats", systemImage: "chart.xyaxis.line")
                 }

@@ -38,16 +38,16 @@ struct LoggerView: View {
                     ) {
                         VStack(alignment: .leading) {
                             Text(workout.name)
+                                .bold()
+                            
                             let date = Date(
                                 timeIntervalSince1970: workout.time
                             )
                                 .formatted(date: .abbreviated, time: .shortened)
                             Text("\(date)")
-                                .font(.footnote)
                                 .foregroundColor(Color(.secondaryLabel))
 
                             Text("\(workout.location)")
-                                .font(.footnote)
                                 .foregroundColor(Color(.secondaryLabel))
 
                         }
