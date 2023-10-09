@@ -22,6 +22,10 @@ class WorkoutViewViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var showingNewExerciseView = false
     
+    @Published var exercises: [Exercise] = []
+    @Published var metadata: [String:[Metadate]] = [:]
+    @Published var elements: [String:[String: [Element]]] = [:]
+
     private let userId: String
     private let workoutId: String
     
@@ -59,6 +63,8 @@ class WorkoutViewViewModel: ObservableObject {
                 self.location = location
                 self.created = created
             }
+        
+        load_exercises()
     }
     
     func deleteElement(elementRef: DocumentReference) {
@@ -164,5 +170,89 @@ class WorkoutViewViewModel: ObservableObject {
         } else {
             return .gray
         }
+    }
+    
+    func load_elements(exerciseId: String, metadateId: String) {
+        elements[exerciseId]?[metadateId] = []
+        
+        let exerciseRef = workoutRef
+            .collection("exercises")
+            .document(exerciseId)
+        
+        let metadateRef = exerciseRef
+            .collection("metadata")
+            .document(metadateId)
+        
+        metadateRef
+            .collection("elements")
+            .getDocuments { snapshot, error in
+                if error == nil {
+                    if let snapshot = snapshot {
+                        for data in snapshot.documents {
+                            let element = Element(
+                                id: data["id"] as? String ?? "id",
+                                content: data["content"] as? String ?? "content",
+                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                            )
+                            self.elements[exerciseId]?[metadateId]?.append(element)
+                        }
+                    }
+                }
+            }
+    }
+    
+    func load_metadata(exerciseId: String) {
+        metadata[exerciseId] = []
+        elements[exerciseId] = [:]
+        
+        let exerciseRef = workoutRef
+            .collection("exercises")
+            .document(exerciseId)
+        
+        exerciseRef
+            .collection("metadata")
+            .getDocuments { snapshot, error in
+                if error == nil {
+                    if let snapshot = snapshot {
+                        for data in snapshot.documents {
+                            let metadate = Metadate(
+                                id: data["id"] as? String ?? "id",
+                                name: data["name"] as? String ?? "name",
+                                unit: data["unit"] as? String ?? "unit",
+                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                            )
+                            self.metadata[exerciseId]?.append(metadate)
+                            
+                            self.load_elements(exerciseId: exerciseId, metadateId: metadate.id)
+                        }
+                    }
+                }
+            }
+    }
+    
+    func load_exercises() {
+        exercises = []
+        
+        workoutRef
+            .collection("exercises")
+            .getDocuments { snapshot, error in
+                if error == nil {
+                    if let snapshot = snapshot {
+                        for data in snapshot.documents {
+                            let exercise = Exercise(
+                                id: data["id"] as? String ?? "id",
+                                name: data["name"] as? String ?? "name",
+                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                            )
+                            self.exercises.append(exercise)
+                            
+                            self.load_metadata(exerciseId: exercise.id)
+                        }
+                    }
+                }
+            }
     }
 }

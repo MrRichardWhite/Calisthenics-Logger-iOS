@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ExerciseView: View {
     @StateObject var viewModel: ExerciseViewViewModel
-    @FirestoreQuery var metadata: [Metadate]
     
     private let userId: String
     private let workoutId: String
@@ -20,9 +19,6 @@ struct ExerciseView: View {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
-        self._metadata = FirestoreQuery(
-            collectionPath: "users/\(userId)/workouts/\(workoutId)/exercises/\(exerciseId)/metadata"
-        )
         self._viewModel = StateObject(
             wrappedValue: ExerciseViewViewModel(
                 userId: userId,
@@ -41,6 +37,12 @@ struct ExerciseView: View {
             .navigationTitle("Exercise")
             .toolbar {
                 Button {
+                    viewModel.load_metadata()
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                }
+                
+                Button {
                     viewModel.showingNewMetadateView = true
                 } label: {
                     Image(systemName: "plus")
@@ -55,11 +57,14 @@ struct ExerciseView: View {
                 )
             }
         }
+        .onChange(of: viewModel.showingNewMetadateView) {
+            viewModel.load_metadata()
+        }
     }
     
     @ViewBuilder
     var metadataListView: some View {
-        List(metadata) { metadate in
+        List(viewModel.metadata) { metadate in
             NavigationLink(
                 destination: MetadateView(
                     userId: userId,
@@ -70,6 +75,12 @@ struct ExerciseView: View {
             ) {
                 VStack(alignment: .leading) {
                     Text(metadate.name)
+                        .padding(.bottom, 5)
+                    
+                    let contents = viewModel.elements[metadate.id, default: []].map { $0.content }
+                    Text(contents.joined(separator: ", "))
+                        .font(.footnote)
+                        .foregroundColor(Color(.secondaryLabel))
                 }
             }
             .swipeActions {
@@ -77,6 +88,7 @@ struct ExerciseView: View {
                     viewModel.delete(
                         metadateId: metadate.id
                     )
+                    viewModel.load_metadata()
                 } label: {
                     Image(systemName: "trash")
                         .tint(Color.red)
@@ -121,7 +133,7 @@ struct ExerciseView: View {
 #Preview {
     ExerciseView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
-        exerciseId: "175BC775-8F64-4306-86FD-00569ACC2BFC"
+        workoutId: "07FCE443-3617-422E-B396-E34F05421D3E",
+        exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B"
     )
 }

@@ -37,10 +37,18 @@ struct WorkoutView: View {
             }
             .navigationTitle("Workout")
             .toolbar {
-                Button {
-                    viewModel.showingNewExerciseView = true
-                } label: {
-                    Image(systemName: "plus")
+                HStack {
+                    Button {
+                        viewModel.load_exercises()
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    
+                    Button {
+                        viewModel.showingNewExerciseView = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
             .sheet(isPresented: $viewModel.showingNewExerciseView){
@@ -51,11 +59,14 @@ struct WorkoutView: View {
                 )
             }
         }
+        .onChange(of: viewModel.showingNewExerciseView) {
+            viewModel.load_exercises()
+        }
     }
     
     @ViewBuilder
     var exerciseListView: some View {
-        List(exercises) { exercise in
+        List(viewModel.exercises) { exercise in
             NavigationLink(
                 destination: ExerciseView(
                     userId: userId,
@@ -65,14 +76,30 @@ struct WorkoutView: View {
             ) {
                 VStack(alignment: .leading) {
                     Text(exercise.name)
+                        .padding(.bottom, 5)
+                    
+                    ForEach(viewModel.metadata[exercise.id] ?? []) { metadate in
+                        HStack {
+                            Text(metadate.name)
+                                .font(.footnote)
+                                .foregroundColor(Color(.secondaryLabel))
+                            
+                            Spacer()
+                            
+                            let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map { $0.content }
+                            Text((contents?.joined(separator: ", "))!)
+                                .font(.footnote)
+                                .foregroundColor(Color(.secondaryLabel))
+                        }
+                    }
                 }
             }
             .swipeActions {
                 Button {
-                    // Delete
                     viewModel.delete(
                         exerciseId: exercise.id
                     )
+                    viewModel.load_exercises()
                 } label: {
                     Image(systemName: "trash")
                         .tint(Color.red)
@@ -122,6 +149,6 @@ struct WorkoutView: View {
 #Preview {
     WorkoutView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354"
+        workoutId: "07FCE443-3617-422E-B396-E34F05421D3E"
     )
 }

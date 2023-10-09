@@ -17,7 +17,10 @@ class ExerciseViewViewModel: ObservableObject {
     @Published var alertMessage = ""
     @Published var showAlert = false
     @Published var showingNewMetadateView = false
-
+    
+    @Published var metadata: [Metadate] = []
+    @Published var elements: [String: [Element]] = [:]
+    
     private let userId: String
     private let workoutId: String
     private let exerciseId: String
@@ -49,6 +52,8 @@ class ExerciseViewViewModel: ObservableObject {
                 self.name = name
                 self.created = created
             }
+        
+        load_metadata()
     }
     
     func deleteElement(elementRef: DocumentReference) {
@@ -122,5 +127,56 @@ class ExerciseViewViewModel: ObservableObject {
         } else {
             return .gray
         }
+    }
+    
+    func load_elements(metadateId: String) {
+        elements[metadateId] = []
+        
+        let metadateRef = exerciseRef
+            .collection("metadata")
+            .document(metadateId)
+        
+        metadateRef
+            .collection("elements")
+            .getDocuments { snapshot, error in
+                if error == nil {
+                    if let snapshot = snapshot {
+                        for data in snapshot.documents {
+                            let element = Element(
+                                id: data["id"] as? String ?? "id",
+                                content: data["content"] as? String ?? "content",
+                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                            )
+                            self.elements[metadateId]?.append(element)
+                        }
+                    }
+                }
+            }
+    }
+    
+    func load_metadata() {
+        metadata = []
+        
+        exerciseRef
+            .collection("metadata")
+            .getDocuments { snapshot, error in
+                if error == nil {
+                    if let snapshot = snapshot {
+                        for data in snapshot.documents {
+                            let metadate = Metadate(
+                                id: data["id"] as? String ?? "id",
+                                name: data["name"] as? String ?? "name",
+                                unit: data["unit"] as? String ?? "unit",
+                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                                edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
+                            )
+                            self.metadata.append(metadate)
+                            
+                            self.load_elements(metadateId: metadate.id)
+                        }
+                    }
+                }
+            }
     }
 }

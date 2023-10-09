@@ -37,6 +37,8 @@ What work has been done when?
 		- implemented `Alerts` from `NewExercise` for `Login` and `Registration`
 	- 5.10.2023-6.10.2023, all day
 		- implemented editing `Workouts`, `Exercises` and `Metadata`
+	- 9.10.2023, early afternoon
+		- Added info and a refresh button to `WorkoutView` and `ExerciseView` respectively
 
 7. `Main`
 	- 30.9.2023, morning
