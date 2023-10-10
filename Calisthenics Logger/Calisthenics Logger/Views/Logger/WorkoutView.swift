@@ -36,7 +36,7 @@ struct WorkoutView: View {
             .toolbar {
                 HStack {
                     Button {
-                        viewModel.load_exercises()
+                        viewModel.loadExercises()
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
@@ -70,7 +70,7 @@ struct WorkoutView: View {
             }
         }
         .onChange(of: viewModel.showingNewExerciseView) {
-            viewModel.load_exercises()
+            viewModel.loadExercises()
         }
     }
     
@@ -124,7 +124,7 @@ struct WorkoutView: View {
                                     viewModel.delete(
                                         exerciseId: exercise.id
                                     )
-                                    viewModel.load_exercises()
+                                    viewModel.loadExercises()
                                 } label: {
                                     Image(systemName: "trash")
                                         .tint(Color.red)

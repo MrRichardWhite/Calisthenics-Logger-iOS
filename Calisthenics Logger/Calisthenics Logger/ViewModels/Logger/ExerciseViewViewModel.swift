@@ -35,7 +35,7 @@ class ExerciseViewViewModel: ObservableObject {
             .collection("exercises")
             .document(exerciseId)
         
-        load_metadata()
+        loadMetadata()
     }
     
     func deleteElement(elementRef: DocumentReference) {
@@ -69,7 +69,7 @@ class ExerciseViewViewModel: ObservableObject {
         deleteMetdate(metadateRef: metadateRef)
     }
     
-    func load_elements(metadateId: String) {
+    func loadElements(metadateId: String) {
         elements[metadateId] = []
         
         let metadateRef = exerciseRef
@@ -93,7 +93,7 @@ class ExerciseViewViewModel: ObservableObject {
         }
     }
     
-    func load_metadata() {
+    func loadMetadata() {
         metadata = []
         
         exerciseRef.collection("metadata").getDocuments { snapshot, error in
@@ -109,7 +109,7 @@ class ExerciseViewViewModel: ObservableObject {
                         )
                         self.metadata.append(metadate)
                         
-                        self.load_elements(metadateId: metadate.id)
+                        self.loadElements(metadateId: metadate.id)
                     }
                 }
             }

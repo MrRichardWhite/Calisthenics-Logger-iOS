@@ -37,7 +37,7 @@ struct ExerciseView: View {
             .navigationTitle("Exercise")
             .toolbar {
                 Button {
-                    viewModel.load_metadata()
+                    viewModel.loadMetadata()
                 } label: {
                     Image(systemName: "arrow.clockwise")
                 }
@@ -72,7 +72,7 @@ struct ExerciseView: View {
             }
         }
         .onChange(of: viewModel.showingNewMetadateView) {
-            viewModel.load_metadata()
+            viewModel.loadMetadata()
         }
     }
     
@@ -102,7 +102,7 @@ struct ExerciseView: View {
                     viewModel.delete(
                         metadateId: metadate.id
                     )
-                    viewModel.load_metadata()
+                    viewModel.loadMetadata()
                 } label: {
                     Image(systemName: "trash")
                         .tint(Color.red)
