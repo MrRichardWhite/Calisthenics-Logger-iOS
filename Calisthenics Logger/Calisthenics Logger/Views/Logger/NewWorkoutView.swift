@@ -47,9 +47,7 @@ struct NewWorkoutView: View {
                 
                 CLButton(title: "Add", background: viewModel.background) {
                     if viewModel.canSave {
-                        viewModel.save(
-                            userId: userId
-                        )
+                        viewModel.save()
                         newWorkoutPresented = false
                     } else {
                         viewModel.showAlert = true

@@ -38,15 +38,17 @@ What work has been done when?
 	- 5.10.2023-6.10.2023, all day
 		- implemented editing `Workouts`, `Exercises` and `Metadata`
 	- 9.10.2023, early afternoon
-		- Added info and a refresh button to `WorkoutView` and `ExerciseView` respectively
+		- added info and a refresh button to `WorkoutView` and `ExerciseView` respectively
 	- 9.10.2023, 15:15-15:40
-		- Moved `EditWorkout` into separate sheet (and files), like `NewExercise`
+		- moved `EditWorkout` into separate sheet (and files), like `NewExercise`
 	- 9.10.2023, 18:00-18:30
-		- Moved `EditExercise` into separate sheet (and files), like `NewMetadate`
+		- moved `EditExercise` into separate sheet (and files), like `NewMetadate`
 	- 9.10.2023, evening + night
-		- Grouped and sorted `Workout`s in `LoggerView` (respectively)
+		- grouped and sorted `Workout`s in `LoggerView` (respectively)
 	- 10.10.2023, after midnight
-		- Grouped `Exercise`s in `WorkoutView`
+		- grouped `Exercise`s in `WorkoutView`
+	- 10.10.2023, evening
+		- fixed a but where too many `Metadate`s were created when using `NewWorkout`
 
 7. `Main`
 	- 30.9.2023, morning

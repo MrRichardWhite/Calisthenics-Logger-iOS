@@ -94,11 +94,7 @@ class NewWorkoutViewViewModel: ObservableObject {
         }
     }
     
-    func save(userId: String) {
-        guard canSave else {
-            return
-        }
-        
+    func saveWorkout() {
         let newWorkoutId = UUID().uuidString
         let newWorkout = Workout(
             id: newWorkoutId,
@@ -116,62 +112,78 @@ class NewWorkoutViewViewModel: ObservableObject {
         workoutRef.setData(newWorkout.asDictionary())
         
         for exerciseTemplateId in pickedWorkoutTemplate.exerciseTemplateIds {
-            let exerciseTemplate = id2exerciseTemplate(exerciseTemplateId: exerciseTemplateId)
-            
-            let newExerciseId = UUID().uuidString
-            let newExercise = Exercise(
-                id: newExerciseId,
-                name: exerciseTemplate.name,
-                category: exerciseTemplate.category,
-                created: Date().timeIntervalSince1970,
-                edited: Date().timeIntervalSince1970
-            )
-            
-            let exerciseRef = workoutRef
-                .collection("exercises")
-                .document(newExerciseId)
-
-            exerciseRef.setData(newExercise.asDictionary())
-            
-            for exerciseTemplateId in pickedWorkoutTemplate.exerciseTemplateIds {
-                let exerciseTemplate = id2exerciseTemplate(exerciseTemplateId: exerciseTemplateId)
-                
-                for metadateTemplateId in exerciseTemplate.metadateTemplateIds {
-                    let metadateTemplate = id2metadateTemplate(metadateTemplateId: metadateTemplateId)
-                    
-                    let newMetadateId = UUID().uuidString
-                    let newMetadate = Metadate(
-                        id: newMetadateId,
-                        name: metadateTemplate.name,
-                        unit: metadateTemplate.unit,
-                        created: Date().timeIntervalSince1970,
-                        edited: Date().timeIntervalSince1970
-                    )
-                    
-                    let metadateRef = exerciseRef
-                        .collection("metadata")
-                        .document(newMetadateId)
-
-                    metadateRef.setData(newMetadate.asDictionary())
-                    
-                    for _ in 1...metadateTemplate.elementsCount {
-                        let newElementId = UUID().uuidString
-                        let newElement = Element(
-                            id: newElementId,
-                            content: "",
-                            created: Date().timeIntervalSince1970,
-                            edited: Date().timeIntervalSince1970
-                        )
-                        
-                        let elementRef = metadateRef
-                            .collection("elements")
-                            .document(newElementId)
-
-                        elementRef.setData(newElement.asDictionary())
-                    }
-                }
-            }
+            saveExercise(workoutRef: workoutRef, exerciseTemplateId: exerciseTemplateId)
         }
+    }
+    
+    func saveExercise(workoutRef: DocumentReference, exerciseTemplateId: String) {
+        let exerciseTemplate = id2exerciseTemplate(exerciseTemplateId: exerciseTemplateId)
+        
+        let newExerciseId = UUID().uuidString
+        let newExercise = Exercise(
+            id: newExerciseId,
+            name: exerciseTemplate.name,
+            category: exerciseTemplate.category,
+            created: Date().timeIntervalSince1970,
+            edited: Date().timeIntervalSince1970
+        )
+        
+        let exerciseRef = workoutRef
+            .collection("exercises")
+            .document(newExerciseId)
+
+        exerciseRef.setData(newExercise.asDictionary())
+        
+        for metadateTemplateId in exerciseTemplate.metadateTemplateIds {
+            saveMetadate(exerciseRef: exerciseRef, metadateTemplateId: metadateTemplateId)
+        }
+    }
+    
+    func saveMetadate(exerciseRef: DocumentReference, metadateTemplateId: String) {
+        let metadateTemplate = id2metadateTemplate(metadateTemplateId: metadateTemplateId)
+        
+        let newMetadateId = UUID().uuidString
+        let newMetadate = Metadate(
+            id: newMetadateId,
+            name: metadateTemplate.name,
+            unit: metadateTemplate.unit,
+            created: Date().timeIntervalSince1970,
+            edited: Date().timeIntervalSince1970
+        )
+        
+        let metadateRef = exerciseRef
+            .collection("metadata")
+            .document(newMetadateId)
+
+        metadateRef.setData(newMetadate.asDictionary())
+        
+        for _ in 1...metadateTemplate.elementsCount {
+            saveElement(metadateRef: metadateRef)
+        }
+    }
+    
+    func saveElement(metadateRef: DocumentReference) {
+        let newElementId = UUID().uuidString
+        let newElement = Element(
+            id: newElementId,
+            content: "",
+            created: Date().timeIntervalSince1970,
+            edited: Date().timeIntervalSince1970
+        )
+        
+        let elementRef = metadateRef
+            .collection("elements")
+            .document(newElementId)
+
+        elementRef.setData(newElement.asDictionary())
+    }
+    
+    func save() {
+        guard canSave else {
+            return
+        }
+        
+        saveWorkout()
     }
     
     var canSave: Bool {
