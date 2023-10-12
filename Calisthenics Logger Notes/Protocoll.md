@@ -49,6 +49,8 @@ What work has been done when?
 		- grouped `Exercise`s in `WorkoutView`
 	- 10.10.2023, evening
 		- fixed a but where too many `Metadate`s were created when using `NewWorkout`
+	- 12.10.2023, 16:30
+		- alphabetical sorting (without emojis)
 
 7. `Main`
 	- 30.9.2023, morning
@@ -65,6 +67,8 @@ What work has been done when?
 		- one cannot edit them (jet)
 	- 1.10.2023, all day & 2.10.2023 afternoon
 		- implemented editing Templates except for `WorkoutTemplates`
+	- 12.10.2023, 16:30
+		- alphabetical sorting (without emojis)
 
 9. `Stats`
 	- 8.10.2023, morning
