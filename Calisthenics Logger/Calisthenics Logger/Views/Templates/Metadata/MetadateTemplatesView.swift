@@ -10,13 +10,13 @@ import SwiftUI
 
 struct MetadateTemplatesView: View {
     @StateObject var viewModel: MetadateTemplatesViewViewModel
-    @FirestoreQuery var metadateTemplates: [MetadateTemplate]
+    @FirestoreQuery var metadateTemplatesQuery: [MetadateTemplate]
     
     private let userId: String
     
     init(userId: String) {
         self.userId = userId
-        self._metadateTemplates = FirestoreQuery(
+        self._metadateTemplatesQuery = FirestoreQuery(
             collectionPath: "users/\(userId)/metadateTemplates"
         )
         self._viewModel = StateObject(
@@ -63,6 +63,12 @@ struct MetadateTemplatesView: View {
                 )
             }
         }
+    }
+    
+    var metadateTemplates: [MetadateTemplate] {
+        var metadateTemplatesSorted: [MetadateTemplate] = metadateTemplatesQuery
+        metadateTemplatesSorted.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+        return metadateTemplatesSorted
     }
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditExerciseTemplateView: View {
     @StateObject var viewModel: EditExerciseTemplateViewViewModel
-    @FirestoreQuery var metadateTemplates: [MetadateTemplate]
+    @FirestoreQuery var metadateTemplatesQuery: [MetadateTemplate]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     private let userId: String
@@ -19,7 +19,7 @@ struct EditExerciseTemplateView: View {
     init(userId: String, exerciseTemplateId: String) {
         self.userId = userId
         self.exerciseTemplateId = exerciseTemplateId
-        self._metadateTemplates = FirestoreQuery(
+        self._metadateTemplatesQuery = FirestoreQuery(
             collectionPath: "users/\(userId)/metadateTemplates"
         )
         self._viewModel = StateObject(
@@ -123,6 +123,12 @@ struct EditExerciseTemplateView: View {
             }
             .padding()
         }
+    }
+    
+    var metadateTemplates: [MetadateTemplate] {
+        var metadateTemplatesSorted: [MetadateTemplate] = metadateTemplatesQuery
+        metadateTemplatesSorted.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+        return metadateTemplatesSorted
     }
 }
 

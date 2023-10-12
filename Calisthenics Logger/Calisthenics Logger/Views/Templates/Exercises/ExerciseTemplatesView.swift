@@ -10,13 +10,13 @@ import SwiftUI
 
 struct ExerciseTemplatesView: View {
     @StateObject var viewModel: ExerciseTemplatesViewViewModel
-    @FirestoreQuery var exerciseTemplates: [ExerciseTemplate]
+    @FirestoreQuery var exerciseTemplatesQuery: [ExerciseTemplate]
     
     private let userId: String
     
     init(userId: String) {
         self.userId = userId
-        self._exerciseTemplates = FirestoreQuery(
+        self._exerciseTemplatesQuery = FirestoreQuery(
             collectionPath: "users/\(userId)/exerciseTemplates"
         )
         self._viewModel = StateObject(
@@ -62,6 +62,12 @@ struct ExerciseTemplatesView: View {
                 )
             }
         }
+    }
+    
+    var exerciseTemplates: [ExerciseTemplate] {
+        var exerciseTemplatesSorted: [ExerciseTemplate] = exerciseTemplatesQuery
+        exerciseTemplatesSorted.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+        return exerciseTemplatesSorted
     }
 }
 

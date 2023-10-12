@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditWorkoutTemplateView: View {
     @StateObject var viewModel: EditWorkoutTemplateViewViewModel
-    @FirestoreQuery var exerciseTemplates: [ExerciseTemplate]
+    @FirestoreQuery var exerciseTemplatesQuery: [ExerciseTemplate]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     private let userId: String
@@ -19,7 +19,7 @@ struct EditWorkoutTemplateView: View {
     init(userId: String, workoutTemplateId: String) {
         self.userId = userId
         self.workoutTemplateId = workoutTemplateId
-        self._exerciseTemplates = FirestoreQuery(
+        self._exerciseTemplatesQuery = FirestoreQuery(
             collectionPath: "users/\(userId)/exerciseTemplates"
         )
         self._viewModel = StateObject(
@@ -121,6 +121,12 @@ struct EditWorkoutTemplateView: View {
             }
             .padding()
         }
+    }
+    
+    var exerciseTemplates: [ExerciseTemplate] {
+        var exerciseTemplatesSorted: [ExerciseTemplate] = exerciseTemplatesQuery
+        exerciseTemplatesSorted.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+        return exerciseTemplatesSorted
     }
 }
 
