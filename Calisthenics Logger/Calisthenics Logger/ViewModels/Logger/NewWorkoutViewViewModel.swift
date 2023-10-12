@@ -41,7 +41,7 @@ class NewWorkoutViewViewModel: ObservableObject {
         userRef.collection("workoutTemplates").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    let workoutTemplates = snapshot.documents.map { data in
+                    var workoutTemplates = snapshot.documents.map { data in
                         WorkoutTemplate(
                             id: data["id"] as? String ?? "",
                             name: data["name"] as? String ?? "",
@@ -50,6 +50,7 @@ class NewWorkoutViewViewModel: ObservableObject {
                             edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
                         )
                     }
+                    workoutTemplates.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
                     self.workoutTemplates += workoutTemplates
                 }
             }

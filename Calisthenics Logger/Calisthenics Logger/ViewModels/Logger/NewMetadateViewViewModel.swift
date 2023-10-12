@@ -48,7 +48,7 @@ class NewMetadateViewViewModel: ObservableObject {
         userRef.collection("metadateTemplates").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    let metadateTemplates = snapshot.documents.map { data in
+                    var metadateTemplates = snapshot.documents.map { data in
                         MetadateTemplate(
                             id: data["id"] as? String ?? "",
                             name: data["name"] as? String ?? "",
@@ -58,6 +58,7 @@ class NewMetadateViewViewModel: ObservableObject {
                             edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
                         )
                     }
+                    metadateTemplates.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
                     self.metadateTemplates += metadateTemplates
                 }
             }
