@@ -37,7 +37,7 @@ struct LoggerView: View {
                         let month = DateFormatter().monthSymbols[(date.month ?? 0) - 1]
                         let year = String(date.year ?? 0)
                         
-                        var workouts = dict[date] ?? []
+                        let workouts = dict[date] ?? []
                         
                         Section(
                             header: Text("\(month) - \(year)")

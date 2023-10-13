@@ -56,25 +56,23 @@ class NewWorkoutViewViewModel: ObservableObject {
             }
         }
         
-        userRef
-            .collection("exerciseTemplates")
-            .getDocuments { snapshot, error in
-                if error == nil {
-                    if let snapshot = snapshot {
-                        let exerciseTemplates = snapshot.documents.map { data in
-                            ExerciseTemplate(
-                                id: data["id"] as? String ?? "",
-                                name: data["name"] as? String ?? "",
-                                category: data["category"] as? String ?? "",
-                                metadateTemplateIds: data["metadateTemplateIds"] as? [String] ?? [],
-                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                            )
-                        }
-                        self.exerciseTemplates += exerciseTemplates
+        userRef.collection("exerciseTemplates").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let exerciseTemplates = snapshot.documents.map { data in
+                        ExerciseTemplate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            category: data["category"] as? String ?? "",
+                            metadateTemplateIds: data["metadateTemplateIds"] as? [String] ?? [],
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
+                    self.exerciseTemplates += exerciseTemplates
                 }
             }
+        }
         
         userRef.collection("metadateTemplates").getDocuments { snapshot, error in
             if error == nil {

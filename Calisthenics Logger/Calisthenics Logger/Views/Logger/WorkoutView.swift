@@ -84,7 +84,7 @@ struct WorkoutView: View {
             Form {
                 ForEach(keys, id: \.self) { category in
                     
-                    var exercises = dict[category] ?? []
+                    let exercises = dict[category] ?? []
                     
                     Section(
                         header: Text(category)
