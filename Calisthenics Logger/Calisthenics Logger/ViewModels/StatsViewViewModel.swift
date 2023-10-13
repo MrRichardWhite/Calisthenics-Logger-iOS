@@ -23,35 +23,34 @@ class StatsViewViewModel: ObservableObject {
             .document(userId)
     }
     
-    func deleteFilter(filterRef: DocumentReference) {
-        filterRef.delete()
-    }
-    
-    func deleteStat(statRef: DocumentReference) {
+    func delete(statId: String) {
+        let statRef = userRef
+            .collection("stats")
+            .document(statId)
+        
         statRef.collection("stats").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
                     for data in snapshot.documents {
+                        let sampleId = data["id"] as? String ?? ""
+                        let sampleRef = statRef
+                            .collection("samples")
+                            .document(sampleId)
+                        
+                        sampleRef.delete()
+                        
                         let filterId = data["id"] as? String ?? ""
                         let filterRef = statRef
                             .collection("filters")
                             .document(filterId)
                         
-                        self.deleteFilter(filterRef: filterRef)
+                        filterRef.delete()
                     }
                 }
             }
         }
         
         statRef.delete()
-    }
-    
-    func delete(statId: String) {
-        let statRef = userRef
-            .collection("stats")
-            .document(statId)
-        
-        deleteStat(statRef: statRef)
     }
     
     func id2name(exerciseTemplates: [ExerciseTemplate], id: String) -> String {

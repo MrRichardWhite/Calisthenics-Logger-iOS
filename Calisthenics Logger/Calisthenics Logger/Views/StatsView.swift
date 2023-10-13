@@ -13,7 +13,7 @@ struct StatsView: View {
     @StateObject var viewModel: StatsViewViewModel
     @FirestoreQuery var exerciseTemplates: [ExerciseTemplate]
     @FirestoreQuery var metadateTemplates: [MetadateTemplate]
-    @FirestoreQuery var stats: [Stat]
+    @FirestoreQuery var statsQuery: [Stat]
     
     private let userId: String
     
@@ -26,7 +26,7 @@ struct StatsView: View {
         self._metadateTemplates = FirestoreQuery(
             collectionPath: "users/\(userId)/metadateTemplates"
         )
-        self._stats = FirestoreQuery(
+        self._statsQuery = FirestoreQuery(
             collectionPath: "users/\(userId)/stats"
         )
         self._viewModel = StateObject(
@@ -89,6 +89,26 @@ struct StatsView: View {
                 )
             }
         }
+    }
+    
+    var stats: [Stat] {
+        var statsSorted: [Stat] = statsQuery
+        statsSorted.sort {
+            (
+                viewModel.id2name(exerciseTemplates: exerciseTemplates, id: $0.exerciseTemplateId)
+                    .withoutEmoji(),
+                viewModel.id2name(metadateTemplates: metadateTemplates, id: $0.metadateTemplateId)
+                    .withoutEmoji()
+            )
+            <
+            (
+                viewModel.id2name(exerciseTemplates: exerciseTemplates, id: $1.exerciseTemplateId)
+                    .withoutEmoji(),
+                viewModel.id2name(metadateTemplates: metadateTemplates, id: $1.metadateTemplateId)
+                    .withoutEmoji()
+            )
+        }
+        return statsSorted
     }
 }
 

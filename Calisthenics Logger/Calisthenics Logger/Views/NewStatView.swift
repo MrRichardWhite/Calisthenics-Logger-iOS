@@ -34,19 +34,19 @@ struct NewStatView: View {
             Form {
                 Picker("Exercise", selection: $viewModel.pickedExerciseTemplateId) {
                     ForEach(viewModel.exerciseTemplateIds, id: \.self) { exerciseTemplateId in
-                        let text = viewModel.id2name(
-                            exerciseTemplateId: exerciseTemplateId
-                        )
-                        Text(text)
+                        Text(viewModel.id2name(exerciseTemplateId: exerciseTemplateId))
                     }
                 }
                 
                 Picker("Metadate", selection: $viewModel.pickedMetadateTemplateId) {
                     ForEach(viewModel.metadateTemplateIds, id: \.self) { metadateTemplateId in
-                        let text = viewModel.id2name(
-                            metadateTemplateId: metadateTemplateId
-                        )
-                        Text(text)
+                        Text(viewModel.id2name(metadateTemplateId: metadateTemplateId))
+                    }
+                }
+                
+                Picker("Aggregation", selection: $viewModel.pickedAggregation) {
+                    ForEach(aggregations, id: \.self) { aggregation in
+                        Text(aggregation)
                     }
                 }
                 

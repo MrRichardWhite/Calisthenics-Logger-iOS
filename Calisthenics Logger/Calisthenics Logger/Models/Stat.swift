@@ -11,6 +11,9 @@ struct Stat: Codable, Identifiable {
     let id: String
     let exerciseTemplateId: String
     let metadateTemplateId: String
+    let aggregation: String
     let created: TimeInterval
     let edited: TimeInterval
 }
+
+var aggregations: [String] = ["max", "min", "sum", "mean"]

@@ -14,6 +14,9 @@
 		8D199DD42AC193810071894A /* Calisthenics_LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DD32AC193810071894A /* Calisthenics_LoggerTests.swift */; };
 		8D199DDE2AC193810071894A /* Calisthenics_LoggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DDD2AC193810071894A /* Calisthenics_LoggerUITests.swift */; };
 		8D199DE02AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D199DDF2AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift */; };
+		8D1A4F872AD6100F00C8A7C3 /* ChartViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A4F862AD6100F00C8A7C3 /* ChartViewViewModel.swift */; };
+		8D1A4F892AD6101A00C8A7C3 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A4F882AD6101A00C8A7C3 /* ChartView.swift */; };
+		8D1A4F8B2AD832C700C8A7C3 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1A4F8A2AD832C700C8A7C3 /* Sample.swift */; };
 		8D30E0C52AC42F3B00455620 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D30E0C42AC42F3B00455620 /* GoogleService-Info.plist */; };
 		8D30E0C82AC436F500455620 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8D30E0C72AC436F500455620 /* FirebaseAuth */; };
 		8D30E0CA2AC436F500455620 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8D30E0C92AC436F500455620 /* FirebaseFirestore */; };
@@ -120,6 +123,9 @@
 		8D199DD92AC193810071894A /* Calisthenics LoggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Calisthenics LoggerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D199DDD2AC193810071894A /* Calisthenics_LoggerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calisthenics_LoggerUITests.swift; sourceTree = "<group>"; };
 		8D199DDF2AC193810071894A /* Calisthenics_LoggerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calisthenics_LoggerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8D1A4F862AD6100F00C8A7C3 /* ChartViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewViewModel.swift; sourceTree = "<group>"; };
+		8D1A4F882AD6101A00C8A7C3 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		8D1A4F8A2AD832C700C8A7C3 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		8D30E0C42AC42F3B00455620 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8D30E0D22AC43A5D00455620 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8D30E0D42AC43A8700455620 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -297,6 +303,7 @@
 				8DF746592AD3630E00817B64 /* NewStatView.swift */,
 				8DF7464F2AD3501C00817B64 /* StatView.swift */,
 				8D30E0D22AC43A5D00455620 /* ProfileView.swift */,
+				8D1A4F882AD6101A00C8A7C3 /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +321,7 @@
 				8DF7465B2AD3637F00817B64 /* NewStatViewViewModel.swift */,
 				8DF746532AD352E600817B64 /* StatViewViewModel.swift */,
 				8D30E0DA2AC43B3C00455620 /* ProfileViewViewModel.swift */,
+				8D1A4F862AD6100F00C8A7C3 /* ChartViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -329,9 +337,10 @@
 				8D3982EA2AC8775400B6793F /* WorkoutTemplate.swift */,
 				8D3982EC2AC8775E00B6793F /* ExerciseTemplate.swift */,
 				8D3982EE2AC8777600B6793F /* MetadateTemplate.swift */,
-				8DF7464B2AD29E9A00817B64 /* SiteView.swift */,
 				8DF746572AD35CE000817B64 /* Stat.swift */,
 				8DF7464D2AD3390200817B64 /* Filter.swift */,
+				8D1A4F8A2AD832C700C8A7C3 /* Sample.swift */,
+				8DF7464B2AD29E9A00817B64 /* SiteView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -648,6 +657,8 @@
 				8D3983072AC8C6FD00B6793F /* NewExerciseTemplateView.swift in Sources */,
 				8D96FDCC2AC6EE5F00796A81 /* WorkoutViewViewModel.swift in Sources */,
 				8D30E0E52AC45CEB00455620 /* Extensions.swift in Sources */,
+				8D1A4F892AD6101A00C8A7C3 /* ChartView.swift in Sources */,
+				8D1A4F872AD6100F00C8A7C3 /* ChartViewViewModel.swift in Sources */,
 				8D30E0DB2AC43B3C00455620 /* ProfileViewViewModel.swift in Sources */,
 				8D30E0E72AC45F6900455620 /* MainViewViewModel.swift in Sources */,
 				8D3982E72AC8090600B6793F /* AccountView.swift in Sources */,
@@ -671,6 +682,7 @@
 				8D30E0E92AC4634900455620 /* LoggerView.swift in Sources */,
 				8DF746502AD3501C00817B64 /* StatView.swift in Sources */,
 				8D96FDC42AC5C1DE00796A81 /* ExerciseViewViewModel.swift in Sources */,
+				8D1A4F8B2AD832C700C8A7C3 /* Sample.swift in Sources */,
 				8D3982EB2AC8775400B6793F /* WorkoutTemplate.swift in Sources */,
 				8D30E0DF2AC43B7000455620 /* RegisterViewViewModel.swift in Sources */,
 				8D72E50C2ACEDE1A00EAB0ED /* CLSaved.swift in Sources */,

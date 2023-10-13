@@ -76,3 +76,5 @@ What work has been done when?
 	- 8.10.2023 - 9.10.2023, evening - early morning
 		- adapted `Stats` base to my needs
 		- implemented adding, editing and deleting `Stats`
+	- 12.10.2023-13.10.2023, all day
+		- finished except for filters

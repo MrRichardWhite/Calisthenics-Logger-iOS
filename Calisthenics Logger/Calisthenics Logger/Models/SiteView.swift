@@ -14,6 +14,12 @@ struct SiteView: Identifiable {
     var animate: Bool = false
 }
 
+func getDate(s: String) -> Date {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy/MM/dd"
+    return formatter.date(from: s) ?? Date()
+}
+
 extension Date {
     func updateHour(value: Int) -> Date {
         let calendar = Calendar.current

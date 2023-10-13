@@ -14,7 +14,8 @@ class NewStatViewViewModel: ObservableObject {
     @Published var metadateTemplates: [MetadateTemplate] = []
     @Published var pickedExerciseTemplateId = ""
     @Published var pickedMetadateTemplateId = ""
-    
+    @Published var pickedAggregation = "max"
+
     private let userId: String
     
     private let userRef: DocumentReference
@@ -26,10 +27,15 @@ class NewStatViewViewModel: ObservableObject {
             .collection("users")
             .document(userId)
 
+        loadExerciseTemplates()
+        loadMetadateTemplates()
+    }
+    
+    func loadExerciseTemplates() {
         userRef.collection("exerciseTemplates").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    let exerciseTemplates = snapshot.documents.map { data in
+                    var exerciseTemplates = snapshot.documents.map { data in
                         ExerciseTemplate(
                             id: data["id"] as? String ?? "",
                             name: data["name"] as? String ?? "",
@@ -39,15 +45,18 @@ class NewStatViewViewModel: ObservableObject {
                             edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
                         )
                     }
-                    self.exerciseTemplates += exerciseTemplates
+                    exerciseTemplates.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+                    self.exerciseTemplates = exerciseTemplates
                 }
             }
         }
-        
+    }
+    
+    func loadMetadateTemplates() {
         userRef.collection("metadateTemplates").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    let metadateTemplates = snapshot.documents.map { data in
+                    var metadateTemplates = snapshot.documents.map { data in
                         MetadateTemplate(
                             id: data["id"] as? String ?? "",
                             name: data["name"] as? String ?? "",
@@ -57,7 +66,8 @@ class NewStatViewViewModel: ObservableObject {
                             edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
                         )
                     }
-                    self.metadateTemplates += metadateTemplates
+                    metadateTemplates.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+                    self.metadateTemplates = metadateTemplates
                 }
             }
         }
@@ -65,10 +75,22 @@ class NewStatViewViewModel: ObservableObject {
     
     func save() {
         let newStatId = UUID().uuidString
+        
+        var newStatExerciseTemplateId = pickedExerciseTemplateId
+        if exerciseTemplates.count > 0 && newStatExerciseTemplateId == "" {
+            newStatExerciseTemplateId = exerciseTemplateIds[0]
+        }
+        
+        var newStatMetadateTemplateId = pickedMetadateTemplateId
+        if metadateTemplates.count > 0 && newStatMetadateTemplateId == "" {
+            newStatMetadateTemplateId = metadateTemplateIds[0]
+        }
+        
         let newStat = Stat(
             id: newStatId,
-            exerciseTemplateId: pickedExerciseTemplateId,
-            metadateTemplateId: pickedMetadateTemplateId,
+            exerciseTemplateId: newStatExerciseTemplateId,
+            metadateTemplateId: newStatMetadateTemplateId,
+            aggregation: pickedAggregation,
             created: Date().timeIntervalSince1970,
             edited: Date().timeIntervalSince1970
         )
@@ -99,7 +121,7 @@ class NewStatViewViewModel: ObservableObject {
                 return exerciseTemplate
             }
         }
-        return exerciseTemplates[0]
+        return ExerciseTemplate(id: "", name: "", category: "", metadateTemplateIds: [], created: 0, edited: 0)
     }
     
     var metadateTemplateIds: [String] {
@@ -121,6 +143,6 @@ class NewStatViewViewModel: ObservableObject {
                 return metadateTemplate
             }
         }
-        return metadateTemplates[0]
+        return MetadateTemplate(id: "", name: "", unit: "", elementsCount: 1, created: 0, edited: 0)
     }
 }
