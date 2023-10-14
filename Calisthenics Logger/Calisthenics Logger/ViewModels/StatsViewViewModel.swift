@@ -10,6 +10,7 @@ import Foundation
 
 class StatsViewViewModel: ObservableObject {
     @Published var showingNewStatView = false
+    @Published var reloadSamples = false
     
     private let userId: String
     

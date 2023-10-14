@@ -61,6 +61,13 @@ struct StatsView: View {
                             )
                             Text("\(metadateTemplateName)")
                                 .foregroundColor(Color(.secondaryLabel))
+                            
+                            ChartView(
+                                userId: userId,
+                                statId: stat.id,
+                                lite: true,
+                                reloadSamples: $viewModel.reloadSamples
+                            )
                         }
                     }
                     
@@ -76,10 +83,18 @@ struct StatsView: View {
             }
             .navigationTitle("Stats")
             .toolbar {
-                Button {
-                    viewModel.showingNewStatView = true
-                } label: {
-                    Image(systemName: "plus")
+                HStack {
+                    Button {
+                        viewModel.reloadSamples = true
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    
+                    Button {
+                        viewModel.showingNewStatView = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
             .sheet(isPresented: $viewModel.showingNewStatView){

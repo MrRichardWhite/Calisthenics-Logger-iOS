@@ -33,6 +33,7 @@ class ChartViewViewModel: ObservableObject {
     }
     
     func load() {
+        sampleAnalytics = []
         loaded = false
         
         statRef.collection("samples").getDocuments { snapshot, error in

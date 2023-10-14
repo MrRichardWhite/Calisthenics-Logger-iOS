@@ -22,12 +22,17 @@ struct ChartView: View {
     @State var style = "bars"
     @State var animate: [String:Bool] = [:]
     
+    @Binding var reloadSamples: Bool
+    
     private let userId: String
     private let statId: String
+    private let lite: Bool
     
-    init(userId: String, statId: String) {
+    init(userId: String, statId: String, lite: Bool = false, reloadSamples: Binding<Bool>) {
         self.userId = userId
         self.statId = statId
+        self.lite = lite
+        self._reloadSamples = reloadSamples
         
         self._viewModel = StateObject(
             wrappedValue: ChartViewViewModel(
@@ -35,59 +40,59 @@ struct ChartView: View {
                 statId: statId
             )
         )
-        
-//        self._sampleAnalytics = FirestoreQuery(
-//            collectionPath: "users/\(userId)/stats/\(statId)/samples"
-//        )
     }
     
     var body: some View {
         NavigationStack {
-            VStack {
-                chartView
-                
-                Picker("", selection: $style) {
-                    Text("bars")
-                        .tag("bars")
-                    Text("lines")
-                        .tag("lines")
+            if lite { chartView } else {
+                VStack {
+                    chartView
+                    
+                    Picker("", selection: $style) {
+                        Text("bars")
+                            .tag("bars")
+                        Text("lines")
+                            .tag("lines")
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 365)
+                    
+                    Form {
+                        HStack {
+                            Text("mean")
+                            Spacer()
+                            Text("\(viewModel.contents.mean())")
+                        }
+                        HStack {
+                            Text("std")
+                            Spacer()
+                            Text("\(viewModel.contents.std())")
+                        }
+                        HStack {
+                            Text("min")
+                            Spacer()
+                            Text("\(viewModel.contents.min() ?? 0)")
+                        }
+                        HStack {
+                            Text("max")
+                            Spacer()
+                            Text("\(viewModel.contents.max() ?? 0)")
+                        }
+                    }
+                    
+                    Spacer()
                 }
-                .pickerStyle(.segmented)
-                .frame(width: 365)
-                
-                Form {
-                    HStack {
-                        Text("mean")
-                        Spacer()
-                        Text("\(viewModel.contents.mean())")
-                    }
-                    HStack {
-                        Text("std")
-                        Spacer()
-                        Text("\(viewModel.contents.std())")
-                    }
-                    HStack {
-                        Text("min")
-                        Spacer()
-                        Text("\(viewModel.contents.min() ?? 0)")
-                    }
-                    HStack {
-                        Text("max")
-                        Spacer()
-                        Text("\(viewModel.contents.max() ?? 0)")
-                    }
-                }
-                
-                Spacer()
+                .padding()
+                .navigationTitle("Chart")
             }
-            .padding()
-            .navigationTitle("Chart")
         }
         .onChange(of: viewModel.loaded, initial: false) { _, _  in
             animateGraph()
         }
-        .onChange(of: style, initial: false) { _, _  in
+        .onChange(of: reloadSamples, initial: false) { _, _  in
             viewModel.load()
+            animateGraph()
+            reloadSamples = false
         }
     }
 
@@ -124,14 +129,16 @@ struct ChartView: View {
             }
         }
         .chartYScale(domain: 0...(max * 1.1))
-        .frame(height: 200)
+        .frame(width: !lite ? 328 : 280, height: !lite ? 200 : 120)
         .onAppear {
             animateGraph()
         }
         .padding()
         .background {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(.white.shadow(.drop(radius: 2)))
+            if !lite {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(.white.shadow(.drop(radius: 2)))
+            }
         }
     }
 
@@ -143,7 +150,7 @@ struct ChartView: View {
                     dampingFraction: 1,
                     blendDuration: 1
                 )
-                .delay(Double(index) * 0.01)
+                .delay(Double(index) * 0.075)
             ) {
                 animate[viewModel.sampleAnalytics[index].id] = true
             }
@@ -154,6 +161,11 @@ struct ChartView: View {
 #Preview {
     ChartView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        statId: "D5E5E158-856A-45DD-828A-0AB06CD533E9"
+        statId: "D5E5E158-856A-45DD-828A-0AB06CD533E9",
+        lite: true,
+        reloadSamples: Binding(
+            get: { return true },
+            set: { _ in }
+        )
     )
 }

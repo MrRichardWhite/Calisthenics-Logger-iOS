@@ -57,6 +57,14 @@ struct StatView: View {
                         }
                     }
                     
+                    NavigationLink(
+                        destination: filtersView(statId: statId)
+                    ) {
+                        VStack(alignment: .leading) {
+                            Text("Filters")
+                        }
+                    }
+                    
                     CLButton(title: "Save", background: viewModel.background) {
                         if !viewModel.dataIsInit {
                             viewModel.save()
@@ -72,17 +80,14 @@ struct StatView: View {
                 
                 Section {
                     NavigationLink(
-                        destination: filtersView(statId: statId)
-                    ) {
-                        VStack(alignment: .leading) {
-                            Text("Filters")
-                        }
-                    }
-                }
-                
-                Section {
-                    NavigationLink(
-                        destination: ChartView(userId: userId, statId: statId)
+                        destination: ChartView(
+                            userId: userId,
+                            statId: statId,
+                            reloadSamples: Binding(
+                                get: { return true },
+                                set: { _ in }
+                            )
+                        )
                     ) {
                         VStack(alignment: .leading) {
                             Text("Chart")

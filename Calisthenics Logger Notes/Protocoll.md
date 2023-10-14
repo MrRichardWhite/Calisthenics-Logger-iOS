@@ -78,3 +78,5 @@ What work has been done when?
 		- implemented adding, editing and deleting `Stats`
 	- 12.10.2023-13.10.2023, all day
 		- finished except for filters
+	- 14.10.2023, after midnight
+		- added charts to list elements in `StatsView`
