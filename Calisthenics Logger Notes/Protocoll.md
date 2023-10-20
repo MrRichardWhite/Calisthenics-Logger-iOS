@@ -80,3 +80,9 @@ What work has been done when?
 		- finished except for filters
 	- 14.10.2023, after midnight
 		- added charts to list elements in `StatsView`
+	- 16.10.2023, 17:00-19:30 & 19.10.2023, all day & 20.10.2023, afternoon
+		- implemented filters
+	- 20.10.2023, afternoon
+		- added chart label on y-axis
+	- 18.10.2023, evening
+		- moved chart straight into `StatView`

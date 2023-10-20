@@ -13,24 +13,29 @@ class StatViewViewModel: ObservableObject {
     @Published var exerciseTemplates: [ExerciseTemplate] = []
     @Published var metadateTemplates: [MetadateTemplate] = []
     
-    @Published var exerciseTemplateIdInit = ""
-    @Published var metadateTemplateIdInit = ""
-    @Published var aggregationInit = ""
-    @Published var exerciseTemplateId = ""
-    @Published var metadateTemplateId = ""
-    @Published var aggregation = ""
-    @Published var created = Date().timeIntervalSince1970
-    
     @Published var alertTitle = ""
     @Published var alertMessage = ""
     @Published var showAlert = false
+    
+    private var statInit = Stat()
+    @Published var stat = Stat()
+    
+    private var filtersInit: [Filter] = []
+    @Published var filters: [Filter] = []
+    private var filterIdsAdd: [String] = []
+    private var filterIdsDelete: [String] = []
+    
+    @Published var showingNewFilterView = false
+    @Published var newFilterMetadateTemplateId = ""
+    @Published var newFilterRelation = ""
+    @Published var newFilterBound = ""
     
     private let userId: String
     private let statId: String
     
     private let userRef: DocumentReference
     private let statRef: DocumentReference
-
+    
     init(userId: String, statId: String) {
         self.userId = userId
         self.statId = statId
@@ -43,47 +48,53 @@ class StatViewViewModel: ObservableObject {
             .collection("stats")
             .document(statId)
         
+        loadStat()
+        loadExerciseTemplates()
+        loadMetadateTemplates()
+        loadFilters()
+
+    }
+    
+    func loadStat() {
         statRef.getDocument { document, error in
             guard let document = document, document.exists else {
                 return
             }
             
             let data = document.data()
-            let exerciseTemplateId = data?["exerciseTemplateId"] as? String ?? ""
-            let metadateTemplateId = data?["metadateTemplateId"] as? String ?? ""
-            let aggregation = data?["aggregation"] as? String ?? ""
-            let created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            let stat = Stat(
+                id: self.statId,
+                exerciseTemplateId: data?["exerciseTemplateId"] as? String ?? "",
+                metadateTemplateId: data?["metadateTemplateId"] as? String ?? "",
+                aggregation: data?["aggregation"] as? String ?? "",
+                unit: data?["unit"] as? String ?? "",
+                created: data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                edited: data?["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+            )
             
-            self.exerciseTemplateIdInit = exerciseTemplateId
-            self.metadateTemplateIdInit = metadateTemplateId
-            self.aggregationInit = aggregation
-            self.exerciseTemplateId = exerciseTemplateId
-            self.metadateTemplateId = metadateTemplateId
-            self.aggregation = aggregation
-            self.created = created
+            self.statInit = stat
+            self.stat = stat
         }
-        
-        loadExerciseTemplates()
-        loadMetadateTemplates()
-        updateSamples()
     }
     
     func loadExerciseTemplates() {
-        userRef.collection("exerciseTemplates").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    var exerciseTemplates = snapshot.documents.map { data in
-                        ExerciseTemplate(
-                            id: data["id"] as? String ?? "",
-                            name: data["name"] as? String ?? "",
-                            category: data["category"] as? String ?? "",
-                            metadateTemplateIds: data["metadateTempateIds"] as? [String] ?? [],
-                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
-                        )
+        do {
+            userRef.collection("exerciseTemplates").getDocuments { snapshot, error in
+                if error == nil {
+                    if let snapshot = snapshot {
+                        var exerciseTemplates = snapshot.documents.map { data in
+                            ExerciseTemplate(
+                                id: data["id"] as? String ?? "",
+                                name: data["name"] as? String ?? "",
+                                category: data["category"] as? String ?? "",
+                                metadateTemplateIds: data["metadateTempateIds"] as? [String] ?? [],
+                                created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                                edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                            )
+                        }
+                        exerciseTemplates.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+                        self.exerciseTemplates = exerciseTemplates
                     }
-                    exerciseTemplates.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
-                    self.exerciseTemplates = exerciseTemplates
                 }
             }
         }
@@ -110,66 +121,104 @@ class StatViewViewModel: ObservableObject {
         }
     }
     
-    func save() {
-        let updatedStat = Stat(
-            id: statId,
-            exerciseTemplateId: exerciseTemplateId,
-            metadateTemplateId: metadateTemplateId,
-            aggregation: aggregation,
-            created: created,
+    func loadFilters() {
+        statRef.collection("filters").getDocuments() { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    let filters = snapshot.documents.map { data in
+                        Filter(
+                            id: data["id"] as? String ?? "",
+                            metadateTemplateId: data["metadateTemplateId"] as? String ?? "",
+                            relation: data["relation"] as? String ?? "",
+                            bound: data["bound"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
+                    }
+                    self.filtersInit = filters
+                    self.filters = filters
+                }
+            }
+        }
+    }
+    
+    func addFilter() {
+        let newFilter = Filter(
+            id: UUID().uuidString,
+            metadateTemplateId: newFilterMetadateTemplateId,
+            relation: newFilterRelation,
+            bound: newFilterBound,
+            created: Date().timeIntervalSince1970,
             edited: Date().timeIntervalSince1970
         )
+        filters.append(newFilter)
+        filterIdsAdd.append(newFilter.id)
+    }
+    
+    func deleteFilter(filterId: String) {
+        if let index = filterIdsAdd.firstIndex(where: { $0 == filterId }) {
+            filterIdsAdd.remove(at: index)
+        } else {
+            filterIdsDelete.append(filterId)
+        }
         
-        statRef.setData(updatedStat.asDictionary())
+        if let index = filters.firstIndex(where: { $0.id == filterId }) {
+            filters.remove(at: index)
+        }
+    }
+    
+    func save() {
+        saveStat()
+        saveFilters()
+    }
+    
+    func saveStat() {
+        stat.unit = id2metadateTemplate(id: stat.metadateTemplateId).unit
+        statRef.setData(stat.asDictionary())
+    }
+    
+    func saveFilters() {
+        for filterId in filterIdsDelete {
+            let filterRef = statRef.collection("filters").document(filterId)
+            filterRef.delete()
+        }
         
-        exerciseTemplateIdInit = exerciseTemplateId
-        metadateTemplateIdInit = metadateTemplateId
-        aggregationInit = aggregation
-    }
-    
-    func exerciseTemplateIds(exerciseTemplates: [ExerciseTemplate]) -> [String] {
-        return exerciseTemplates.map { $0.id }
-    }
-    
-    func exerciseTemplateNames(exerciseTemplates: [ExerciseTemplate]) -> [String] {
-        return exerciseTemplates.map { $0.name }
-    }
-    
-    func id2exerciseTemplate(id: String) -> ExerciseTemplate {
-        for exerciseTemplate in exerciseTemplates {
-            if exerciseTemplate.id == id {
-                return exerciseTemplate
+        for f in filters {
+            let filterRef = statRef.collection("filters").document(f.id)
+            if filterIdsAdd.contains(f.id) {
+                filterRef.setData(f.asDictionary())
+            } else {
+                filterRef.updateData(f.asDictionary())
             }
         }
-        return ExerciseTemplate(id: "", name: "", category: "", metadateTemplateIds: [], created: 0, edited: 0)
-    }
-    
-    func metadateTemplateIds(metadateTemplates: [MetadateTemplate]) -> [String] {
-        return metadateTemplates.map { $0.id }
-    }
-    
-    func exerciseTemplateNames(metadateTemplates: [MetadateTemplate]) -> [String] {
-        return metadateTemplates.map { $0.name }
-    }
-    
-    func id2metadateTemplate(id: String) -> MetadateTemplate {
-        for metadateTemplate in metadateTemplates {
-            if metadateTemplate.id == id {
-                return metadateTemplate
-            }
-        }
-        return MetadateTemplate(id: "", name: "", unit: "", elementsCount: 0, created: 0, edited: 0)
+        
+        filterIdsAdd = []
+        filterIdsDelete = []
+        
+        filtersInit = filters
     }
     
     var dataIsInit: Bool {
-        guard exerciseTemplateId == exerciseTemplateIdInit else {
+        guard stat.exerciseTemplateId == statInit.exerciseTemplateId,
+              stat.metadateTemplateId == statInit.metadateTemplateId,
+              stat.aggregation == statInit.aggregation else {
             return false
         }
-        guard metadateTemplateId == metadateTemplateIdInit else {
+        
+        guard filterIdsAdd.count == 0, filterIdsDelete.count == 0 else {
             return false
         }
-        guard aggregation == aggregationInit else {
-            return false
+        
+        for f in filters {
+            for g in filtersInit {
+                if f.id == g.id {
+                    guard f.metadateTemplateId == g.metadateTemplateId,
+                          f.relation == g.relation,
+                          f.bound == g.bound else {
+                        return false
+                    }
+                }
+            }
         }
         return true
     }
@@ -182,134 +231,232 @@ class StatViewViewModel: ObservableObject {
         }
     }
     
-    func updateSamples() {
-        deleteSamples()
-        loadSamples()
-    }
-    
-    func deleteSamples() {
-        statRef.collection("samples").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    for data in snapshot.documents {
-                        let sampleId = data["id"] as? String ?? ""
-                        let sampleRef = self.statRef
-                            .collection("samples")
-                            .document(sampleId)
-                        
-                        sampleRef.delete()
-                    }
-                }
-            }
-        }
-    }
-    
-    func loadSamples() {
-        userRef.collection("workouts").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    for data in snapshot.documents {
-                        let workoutId = data["id"] as? String ?? ""
-                        let workoutDate = data["time"] as? TimeInterval ?? Date().timeIntervalSince1970
-                        
-                        let workoutRef = self.userRef
-                            .collection("workouts")
-                            .document(workoutId)
-                        
-                        self.loadSamplesInExercises(workoutRef: workoutRef, workoutDate: workoutDate)
-                    }
-                }
-            }
-        }
-    }
-    
-    func loadSamplesInExercises(workoutRef: DocumentReference, workoutDate: TimeInterval) {
-        workoutRef.collection("exercises").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    for data in snapshot.documents {
-                        let exerciseId = data["id"] as? String ?? ""
-                        let exerciseName = data["name"] as? String ?? ""
-                        
-                        let exerciseRef = workoutRef
-                            .collection("exercises")
-                            .document(exerciseId)
-                        
-                        if exerciseName == self.id2exerciseTemplate(id: self.exerciseTemplateId).name {
-                            self.loadSamplesInMetadates(exerciseRef: exerciseRef, workoutDate: workoutDate)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func loadSamplesInMetadates(exerciseRef: DocumentReference, workoutDate: TimeInterval) {
-        exerciseRef.collection("metadata").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    for data in snapshot.documents {
-                        let metadateId = data["id"] as? String ?? ""
-                        let metadateName = data["name"] as? String ?? ""
-                        
-                        let metadateRef = exerciseRef
-                            .collection("metadata")
-                            .document(metadateId)
-                        
-                        if metadateName == self.id2metadateTemplate(id: self.metadateTemplateId).name {
-                            self.loadSamplesInElements(metadateRef: metadateRef, workoutDate: workoutDate)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func loadSamplesInElements(metadateRef: DocumentReference, workoutDate: TimeInterval) {
-        metadateRef.collection("elements").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    let contents = snapshot.documents
-                        .map { data in data["content"] as? String ?? ""}
-                        .filter { $0 != "" }
-                        .map { Double($0) ?? 0 }
-                    
-                    var content = 0.0
-                    if self.aggregation == "max" {
-                        content = contents.max() ?? 0.0
-                    }
-                    if self.aggregation == "min" {
-                        content = contents.min() ?? 0.0
-                    }
-                    if self.aggregation == "sum" {
-                        content = contents.sum()
-                    }
-                    if self.aggregation == "mean" {
-                        content = contents.mean()
-                    }
-                    
-                    let newSampleId = UUID().uuidString
-                    let newSample = Sample(
-                        id: newSampleId,
-                        date: workoutDate,
-                        content: content
-                    )
-                    
-                    let sampleRef = self.statRef
-                        .collection("samples")
-                        .document(newSampleId)
-                    
-                    sampleRef.setData(newSample.asDictionary())
-                }
-            }
-        }
-    }
-    
     var exerciseTemplateIds: [String] {
-        exerciseTemplates.map { $0.id }
+        return exerciseTemplates.map { $0.id }
     }
-
+    
+    var exerciseTemplateNames: [String] {
+        return exerciseTemplates.map { $0.name }
+    }
+    
+    func id2exerciseTemplate(id: String) -> ExerciseTemplate {
+        for exerciseTemplate in exerciseTemplates {
+            if exerciseTemplate.id == id {
+                return exerciseTemplate
+            }
+        }
+        return ExerciseTemplate(id: "", name: "", category: "", metadateTemplateIds: [], created: 0, edited: 0)
+    }
+    
     var metadateTemplateIds: [String] {
-        metadateTemplates.map { $0.id }
+        return metadateTemplates.map { $0.id }
+    }
+    
+    var metadateTemplateNames: [String] {
+        return metadateTemplates.map { $0.name }
+    }
+    
+    func id2metadateTemplate(id: String) -> MetadateTemplate {
+        for metadateTemplate in metadateTemplates {
+            if metadateTemplate.id == id {
+                return metadateTemplate
+            }
+        }
+        return MetadateTemplate(id: "", name: "", unit: "", elementsCount: 0, created: 0, edited: 0)
+    }
+    
+    func updateSamples() async {
+        await deleteSamples()
+        await updateSamplesInWorkouts()
+    }
+    
+    func deleteSamples() async {
+        do {
+            let collectionSnapshot = try await statRef.collection("samples").getDocuments()
+            for documentSnapshot in collectionSnapshot.documents {
+                let data = documentSnapshot.data()
+                
+                let sampleId = data["id"] as? String ?? ""
+                
+                let sampleRef = self.statRef.collection("samples").document(sampleId)
+                
+                try await sampleRef.delete()
+            }
+        }
+        catch {}
+    }
+    
+    func updateSamplesInWorkouts() async {
+        do {
+            let collectionSnapshot = try await userRef.collection("workouts").getDocuments()
+            for documentSnapshot in collectionSnapshot.documents {
+                let data = documentSnapshot.data()
+                
+                let workoutId = data["id"] as? String ?? ""
+                let workoutDate = data["time"] as? TimeInterval ?? Date().timeIntervalSince1970
+                
+                let workoutRef = self.userRef.collection("workouts").document(workoutId)
+                
+                await self.updateSamplesInExercises(workoutRef: workoutRef, workoutDate: workoutDate)
+            }
+        }
+        catch {}
+    }
+    
+    func updateSamplesInExercises(workoutRef: DocumentReference, workoutDate: TimeInterval) async {
+        do {
+            let collectionSnapshot = try await workoutRef.collection("exercises").getDocuments()
+            for documentSnapshot in collectionSnapshot.documents {
+                let data = documentSnapshot.data()
+                
+                let exerciseId = data["id"] as? String ?? ""
+                let exerciseName = data["name"] as? String ?? ""
+                
+                let exerciseRef = workoutRef.collection("exercises").document(exerciseId)
+                
+                guard await self.willUpdateSamplesInMetadates(exerciseRef: exerciseRef, exerciseName: exerciseName) else {
+                    continue
+                }
+                
+                await self.updateSamplesInMetadata(exerciseRef: exerciseRef, workoutDate: workoutDate)
+            }
+        }
+        catch {}
+    }
+    
+    func willUpdateSamplesInMetadates(exerciseRef: DocumentReference, exerciseName: String) async -> Bool {
+        guard exerciseName == self.id2exerciseTemplate(id: self.stat.exerciseTemplateId).name else {
+            return false
+        }
+        
+        let d = await self.getMetadateElementContentsDict(exerciseRef: exerciseRef)
+        for (metadateName, metadateElementContents) in d {
+            for f in filters {
+                guard f.metadateTemplateId != "", f.relation != "", f.bound != "" else {
+                    continue
+                }
+                
+                guard metadateName == self.id2metadateTemplate(id: f.metadateTemplateId).name else {
+                    continue
+                }
+                
+                for content in metadateElementContents {
+                    var bools: [Bool] = [content == f.bound, content != f.bound]
+                    if let content_d = Double(content),
+                       let f_bound_d = Double(f.bound) {
+                        bools += [
+                            content_d <= f_bound_d, content_d < f_bound_d,
+                            content_d >= f_bound_d, content_d > f_bound_d
+                        ]
+                    }
+                    
+                    for (relation, bool) in zip(relations, bools) {
+                        if f.relation == relation {
+                            guard bool else {
+                                return false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    func getMetadateElementContentsDict(exerciseRef: DocumentReference) async -> [String: [String]] {
+        var d: [String: [String]] = [:]
+        
+        do {
+            let collectionSnapshot = try await exerciseRef.collection("metadata").getDocuments()
+            for documentSnapshot in collectionSnapshot.documents {
+                let data = documentSnapshot.data()
+                
+                let metadateId = data["id"] as? String ?? ""
+                let metadateName = data["name"] as? String ?? ""
+
+                let metadateRef = exerciseRef.collection("metadata").document(metadateId)
+                
+                d[metadateName] = await self.getMetadateElementContentsList(metadateRef: metadateRef)
+            }
+        }
+        catch {}
+        
+        return d
+    }
+    
+    func getMetadateElementContentsList(metadateRef: DocumentReference) async -> [String] {
+        do {
+            let collectionSnapshot = try await metadateRef.collection("elements").getDocuments()
+            let l = collectionSnapshot.documents.map { documentSnapshot in
+                let data = documentSnapshot.data()
+                return data["content"] as? String ?? ""
+            }
+            return l
+        }
+        catch {}
+        return []
+    }
+    
+    func updateSamplesInMetadata(exerciseRef: DocumentReference, workoutDate: TimeInterval) async {
+        do {
+            let collectionSnapshot = try await exerciseRef.collection("metadata").getDocuments()
+            for documentSnapshot in collectionSnapshot.documents {
+                let data = documentSnapshot.data()
+                
+                let metadateId = data["id"] as? String ?? ""
+                let metadateName = data["name"] as? String ?? ""
+                
+                let metadateRef = exerciseRef.collection("metadata").document(metadateId)
+                
+                guard willUpdateSamplesInElements(metadateName: metadateName) else {
+                    continue
+                }
+                
+                await self.updateSamplesInElements(metadateRef: metadateRef, workoutDate: workoutDate)
+            }
+        }
+        catch {}
+    }
+    
+    func willUpdateSamplesInElements(metadateName: String) -> Bool {
+        guard metadateName == self.id2metadateTemplate(id: self.stat.metadateTemplateId).name else {
+            return false
+        }
+        return true
+    }
+    
+    func updateSamplesInElements(metadateRef: DocumentReference, workoutDate: TimeInterval) async {
+        do {
+            let collectionSnapshot = try await metadateRef.collection("elements").getDocuments()
+            
+            let contents = collectionSnapshot.documents
+                .map { data in data["content"] as? String ?? ""}
+                .filter { $0 != "" }
+                .map { Double($0) ?? 0 }
+            
+            var content: Double
+            switch self.stat.aggregation {
+                case "max":  content = contents.max() ?? 0.0
+                case "min":  content = contents.min() ?? 0.0
+                case "sum":  content = contents.sum() ?? 0.0
+                case "mean": content = contents.mean() ?? 0.0
+                default: content = 0.0
+            }
+            
+            let newSampleId = UUID().uuidString
+            let newSample = Sample(
+                id: newSampleId,
+                date: workoutDate,
+                content: content
+            )
+            
+            let sampleRef = self.statRef
+                .collection("samples")
+                .document(newSampleId)
+            
+            try await sampleRef.setData(newSample.asDictionary())
+        }
+        catch {}
     }
 }

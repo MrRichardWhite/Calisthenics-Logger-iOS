@@ -29,27 +29,59 @@ extension String {
 }
 
 extension [Double] {
-    func sum() -> Double {
-        var s = 0.0
-        for x in self { s += x }
-        return s
-    }
-    
-    func mean() -> Double {
-        if self.count == 0 {
-            return 0.0
+    func sum() -> Double? {
+        if self.count > 0 {
+            var s = 0.0
+            for x in self { s += x }
+            return s
         } else {
-            return self.sum() / Double(self.count)
+            return nil
         }
     }
     
-    func variance() -> Double {
-        if self.count <= 1 {
-            return 0.0
+    func mean() -> Double? {
+        if let sum = self.sum() {
+            return sum / Double(self.count)
         } else {
-            return self.map { x in pow(x - self.mean(), 2) } .sum() / Double(self.count - 1)
+            return nil
         }
     }
     
-    func std() -> Double { return sqrt(self.variance()) }
+    func variance() -> Double? {
+        if self.count > 0 {
+            if self.count == 1 {
+                return 0.0
+            } else {
+                if let mean = self.mean() {
+                    if let sum = self.map({ x in pow(x - mean, 2) }).sum() {
+                        return sum / Double(self.count - 1)
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return nil
+                }
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    func std() -> Double? {
+        if let variance = self.variance() {
+            return sqrt(variance)
+        } else {
+            return nil
+        }
+    }
+}
+
+extension Array {
+    var last: Element? {
+        if self.count > 0 {
+            return self[self.endIndex - 1]
+        } else {
+            return nil
+        }
+    }
 }

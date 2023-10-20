@@ -29,22 +29,26 @@ class StatsViewViewModel: ObservableObject {
             .collection("stats")
             .document(statId)
         
-        statRef.collection("stats").getDocuments { snapshot, error in
+        statRef.collection("samples").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
                     for data in snapshot.documents {
                         let sampleId = data["id"] as? String ?? ""
-                        let sampleRef = statRef
-                            .collection("samples")
-                            .document(sampleId)
                         
+                        let sampleRef = statRef.collection("samples").document(sampleId)
                         sampleRef.delete()
-                        
+                    }
+                }
+            }
+        }
+        
+        statRef.collection("filters").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    for data in snapshot.documents {
                         let filterId = data["id"] as? String ?? ""
-                        let filterRef = statRef
-                            .collection("filters")
-                            .document(filterId)
                         
+                        let filterRef = statRef.collection("filters").document(filterId)
                         filterRef.delete()
                     }
                 }
@@ -54,21 +58,21 @@ class StatsViewViewModel: ObservableObject {
         statRef.delete()
     }
     
-    func id2name(exerciseTemplates: [ExerciseTemplate], id: String) -> String {
+    func id2exerciseTemplate(exerciseTemplates: [ExerciseTemplate], id: String) -> ExerciseTemplate? {
         for exerciseTemplate in exerciseTemplates {
             if exerciseTemplate.id == id {
-                return exerciseTemplate.name
+                return exerciseTemplate
             }
         }
-        return "non existant exercise"
+        return nil
     }
     
-    func id2name(metadateTemplates: [MetadateTemplate], id: String) -> String {
+    func id2metadateTemplate(metadateTemplates: [MetadateTemplate], id: String) -> MetadateTemplate? {
         for metadateTemplate in metadateTemplates {
             if metadateTemplate.id == id {
-                return metadateTemplate.name
+                return metadateTemplate
             }
         }
-        return "non existant metadate"
+        return nil
     }
 }

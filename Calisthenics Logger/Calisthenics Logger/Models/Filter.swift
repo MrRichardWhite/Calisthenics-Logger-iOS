@@ -9,9 +9,11 @@ import Foundation
 
 struct Filter: Codable, Identifiable {
     let id: String
-    let metadateTemplateId: String
-    let relation: String
-    let bound: String
+    var metadateTemplateId: String
+    var relation: String
+    var bound: String
     let created: TimeInterval
     let edited: TimeInterval
 }
+
+var relations: [String] = ["=", "≠", "≤", "<", "≥", ">"]

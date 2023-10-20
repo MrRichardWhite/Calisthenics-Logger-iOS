@@ -26,12 +26,31 @@ struct ChartView: View {
     
     private let userId: String
     private let statId: String
-    private let lite: Bool
     
-    init(userId: String, statId: String, lite: Bool = false, reloadSamples: Binding<Bool>) {
+    private let chartYAxisLabel: String
+    
+    private let lite: Bool
+    private let details: Bool
+    
+    private let decimals: Double = 3
+    private let round_factor: Double
+    
+    init(
+        userId: String, statId: String,
+        chartYAxisLabel: String = "",
+        lite: Bool = false, details: Bool = false,
+        reloadSamples: Binding<Bool>
+    ) {
         self.userId = userId
         self.statId = statId
+        
+        self.chartYAxisLabel = chartYAxisLabel
+        
         self.lite = lite
+        self.details = details
+
+        self.round_factor = pow(10, decimals)
+        
         self._reloadSamples = reloadSamples
         
         self._viewModel = StateObject(
@@ -46,53 +65,31 @@ struct ChartView: View {
         NavigationStack {
             if lite { chartView } else {
                 VStack {
-                    chartView
-                    
                     Picker("", selection: $style) {
-                        Text("bars")
-                            .tag("bars")
-                        Text("lines")
-                            .tag("lines")
+                        Text("bars").tag("bars")
+                        Text("lines").tag("lines")
                     }
                     .pickerStyle(.segmented)
                     .frame(width: 365)
+                    .padding()
+
+                    chartView
                     
-                    Form {
-                        HStack {
-                            Text("mean")
-                            Spacer()
-                            Text("\(viewModel.contents.mean())")
-                        }
-                        HStack {
-                            Text("std")
-                            Spacer()
-                            Text("\(viewModel.contents.std())")
-                        }
-                        HStack {
-                            Text("min")
-                            Spacer()
-                            Text("\(viewModel.contents.min() ?? 0)")
-                        }
-                        HStack {
-                            Text("max")
-                            Spacer()
-                            Text("\(viewModel.contents.max() ?? 0)")
-                        }
-                    }
+                    detailsView
                     
                     Spacer()
                 }
-                .padding()
-                .navigationTitle("Chart")
             }
         }
         .onChange(of: viewModel.loaded, initial: false) { _, _  in
             animateGraph()
         }
         .onChange(of: reloadSamples, initial: false) { _, _  in
-            viewModel.load()
-            animateGraph()
-            reloadSamples = false
+            if reloadSamples {
+                viewModel.load()
+                animateGraph()
+                reloadSamples = false
+            }
         }
     }
 
@@ -129,7 +126,12 @@ struct ChartView: View {
             }
         }
         .chartYScale(domain: 0...(max * 1.1))
-        .frame(width: !lite ? 328 : 280, height: !lite ? 200 : 120)
+        .chartYAxisLabel(position: .trailing, alignment: .center) {
+            if chartYAxisLabel != "" {
+                Text(chartYAxisLabel)
+            }
+        }
+        .frame(width: !lite ? 328 : 280, height: !lite ? 225 : 120)
         .onAppear {
             animateGraph()
         }
@@ -156,13 +158,38 @@ struct ChartView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    var detailsView: some View {
+        if details {
+            let titles: [String] = ["mean", "std", "min", "max", "last"]
+            let stats: [Double?] = [
+                viewModel.contents.mean(),
+                viewModel.contents.std(),
+                viewModel.contents.min(),
+                viewModel.contents.max(),
+                viewModel.contents.last
+            ]
+            Form {
+                ForEach(Array(zip(titles, stats)), id: \.0) { title, stat in
+                    HStack {
+                        Text(title)
+                        Spacer()
+                        if let stat = stat {
+                            let rounded = round(stat * round_factor) / round_factor
+                            Text(String(rounded))
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 #Preview {
     ChartView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         statId: "D5E5E158-856A-45DD-828A-0AB06CD533E9",
-        lite: true,
         reloadSamples: Binding(
             get: { return true },
             set: { _ in }

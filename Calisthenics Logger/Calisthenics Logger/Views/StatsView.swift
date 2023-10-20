@@ -47,20 +47,22 @@ struct StatsView: View {
                         )
                     ) {
                         VStack(alignment: .leading) {
-                            let exerciseTemplateName = viewModel.id2name(
+                            if let exerciseTemplate = viewModel.id2exerciseTemplate(
                                 exerciseTemplates: exerciseTemplates,
                                 id: stat.exerciseTemplateId
-                            )
-                            Text("\(exerciseTemplateName)")
-                                .bold()
-                                .padding(.bottom, 5)
+                            ) {
+                                Text("\(exerciseTemplate.name)")
+                                    .bold()
+                                    .padding(.bottom, 5)
+                            }
                             
-                            let metadateTemplateName = viewModel.id2name(
+                            if let metadateTemplate = viewModel.id2metadateTemplate(
                                 metadateTemplates: metadateTemplates,
                                 id: stat.metadateTemplateId
-                            )
-                            Text("\(metadateTemplateName)")
-                                .foregroundColor(Color(.secondaryLabel))
+                            ) {
+                                Text("\(metadateTemplate.name)")
+                                    .foregroundColor(Color(.secondaryLabel))
+                            }
                             
                             ChartView(
                                 userId: userId,
@@ -109,18 +111,28 @@ struct StatsView: View {
     var stats: [Stat] {
         var statsSorted: [Stat] = statsQuery
         statsSorted.sort {
-            (
-                viewModel.id2name(exerciseTemplates: exerciseTemplates, id: $0.exerciseTemplateId)
-                    .withoutEmoji(),
-                viewModel.id2name(metadateTemplates: metadateTemplates, id: $0.metadateTemplateId)
-                    .withoutEmoji()
+            guard let exerciseTemplate0 = viewModel.id2exerciseTemplate(exerciseTemplates: exerciseTemplates, id: $0.exerciseTemplateId) else {
+                return true
+            }
+            guard let metadateTemplate0 = viewModel.id2metadateTemplate(metadateTemplates: metadateTemplates, id: $0.metadateTemplateId) else {
+                return true
+            }
+            
+            guard let exerciseTemplate1 = viewModel.id2exerciseTemplate(exerciseTemplates: exerciseTemplates, id: $1.exerciseTemplateId) else {
+                return true
+            }
+            guard let metadateTemplate1 = viewModel.id2metadateTemplate(metadateTemplates: metadateTemplates, id: $1.metadateTemplateId) else {
+                return true
+            }
+            
+            return (
+                exerciseTemplate0.name.withoutEmoji(),
+                metadateTemplate0.name.withoutEmoji()
             )
             <
             (
-                viewModel.id2name(exerciseTemplates: exerciseTemplates, id: $1.exerciseTemplateId)
-                    .withoutEmoji(),
-                viewModel.id2name(metadateTemplates: metadateTemplates, id: $1.metadateTemplateId)
-                    .withoutEmoji()
+                exerciseTemplate1.name.withoutEmoji(),
+                metadateTemplate1.name.withoutEmoji()
             )
         }
         return statsSorted
