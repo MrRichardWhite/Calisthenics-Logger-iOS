@@ -174,6 +174,7 @@ class StatViewViewModel: ObservableObject {
     
     func saveStat() {
         stat.unit = id2metadateTemplate(id: stat.metadateTemplateId).unit
+        stat.edited = Date().timeIntervalSince1970
         statRef.setData(stat.asDictionary())
     }
     
@@ -185,10 +186,19 @@ class StatViewViewModel: ObservableObject {
         
         for f in filters {
             let filterRef = statRef.collection("filters").document(f.id)
+            let g = Filter(
+                id: f.id,
+                metadateTemplateId: f.metadateTemplateId,
+                relation: f.relation,
+                bound: f.bound,
+                created: f.created,
+                edited: Date().timeIntervalSince1970
+            )
+            
             if filterIdsAdd.contains(f.id) {
-                filterRef.setData(f.asDictionary())
+                filterRef.setData(g.asDictionary())
             } else {
-                filterRef.updateData(f.asDictionary())
+                filterRef.updateData(g.asDictionary())
             }
         }
         

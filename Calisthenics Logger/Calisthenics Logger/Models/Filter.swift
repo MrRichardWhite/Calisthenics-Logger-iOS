@@ -13,7 +13,7 @@ struct Filter: Codable, Identifiable {
     var relation: String
     var bound: String
     let created: TimeInterval
-    let edited: TimeInterval
+    var edited: TimeInterval
 }
 
 var relations: [String] = ["=", "≠", "≤", "<", "≥", ">"]

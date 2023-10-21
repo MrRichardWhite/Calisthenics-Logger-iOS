@@ -14,7 +14,7 @@ struct Stat: Codable, Identifiable {
     var aggregation: String
     var unit: String
     let created: TimeInterval
-    let edited: TimeInterval
+    var edited: TimeInterval
     
     init(id: String = "",
          exerciseTemplateId: String = "", metadateTemplateId: String = "",
