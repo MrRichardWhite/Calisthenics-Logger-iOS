@@ -176,6 +176,8 @@ class StatViewViewModel: ObservableObject {
         stat.unit = id2metadateTemplate(id: stat.metadateTemplateId).unit
         stat.edited = Date().timeIntervalSince1970
         statRef.setData(stat.asDictionary())
+        
+        statInit = stat
     }
     
     func saveFilters() {
