@@ -5,18 +5,25 @@
 //  Created by Richard Weiss on 09.10.23.
 //
 
+import FirebaseFirestore
 import SwiftUI
 
 struct NewStatView: View {
     @StateObject var viewModel: NewStatViewViewModel
+    @Binding var reloadSamples: Bool
     @Binding var newStatPresented: Bool
     
     let userId: String
     
-    init(userId: String, newStatPresented: Binding<Bool>) {
+    let userRef: DocumentReference
+    
+    init(userId: String, reloadSamples: Binding<Bool>, newStatPresented: Binding<Bool>) {
         self.userId = userId
-        self._newStatPresented = newStatPresented
+        self.userRef = Firestore.firestore().collection("users").document(userId)
         
+        self._reloadSamples = reloadSamples
+        self._newStatPresented = newStatPresented
+
         self._viewModel = StateObject(
             wrappedValue: NewStatViewViewModel(
                 userId: userId
@@ -50,8 +57,9 @@ struct NewStatView: View {
                     }
                 }
                 
-                CLButton(title: "Add", background: .green) {
-                    viewModel.save()
+                CLAsyncButton(title: "Add", background: .green) {
+                    await viewModel.save()
+                    reloadSamples = true
                     newStatPresented = false
                 }
                 .padding()
@@ -63,6 +71,10 @@ struct NewStatView: View {
 #Preview {
     NewStatView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
+        reloadSamples: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
         newStatPresented: Binding(
             get: { return true },
             set: { _ in }

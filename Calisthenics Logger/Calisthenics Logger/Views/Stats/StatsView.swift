@@ -102,6 +102,7 @@ struct StatsView: View {
             .sheet(isPresented: $viewModel.showingNewStatView){
                 NewStatView(
                     userId: userId,
+                    reloadSamples: $viewModel.reloadSamples,
                     newStatPresented: $viewModel.showingNewStatView
                 )
             }

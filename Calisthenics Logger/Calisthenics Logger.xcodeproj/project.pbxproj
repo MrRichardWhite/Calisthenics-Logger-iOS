@@ -68,6 +68,7 @@
 		8D3983132AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983122AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift */; };
 		8D3983152AC8CE3000B6793F /* EditMetadateTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983142AC8CE3000B6793F /* EditMetadateTemplateView.swift */; };
 		8D3983172AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3983162AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift */; };
+		8D3A3E572AE4525C00AF2F12 /* SampleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A3E562AE4525C00AF2F12 /* SampleLoader.swift */; };
 		8D41D5A02AC95A8D007EDE6E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8D41D59F2AC95A8D007EDE6E /* FirebaseDatabase */; };
 		8D41D5A42AC9886E007EDE6E /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */; };
 		8D72E50C2ACEDE1A00EAB0ED /* CLSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */; };
@@ -174,6 +175,7 @@
 		8D3983122AC8CE0000B6793F /* NewMetadateTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMetadateTemplateViewViewModel.swift; sourceTree = "<group>"; };
 		8D3983142AC8CE3000B6793F /* EditMetadateTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMetadateTemplateView.swift; sourceTree = "<group>"; };
 		8D3983162AC8CE4200B6793F /* EditMetadateTemplateViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMetadateTemplateViewViewModel.swift; sourceTree = "<group>"; };
+		8D3A3E562AE4525C00AF2F12 /* SampleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleLoader.swift; sourceTree = "<group>"; };
 		8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLSaved.swift; sourceTree = "<group>"; };
 		8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				8D199DC12AC193800071894A /* Calisthenics_LoggerApp.swift */,
 				8D30E0E42AC45CEB00455620 /* Extensions.swift */,
 				8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */,
+				8D3A3E562AE4525C00AF2F12 /* SampleLoader.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				8D3982E92AC8093F00B6793F /* AccountViewViewModel.swift in Sources */,
 				8D30E0E92AC4634900455620 /* LoggerView.swift in Sources */,
 				8DF746502AD3501C00817B64 /* StatView.swift in Sources */,
+				8D3A3E572AE4525C00AF2F12 /* SampleLoader.swift in Sources */,
 				8D96FDC42AC5C1DE00796A81 /* ExerciseViewViewModel.swift in Sources */,
 				8D1A4F8B2AD832C700C8A7C3 /* Sample.swift in Sources */,
 				8D3982EB2AC8775400B6793F /* WorkoutTemplate.swift in Sources */,

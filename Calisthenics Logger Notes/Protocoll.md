@@ -86,3 +86,5 @@ What work has been done when?
 		- added chart label on y-axis
 	- 18.10.2023, evening
 		- moved chart straight into `StatView`
+	- 21.10.2023, evening
+		- implemented `updateSamples()` directly after `NewStatView` dismissed

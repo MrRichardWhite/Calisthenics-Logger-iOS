@@ -22,14 +22,14 @@ struct StatView: View {
     private let statId: String
     
     private let userRef: DocumentReference
+    private let statRef: DocumentReference
     
     init(userId: String, statId: String) {
         self.userId = userId
         self.statId = statId
         
-        self.userRef = Firestore.firestore()
-            .collection("users")
-            .document(userId)
+        self.userRef = Firestore.firestore().collection("users").document(userId)
+        self.statRef = userRef.collection("stats").document(statId)
         
         self._viewModel = StateObject(
             wrappedValue: StatViewViewModel(
@@ -60,9 +60,7 @@ struct StatView: View {
             .navigationTitle("Stat")
             .toolbar {
                 AsyncButton {
-                    reloadSamples = false
-                    await viewModel.updateSamples()
-                    reloadSamples = true
+                    await updateSamples()
                 } label: {
                     Image(systemName: "arrow.clockwise")
                 }
@@ -75,13 +73,17 @@ struct StatView: View {
         Form {
             Picker("Exercise", selection: $viewModel.stat.exerciseTemplateId) {
                 ForEach(viewModel.exerciseTemplateIds, id: \.self) { exerciseTemplateId in
-                    Text(viewModel.id2exerciseTemplate(id: exerciseTemplateId).name)
+                    if let exerciseTemplate = viewModel.id2exerciseTemplate(id: exerciseTemplateId) {
+                        Text(exerciseTemplate.name)
+                    }
                 }
             }
             
             Picker("Metdate", selection: $viewModel.stat.metadateTemplateId) {
                 ForEach(viewModel.metadateTemplateIds, id: \.self) { exerciseTemplateId in
-                    Text(viewModel.id2metadateTemplate(id: exerciseTemplateId).name)
+                    if let exerciseTemplate = viewModel.id2metadateTemplate(id: exerciseTemplateId) {
+                        Text(exerciseTemplate.name)
+                    }
                 }
             }
             
@@ -102,9 +104,7 @@ struct StatView: View {
                     viewModel.save()
                     saveBG = .gray
                     
-                    reloadSamples = false
-                    await viewModel.updateSamples()
-                    reloadSamples = true
+                    await updateSamples()
                 } else {
                     viewModel.alertTitle = "Warning"
                     viewModel.alertMessage = "Data was not changed!"
@@ -127,7 +127,9 @@ struct StatView: View {
                         Picker("Metadate", selection: $f.metadateTemplateId) {
                             Text("").tag("")
                             ForEach(viewModel.metadateTemplateIds, id: \.self) { metadateTemplateId in
-                                Text(viewModel.id2metadateTemplate(id: metadateTemplateId).name)
+                                if let metadateTemplate = viewModel.id2metadateTemplate(id: metadateTemplateId) {
+                                    Text(metadateTemplate.name)
+                                }
                             }
                         }
                         
@@ -182,7 +184,9 @@ struct StatView: View {
             Picker("Metadate", selection: $viewModel.newFilterMetadateTemplateId) {
                 Text("").tag("")
                 ForEach(viewModel.metadateTemplateIds, id: \.self) { exerciseTemplateId in
-                    Text(viewModel.id2metadateTemplate(id: exerciseTemplateId).name)
+                    if let metadateTemplate = viewModel.id2metadateTemplate(id: exerciseTemplateId) {
+                        Text(metadateTemplate.name)
+                    }
                 }
             }
             
@@ -209,6 +213,18 @@ struct StatView: View {
             }
             .padding()
         }
+    }
+    
+    func updateSamples() async {
+        let sampleLoader = sampleLoader(
+            exerciseTemplates: viewModel.exerciseTemplates,
+            metadateTemplates: viewModel.metadateTemplates,
+            stat: viewModel.stat, filters: viewModel.filters,
+            userRef: userRef, statRef: statRef
+        )
+        await sampleLoader.updateSamples()
+        
+        reloadSamples = true
     }
 }
 

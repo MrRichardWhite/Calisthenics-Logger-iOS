@@ -15,7 +15,7 @@ class NewStatViewViewModel: ObservableObject {
     @Published var pickedExerciseTemplateId = ""
     @Published var pickedMetadateTemplateId = ""
     @Published var pickedAggregation = "max"
-
+    
     private let userId: String
     
     private let userRef: DocumentReference
@@ -73,33 +73,41 @@ class NewStatViewViewModel: ObservableObject {
         }
     }
     
-    func save() {
-        let newStatId = UUID().uuidString
-        
-        var newStatExerciseTemplateId = pickedExerciseTemplateId
-        if exerciseTemplates.count > 0 && newStatExerciseTemplateId == "" {
-            newStatExerciseTemplateId = exerciseTemplateIds[0]
+    func save() async {
+        do {
+            let newStatId = UUID().uuidString
+            
+            var newStatExerciseTemplateId = pickedExerciseTemplateId
+            if exerciseTemplates.count > 0 && newStatExerciseTemplateId == "" {
+                newStatExerciseTemplateId = exerciseTemplateIds[0]
+            }
+            
+            var newStatMetadateTemplateId = pickedMetadateTemplateId
+            if metadateTemplates.count > 0 && newStatMetadateTemplateId == "" {
+                newStatMetadateTemplateId = metadateTemplateIds[0]
+            }
+            
+            let newStat = Stat(
+                id: newStatId,
+                exerciseTemplateId: newStatExerciseTemplateId,
+                metadateTemplateId: newStatMetadateTemplateId,
+                aggregation: pickedAggregation,
+                created: Date().timeIntervalSince1970,
+                edited: Date().timeIntervalSince1970
+            )
+            
+            let statRef = userRef.collection("stats").document(newStatId)
+            try await statRef.setData(newStat.asDictionary())
+            
+            let sampleLoader = sampleLoader(
+                exerciseTemplates: exerciseTemplates,
+                metadateTemplates: metadateTemplates,
+                stat: newStat, filters: [],
+                userRef: userRef, statRef: statRef
+            )
+            await sampleLoader.updateSamples()
         }
-        
-        var newStatMetadateTemplateId = pickedMetadateTemplateId
-        if metadateTemplates.count > 0 && newStatMetadateTemplateId == "" {
-            newStatMetadateTemplateId = metadateTemplateIds[0]
-        }
-        
-        let newStat = Stat(
-            id: newStatId,
-            exerciseTemplateId: newStatExerciseTemplateId,
-            metadateTemplateId: newStatMetadateTemplateId,
-            aggregation: pickedAggregation,
-            created: Date().timeIntervalSince1970,
-            edited: Date().timeIntervalSince1970
-        )
-        
-        let statRef = userRef
-            .collection("stats")
-            .document(newStatId)
-        
-        statRef.setData(newStat.asDictionary())
+        catch {}
     }
     
     var exerciseTemplateIds: [String] {
