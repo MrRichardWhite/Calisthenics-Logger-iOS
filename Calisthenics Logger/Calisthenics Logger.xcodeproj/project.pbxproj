@@ -299,11 +299,8 @@
 				8D3982E62AC8090600B6793F /* AccountView.swift */,
 				8D41D59A2AC952E7007EDE6E /* Logger */,
 				8D41D59B2AC95306007EDE6E /* Templates */,
-				8D30E0F22AC46E5100455620 /* StatsView.swift */,
-				8DF746592AD3630E00817B64 /* NewStatView.swift */,
-				8DF7464F2AD3501C00817B64 /* StatView.swift */,
+				8D3A3E542AE3C32400AF2F12 /* Stats */,
 				8D30E0D22AC43A5D00455620 /* ProfileView.swift */,
-				8D1A4F882AD6101A00C8A7C3 /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -317,11 +314,8 @@
 				8D3982E82AC8093F00B6793F /* AccountViewViewModel.swift */,
 				8D41D5952AC951EA007EDE6E /* Logger */,
 				8D41D5962AC9522B007EDE6E /* Templates */,
-				8DF746552AD353A100817B64 /* StatsViewViewModel.swift */,
-				8DF7465B2AD3637F00817B64 /* NewStatViewViewModel.swift */,
-				8DF746532AD352E600817B64 /* StatViewViewModel.swift */,
+				8D3A3E552AE3C33800AF2F12 /* Stats */,
 				8D30E0DA2AC43B3C00455620 /* ProfileViewViewModel.swift */,
-				8D1A4F862AD6100F00C8A7C3 /* ChartViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -355,6 +349,28 @@
 				8D96FDBB2AC59E7600796A81 /* Launch Screen.storyboard */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		8D3A3E542AE3C32400AF2F12 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				8D30E0F22AC46E5100455620 /* StatsView.swift */,
+				8DF746592AD3630E00817B64 /* NewStatView.swift */,
+				8DF7464F2AD3501C00817B64 /* StatView.swift */,
+				8D1A4F882AD6101A00C8A7C3 /* ChartView.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		8D3A3E552AE3C33800AF2F12 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				8DF746552AD353A100817B64 /* StatsViewViewModel.swift */,
+				8DF7465B2AD3637F00817B64 /* NewStatViewViewModel.swift */,
+				8DF746532AD352E600817B64 /* StatViewViewModel.swift */,
+				8D1A4F862AD6100F00C8A7C3 /* ChartViewViewModel.swift */,
+			);
+			path = Stats;
 			sourceTree = "<group>";
 		};
 		8D41D5952AC951EA007EDE6E /* Logger */ = {
