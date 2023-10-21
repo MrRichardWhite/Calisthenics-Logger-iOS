@@ -89,7 +89,7 @@ class MetadateViewViewModel: ObservableObject {
         }
     }
     
-    func save(userId: String) {
+    func save() {
         guard canSave else {
             return
         }

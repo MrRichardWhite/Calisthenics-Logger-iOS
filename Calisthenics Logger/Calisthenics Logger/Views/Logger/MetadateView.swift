@@ -10,7 +10,8 @@ import SwiftUI
 
 struct MetadateView: View {
     @StateObject var viewModel: MetadateViewViewModel
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     private let userId: String
     private let workoutId: String
     private let exerciseId: String
@@ -45,9 +46,8 @@ struct MetadateView: View {
                     
                 CLButton(title: "Save", background: viewModel.background) {
                     if viewModel.canSave && !viewModel.dataIsInit {
-                        viewModel.save(
-                            userId: userId
-                        )
+                        viewModel.save()
+                        self.presentationMode.wrappedValue.dismiss()
                     } else {
                         if !viewModel.canSave {
                             viewModel.alertTitle = "Error"
