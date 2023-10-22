@@ -96,14 +96,17 @@ struct ExerciseView: View {
                     Text(metadate.name)
                         .padding(.bottom, 5)
                     
-                    let contents = viewModel.elements[metadate.id, default: []].map { $0.content }
+                    let contents = viewModel.elements[metadate.id, default: []].map {
+                        $0.content != "" ? $0.content : "..."
+                    }
                     let text = String(
-                        contents.joined(separator: ", ")
+                        contents.joined(separator: " | ")
                     )
                     if !(
-                        text.contains(",") &&
+                        text.contains("|") &&
                         text.contains(" ") &&
-                        Set(text).count == 2
+                        text.contains(".") &&
+                        Set(text).count == 3
                     ) {
                         Text(text)
                             .font(.footnote)

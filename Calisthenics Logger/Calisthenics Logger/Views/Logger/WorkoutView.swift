@@ -106,14 +106,17 @@ struct WorkoutView: View {
                                             
                                             Spacer()
                                             
-                                            let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map { $0.content }
+                                            let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map {
+                                                $0.content != "" ? $0.content : "..."
+                                            }
                                             let text = String(
-                                                (contents?.joined(separator: ", "))!
+                                                (contents?.joined(separator: " | "))!
                                             )
                                             if !(
-                                                text.contains(",") &&
+                                                text.contains("|") &&
                                                 text.contains(" ") &&
-                                                Set(text).count == 2
+                                                text.contains(".") &&
+                                                Set(text).count == 3
                                             ) {
                                                 Text(text)
                                                     .font(.footnote)
@@ -145,6 +148,6 @@ struct WorkoutView: View {
 #Preview {
     WorkoutView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutId: "07FCE443-3617-422E-B396-E34F05421D3E"
+        workoutId: "BF86C030-9675-44ED-8C84-E1FC61C93C90"
     )
 }
