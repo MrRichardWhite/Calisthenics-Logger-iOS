@@ -92,9 +92,18 @@ struct ExerciseView: View {
                         .padding(.bottom, 5)
                     
                     let contents = viewModel.elements[metadate.id, default: []].map { $0.content }
-                    Text(contents.joined(separator: ", "))
-                        .font(.footnote)
-                        .foregroundColor(Color(.secondaryLabel))
+                    let text = String(
+                        contents.joined(separator: ", ")
+                    )
+                    if !(
+                        text.contains(",") &&
+                        text.contains(" ") &&
+                        Set(text).count == 2
+                    ) {
+                        Text(text)
+                            .font(.footnote)
+                            .foregroundColor(Color(.secondaryLabel))
+                    }
                 }
             }
             .swipeActions {

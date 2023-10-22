@@ -10,7 +10,6 @@ import SwiftUI
 
 struct WorkoutView: View {
     @StateObject var viewModel: WorkoutViewViewModel
-    @FirestoreQuery var exercises: [Exercise]
     
     private let userId: String
     private let workoutId: String
@@ -18,9 +17,7 @@ struct WorkoutView: View {
     init(userId: String, workoutId: String) {
         self.userId = userId
         self.workoutId = workoutId
-        self._exercises = FirestoreQuery(
-            collectionPath: "users/\(userId)/workouts/\(workoutId)/exercises"
-        )
+        
         self._viewModel = StateObject(
             wrappedValue: WorkoutViewViewModel(
                 userId: userId,
@@ -34,24 +31,22 @@ struct WorkoutView: View {
             exerciseListView
             .navigationTitle("Workout")
             .toolbar {
-                HStack {
-                    Button {
-                        viewModel.loadExercises()
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                    
-                    Button {
-                        viewModel.showingEditWorkoutView = true
-                    } label: {
-                        Image(systemName: "pencil")
-                    }
-                    
-                    Button {
-                        viewModel.showingNewExerciseView = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+                Button {
+                    viewModel.loadExercises()
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                }
+                
+                Button {
+                    viewModel.showingEditWorkoutView = true
+                } label: {
+                    Image(systemName: "pencil")
+                }
+                
+                Button {
+                    viewModel.showingNewExerciseView = true
+                } label: {
+                    Image(systemName: "plus")
                 }
             }
             .sheet(isPresented: $viewModel.showingNewExerciseView){
@@ -70,19 +65,18 @@ struct WorkoutView: View {
             }
         }
         .onChange(of: viewModel.showingNewExerciseView) {
-            viewModel.loadExercises()
+            viewModel.load()
         }
     }
     
     @ViewBuilder
     var exerciseListView: some View {
         VStack {
-            let dk = viewModel.group(exercises: exercises)
-            let dict = dk.dict
-            let keys = dk.keys
+            let dict = Dictionary(grouping: viewModel.exercises) { $0.category }
+            let categories = dict.map { $0.key }.sorted()
             
             Form {
-                ForEach(keys, id: \.self) { category in
+                ForEach(categories, id: \.self) { category in
                     
                     let exercises = dict[category] ?? []
                     

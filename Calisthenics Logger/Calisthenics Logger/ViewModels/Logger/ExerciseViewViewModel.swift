@@ -12,7 +12,7 @@ import SwiftUI
 class ExerciseViewViewModel: ObservableObject {
     @Published var showingEditExerciseView = false
     @Published var showingNewMetadateView = false
-
+    
     @Published var metadata: [Metadate] = []
     @Published var elements: [String: [Element]] = [:]
     
@@ -20,99 +20,98 @@ class ExerciseViewViewModel: ObservableObject {
     private let workoutId: String
     private let exerciseId: String
     
+    private let userRef: DocumentReference
+    private let workoutRef: DocumentReference
     private let exerciseRef: DocumentReference
-    
+
     init(userId: String, workoutId: String, exerciseId: String) {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
         
-        self.exerciseRef = Firestore.firestore()
+        self.userRef = Firestore.firestore()
             .collection("users")
             .document(userId)
+        self.workoutRef = userRef
             .collection("workouts")
             .document(workoutId)
+        self.exerciseRef = workoutRef
             .collection("exercises")
             .document(exerciseId)
         
         loadMetadata()
     }
     
-    func deleteElement(elementRef: DocumentReference) {
-        elementRef.delete()
+    func loadMetadata() {
+        exerciseRef.collection("metadata").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    var metadata = snapshot.documents.map { data in
+                        let metadate = Metadate(
+                            id: data["id"] as? String ?? "",
+                            name: data["name"] as? String ?? "",
+                            unit: data["unit"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
+                        self.loadElements(metadateId: metadate.id)
+                        return metadate
+                    }
+                    
+                    metadata.sort { $0.name.withoutEmoji() < $1.name.withoutEmoji() }
+                    
+                    self.metadata = metadata
+                }
+            }
+        }
     }
     
-    func deleteMetdate(metadateRef: DocumentReference) {
+    func loadElements(metadateId: String) {
+        let metadateRef = exerciseRef
+            .collection("metadata")
+            .document(metadateId)
+        
         metadateRef.collection("elements").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    for data in snapshot.documents {
-                        let elementId = data["id"] as? String ?? ""
-                        let elementRef = metadateRef
-                            .collection("elements")
-                            .document(elementId)
-                        
-                        self.deleteElement(elementRef: elementRef)
+                    var elements = snapshot.documents.map { data in
+                        Element(
+                            id: data["id"] as? String ?? "",
+                            content: data["content"] as? String ?? "",
+                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                            edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                        )
                     }
                     
-                    metadateRef.delete()
+                    elements.sort { $0.created < $1.created }
+                    
+                    self.elements[metadateId] = elements
                 }
             }
         }
     }
     
     func delete(metadateId: String) {
-        let metadateRef = exerciseRef
-            .collection("metadata")
-            .document(metadateId)
-        
+        let metadateRef = exerciseRef.collection("metadata").document(metadateId)
         deleteMetdate(metadateRef: metadateRef)
     }
     
-    func loadElements(metadateId: String) {
-        elements[metadateId] = []
-        
-        let metadateRef = exerciseRef
-            .collection("metadata")
-            .document(metadateId)
-        
+    func deleteMetdate(metadateRef: DocumentReference) {
+        metadateRef.delete()
         metadateRef.collection("elements").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
                     for data in snapshot.documents {
-                        let element = Element(
-                            id: data["id"] as? String ?? "",
-                            content: data["content"] as? String ?? "",
-                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                            edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
-                        )
-                        self.elements[metadateId]?.append(element)
+                        let elementId = data["id"] as? String ?? ""
+                        let elementRef = metadateRef.collection("elements").document(elementId)
+                        self.deleteElement(elementRef: elementRef)
                     }
                 }
             }
         }
     }
     
-    func loadMetadata() {
-        metadata = []
-        
-        exerciseRef.collection("metadata").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    for data in snapshot.documents {
-                        let metadate = Metadate(
-                            id: data["id"] as? String ?? "",
-                            name: data["name"] as? String ?? "",
-                            unit: data["unit"] as? String ?? "",
-                            created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
-                            edited: data["id"] as? TimeInterval ?? Date().timeIntervalSince1970
-                        )
-                        self.metadata.append(metadate)
-                        
-                        self.loadElements(metadateId: metadate.id)
-                    }
-                }
-            }
-        }
+    func deleteElement(elementRef: DocumentReference) {
+        elementRef.delete()
     }
 }

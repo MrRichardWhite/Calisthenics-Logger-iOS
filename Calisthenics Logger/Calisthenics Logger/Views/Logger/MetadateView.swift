@@ -37,9 +37,9 @@ struct MetadateView: View {
         NavigationStack {
             Form {
                 HStack {
-                    TextField("Name", text: $viewModel.name)
+                    TextField("Name", text: $viewModel.metadate.name)
                     Divider()
-                    TextField("Unit", text: $viewModel.unit)
+                    TextField("Unit", text: $viewModel.metadate.unit)
                 }
                 
                 elementsListView
@@ -99,8 +99,8 @@ struct MetadateView: View {
 #Preview {
     MetadateView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
-        exerciseId: "175BC775-8F64-4306-86FD-00569ACC2BFC",
-        metadateId: "31DD6686-C338-4294-88B5-3E0644454529"
+        workoutId: "07FCE443-3617-422E-B396-E34F05421D3E",
+        exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B",
+        metadateId: "22225346-DA6B-491F-97C0-59AE5A7C4E2F"
     )
 }

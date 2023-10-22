@@ -10,16 +10,16 @@ import Foundation
 import SwiftUI
 
 class MetadateViewViewModel: ObservableObject {
-    @Published var nameInit = ""
-    @Published var unitInit = ""
-    @Published var elementsInit: [Element] = []
-    @Published var name = ""
-    @Published var unit = ""
+    private var metadateInit = Metadate()
+    @Published var metadate = Metadate()
+    
+    private var elementsInit: [Element] = []
     @Published var elements: [Element] = []
-    @Published var created = Date().timeIntervalSince1970
+    
     @Published var alertTitle = ""
     @Published var alertMessage = ""
     @Published var showAlert = false
+    
     @Published var showingNewMetadateView = false
     
     private let userId: String
@@ -27,6 +27,9 @@ class MetadateViewViewModel: ObservableObject {
     private let exerciseId: String
     private let metadateId: String
     
+    private let userRef: DocumentReference
+    private let workoutRef: DocumentReference
+    private let exerciseRef: DocumentReference
     private let metadateRef: DocumentReference
     
     private var elementIdsAdd: [String] = []
@@ -38,35 +41,49 @@ class MetadateViewViewModel: ObservableObject {
         self.exerciseId = exerciseId
         self.metadateId = metadateId
         
-        self.metadateRef = Firestore.firestore()
+        self.userRef = Firestore.firestore()
             .collection("users")
             .document(userId)
+        self.workoutRef = userRef
             .collection("workouts")
             .document(workoutId)
+        self.exerciseRef = workoutRef
             .collection("exercises")
             .document(exerciseId)
+        self.metadateRef = exerciseRef
             .collection("metadata")
             .document(metadateId)
         
+        loadMetadate()
+        loadElements()
+    }
+    
+    func loadMetadate() {
         metadateRef.getDocument { document, error in
             guard let document = document, document.exists else {
                 return
             }
             
             let data = document.data()
-            let name = data?["name"] as? String ?? ""
-            let unit = data?["unit"] as? String ?? ""
-            self.nameInit = name
-            self.unitInit = unit
-            self.name = name
-            self.unit = unit
-            self.created = data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970
+            let metadate = Metadate(
+                id: data?["id"] as? String ?? "",
+                name: data?["name"] as? String ?? "",
+                unit: data?["unit"] as? String ?? "",
+                created: data?["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                edited: data?["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+            )
+            
+            self.metadateInit = metadate
+            self.metadate = metadate
+            
         }
-        
+    }
+    
+    func loadElements() {
         metadateRef.collection("elements").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    let elements = snapshot.documents.map { data in
+                    var elements = snapshot.documents.map { data in
                         Element(
                             id: data["id"] as? String ?? "",
                             content: data["content"] as? String ?? "",
@@ -74,6 +91,9 @@ class MetadateViewViewModel: ObservableObject {
                             edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
                         )
                     }
+                    
+                    elements.sort { $0.created < $1.created }
+                    
                     self.elementsInit += elements
                     self.elements += elements
                 }
@@ -90,54 +110,45 @@ class MetadateViewViewModel: ObservableObject {
     }
     
     func save() {
-        guard canSave else {
-            return
+        guard canSave else { return }
+        
+        saveMetadate()
+        saveElements()
+    }
+    
+    var canSave: Bool {
+        guard !metadate.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return false
         }
+        return true
+    }
+    
+    func saveMetadate() {
+        metadate.edited = Date().timeIntervalSince1970
+        metadateRef.updateData(metadate.asDictionary())
         
-        let updatedMetadate = Metadate(
-            id: metadateId,
-            name: name,
-            unit: unit,
-            created: created,
-            edited: Date().timeIntervalSince1970
-        )
-        
-        metadateRef.updateData(updatedMetadate.asDictionary())
-        
-        nameInit = name
-        unitInit = unit
-        
+        metadateInit = metadate
+    }
+    
+    func saveElements() {
         for element in elements {
-            let elementRef = metadateRef
-                .collection("elements")
-                .document(element.id)
+            let e = Element(
+                id: element.id,
+                content: element.content,
+                created: element.created,
+                edited: Date().timeIntervalSince1970
+            )
             
+            let elementRef = metadateRef.collection("elements").document(element.id)
             if elementIdsAdd.contains(element.id) {
-                let newElement = Element(
-                    id: element.id,
-                    content: element.content,
-                    created: Date().timeIntervalSince1970,
-                    edited: Date().timeIntervalSince1970
-                )
-                
-                elementRef.setData(newElement.asDictionary())
+                elementRef.setData(e.asDictionary())
             } else {
-                let updatedElement = Element(
-                    id: element.id,
-                    content: element.content,
-                    created: element.created,
-                    edited: Date().timeIntervalSince1970
-                )
-                
-                elementRef.updateData(updatedElement.asDictionary())
+                elementRef.updateData(e.asDictionary())
             }
         }
         
         for elementIdDelete in elementIdsDelete {
-            let elementRef = metadateRef
-                .collection("elements")
-                .document(elementIdDelete)
-            
+            let elementRef = metadateRef.collection("elements").document(elementIdDelete)
             elementRef.delete()
         }
         
@@ -147,59 +158,27 @@ class MetadateViewViewModel: ObservableObject {
         elementsInit = elements
     }
     
-    var canSave: Bool {
-        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return false
-        }
-        return true
-    }
-    
     func add() {
-        let newElementId = UUID().uuidString
-        let newElement = Element(
-            id: newElementId,
-            content: "",
-            created: Date().timeIntervalSince1970,
-            edited: Date().timeIntervalSince1970
-        )
+        let newElement = Element()
         
-        elementIdsAdd.append(newElementId)
         elements.append(newElement)
+        elementIdsAdd.append(newElement.id)
     }
     
     var dataIsInit: Bool {
-        guard name == nameInit else {
-            return false
-        }
-        guard unit == unitInit else {
-            return false
-        }
-        guard elements.count == elementsInit.count else {
-            return false
-        }
+        guard metadate.name == metadateInit.name else { return false }
+        guard metadate.unit == metadateInit.unit else { return false }
+        
+        guard elements.count == elementsInit.count else { return false }
         for (element, elementInit) in zip(elements, elementsInit) {
-            guard element.id == elementInit.id else {
-                return false
-            }
-            guard element.content == elementInit.content else {
-                return false
-            }
-            guard element.created == elementInit.created else {
-                return false
-            }
-            guard element.edited == elementInit.edited else {
-                return false
-            }
+            guard element.content == elementInit.content else { return false }
         }
+        
         return true
     }
     
     var background: Color {
-        if canSave && !dataIsInit {
-            return .blue
-        } else {
-            return .gray
-        }
+        return canSave && !dataIsInit ? .blue : .gray
     }
     
     var elementIds: [String] {
