@@ -32,12 +32,6 @@ struct WorkoutView: View {
             .navigationTitle("Workout")
             .toolbar {
                 Button {
-                    viewModel.loadExercises()
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                }
-                
-                Button {
                     viewModel.showingEditWorkoutView = true
                 } label: {
                     Image(systemName: "pencil")
@@ -67,6 +61,12 @@ struct WorkoutView: View {
         .onChange(of: viewModel.showingNewExerciseView) {
             viewModel.load()
         }
+        .onChange(of: viewModel.reloadInWorkout) {
+            if viewModel.reloadInWorkout {
+                viewModel.load()
+                viewModel.reloadInWorkout = false
+            }
+        }
     }
     
     @ViewBuilder
@@ -90,7 +90,8 @@ struct WorkoutView: View {
                                 destination: ExerciseView(
                                     userId: userId,
                                     workoutId: workoutId,
-                                    exerciseId: exercise.id
+                                    exerciseId: exercise.id,
+                                    reloadInWorkout: $viewModel.reloadInWorkout
                                 )
                             ) {
                                 VStack(alignment: .leading) {

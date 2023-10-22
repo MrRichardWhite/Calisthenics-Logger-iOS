@@ -11,17 +11,25 @@ import SwiftUI
 struct MetadateView: View {
     @StateObject var viewModel: MetadateViewViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Binding var reloadInWorkout: Bool
+    @Binding var reloadInExercise: Bool
 
     private let userId: String
     private let workoutId: String
     private let exerciseId: String
     private let metadateId: String
     
-    init(userId: String, workoutId: String, exerciseId: String, metadateId: String) {
+    init(
+        userId: String, workoutId: String, exerciseId: String, metadateId: String,
+        reloadInWorkout: Binding<Bool>, reloadInExercise: Binding<Bool>
+    ) {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
         self.metadateId = metadateId
+        
+        self._reloadInWorkout = reloadInWorkout
+        self._reloadInExercise = reloadInExercise
         
         self._viewModel = StateObject(
             wrappedValue: MetadateViewViewModel(
@@ -47,6 +55,8 @@ struct MetadateView: View {
                 CLButton(title: "Save", background: viewModel.background) {
                     if viewModel.canSave && !viewModel.dataIsInit {
                         viewModel.save()
+                        reloadInWorkout = true
+                        reloadInExercise = true
                         self.presentationMode.wrappedValue.dismiss()
                     } else {
                         if !viewModel.canSave {
@@ -101,6 +111,14 @@ struct MetadateView: View {
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "07FCE443-3617-422E-B396-E34F05421D3E",
         exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B",
-        metadateId: "22225346-DA6B-491F-97C0-59AE5A7C4E2F"
+        metadateId: "22225346-DA6B-491F-97C0-59AE5A7C4E2F",
+        reloadInWorkout: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
+        reloadInExercise: Binding(
+            get: { return true },
+            set: { _ in }
+        )
     )
 }

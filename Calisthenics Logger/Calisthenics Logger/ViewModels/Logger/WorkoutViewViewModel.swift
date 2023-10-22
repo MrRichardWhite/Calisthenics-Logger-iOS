@@ -11,6 +11,7 @@ import Foundation
 class WorkoutViewViewModel: ObservableObject {
     @Published var showingEditWorkoutView = false
     @Published var showingNewExerciseView = false
+    @Published var reloadInWorkout = false
     
     @Published var exercises: [Exercise] = []
     @Published var metadata: [String:[Metadate]] = [:]

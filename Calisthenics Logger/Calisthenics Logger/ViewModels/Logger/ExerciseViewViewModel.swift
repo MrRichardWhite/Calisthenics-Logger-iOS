@@ -12,6 +12,7 @@ import SwiftUI
 class ExerciseViewViewModel: ObservableObject {
     @Published var showingEditExerciseView = false
     @Published var showingNewMetadateView = false
+    @Published var reloadInExercise = false
     
     @Published var metadata: [Metadate] = []
     @Published var elements: [String: [Element]] = [:]

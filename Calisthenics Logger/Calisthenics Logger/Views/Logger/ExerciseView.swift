@@ -10,15 +10,18 @@ import SwiftUI
 
 struct ExerciseView: View {
     @StateObject var viewModel: ExerciseViewViewModel
+    @Binding var reloadInWorkout: Bool
     
     private let userId: String
     private let workoutId: String
     private let exerciseId: String
 
-    init(userId: String, workoutId: String, exerciseId: String) {
+    init(userId: String, workoutId: String, exerciseId: String, reloadInWorkout: Binding<Bool>) {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
+        
+        self._reloadInWorkout = reloadInWorkout
         
         self._viewModel = StateObject(
             wrappedValue: ExerciseViewViewModel(
@@ -36,12 +39,6 @@ struct ExerciseView: View {
             }
             .navigationTitle("Exercise")
             .toolbar {
-                Button {
-                    viewModel.loadMetadata()
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                }
-                
                 Button {
                     viewModel.showingEditExerciseView = true
                 } label: {
@@ -74,6 +71,12 @@ struct ExerciseView: View {
         .onChange(of: viewModel.showingNewMetadateView) {
             viewModel.loadMetadata()
         }
+        .onChange(of: viewModel.reloadInExercise) {
+            if viewModel.reloadInExercise {
+                viewModel.loadMetadata()
+                viewModel.reloadInExercise = false
+            }
+        }
     }
     
     @ViewBuilder
@@ -84,7 +87,9 @@ struct ExerciseView: View {
                     userId: userId,
                     workoutId: workoutId,
                     exerciseId: exerciseId,
-                    metadateId: metadate.id
+                    metadateId: metadate.id,
+                    reloadInWorkout: $reloadInWorkout,
+                    reloadInExercise: $viewModel.reloadInExercise
                 )
             ) {
                 VStack(alignment: .leading) {
@@ -125,6 +130,10 @@ struct ExerciseView: View {
     ExerciseView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "07FCE443-3617-422E-B396-E34F05421D3E",
-        exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B"
+        exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B",
+        reloadInWorkout: Binding(
+            get: { return true },
+            set: { _ in }
+        )
     )
 }
