@@ -88,3 +88,5 @@ What work has been done when?
 		- moved chart straight into `StatView`
 	- 21.10.2023, evening
 		- implemented `updateSamples()` directly after `NewStatView` dismissed
+	- 21.10.2023, evening -22.10.2023, early afternoon
+		- `Filter` with `MetadateTemplate` containing multiple `Element`s acts upon target `Metadate` element wise

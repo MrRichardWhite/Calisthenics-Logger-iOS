@@ -9,6 +9,8 @@ import FirebaseFirestore
 import Foundation
 
 class sampleLoader {
+    @Published var message = ""
+    
     private let exerciseTemplates: [ExerciseTemplate]
     private let metadateTemplates: [MetadateTemplate]
     
@@ -88,7 +90,7 @@ class sampleLoader {
         }
         catch {}
     }
-
+    
     func updateSamplesInExercises(workoutRef: DocumentReference, workoutDate: TimeInterval) async {
         do {
             let collectionSnapshot = try await workoutRef.collection("exercises").getDocuments()
@@ -100,30 +102,54 @@ class sampleLoader {
                 
                 let exerciseRef = workoutRef.collection("exercises").document(exerciseId)
                 
-                guard await self.willUpdateSamplesInMetadates(exerciseRef: exerciseRef, exerciseName: exerciseName) else {
+                guard let exerciseTemplate = self.id2exerciseTemplate(id: self.stat.exerciseTemplateId) else {
+                    continue
+                }
+                guard exerciseName == exerciseTemplate.name else {
                     continue
                 }
                 
-                await self.updateSamplesInMetadata(exerciseRef: exerciseRef, workoutDate: workoutDate)
+                let metadateElementsDict = await self.getMetadateElementsDict(exerciseRef: exerciseRef)
+                guard let metadateTemplate = self.id2metadateTemplate(id: self.stat.metadateTemplateId) else {
+                    continue
+                }
+                guard let elements = metadateElementsDict[metadateTemplate.name] else {
+                    continue
+                }
+                let filterMask = await getFilterMask(
+                    exerciseRef: exerciseRef,
+                    elementsCount: elements.count,
+                    workoutDate: workoutDate,
+                    exerciseName: exerciseName,
+                    metadateElementsDict: metadateElementsDict
+                )
+                
+                await self.updateSamplesInMetadata(
+                    exerciseRef: exerciseRef,
+                    workoutDate: workoutDate,
+                    filterMask: filterMask,
+                    metadateElementsDict: metadateElementsDict
+                )
             }
         }
         catch {}
     }
-
-    func willUpdateSamplesInMetadates(exerciseRef: DocumentReference, exerciseName: String) async -> Bool {
-        guard let exerciseTemplate = self.id2exerciseTemplate(id: self.stat.exerciseTemplateId) else {
-            return false
-        }
-        guard exerciseName == exerciseTemplate.name else {
-            return false
-        }
+    
+    func getFilterMask(
+        exerciseRef: DocumentReference,
+        elementsCount: Int,
+        workoutDate: TimeInterval,
+        exerciseName: String,
+        metadateElementsDict: [String: [Element]]
+    ) async -> [Bool] {
+        
+        var mask = [Bool](repeating: true, count: elementsCount)
         
         if filters.count == 0 {
-            return true
+            return mask
         }
         
-        let d = await self.getMetadateElementContentsDict(exerciseRef: exerciseRef)
-        for (metadateName, metadateElementContents) in d {
+        for (metadateName, metadateElements) in metadateElementsDict {
             for f in filters {
                 guard f.metadateTemplateId != "", f.relation != "", f.bound != "" else {
                     continue
@@ -136,32 +162,46 @@ class sampleLoader {
                     continue
                 }
                 
-                for content in metadateElementContents {
-                    var bools: [Bool] = [content == f.bound, content != f.bound]
-                    if let content_d = Double(content),
-                       let f_bound_d = Double(f.bound) {
-                        bools += [
-                            content_d <= f_bound_d, content_d < f_bound_d,
-                            content_d >= f_bound_d, content_d > f_bound_d
-                        ]
+                if metadateElements.count == 1 {
+                    let element = metadateElements[0]
+                    if !elementOk(f: f, element: element) {
+                        mask = mask.map { _ in false }
+                    }
+                } else {
+                    guard metadateElements.count == elementsCount else {
+                        let date = Date(timeIntervalSince1970: workoutDate)
+                            .formatted(date: .abbreviated, time: .shortened)
+                        
+                        var targetMetadateName = ""
+                        if let metadateTemplate = self.id2metadateTemplate(id: self.stat.metadateTemplateId) {
+                            targetMetadateName = metadateTemplate.name
+                        }
+                        
+                        message = """
+                            Workout: \(date)
+                            Exercise: \(exerciseName)
+                            Target Metadate \(targetMetadateName): \(elementsCount) elements
+                            Metadate \(metadateName): \(metadateElements.count) elements
+                        """
+                        print(message)
+                        
+                        continue
                     }
                     
-                    for (relation, bool) in zip(relations, bools) {
-                        if f.relation == relation {
-                            guard bool else {
-                                return false
-                            }
+                    for (i, element) in metadateElements.enumerated() {
+                        if !elementOk(f: f, element: element) {
+                            mask[i] = false
                         }
                     }
                 }
             }
         }
         
-        return true
+        return mask
     }
-
-    func getMetadateElementContentsDict(exerciseRef: DocumentReference) async -> [String: [String]] {
-        var d: [String: [String]] = [:]
+    
+    func getMetadateElementsDict(exerciseRef: DocumentReference) async -> [String: [Element]] {
+        var d: [String: [Element]] = [:]
         
         do {
             let collectionSnapshot = try await exerciseRef.collection("metadata").getDocuments()
@@ -173,28 +213,60 @@ class sampleLoader {
                 
                 let metadateRef = exerciseRef.collection("metadata").document(metadateId)
                 
-                d[metadateName] = await self.getMetadateElementContentsList(metadateRef: metadateRef)
+                d[metadateName] = await self.getMetadateElementsList(metadateRef: metadateRef)
             }
         }
         catch {}
         
         return d
     }
-
-    func getMetadateElementContentsList(metadateRef: DocumentReference) async -> [String] {
+    
+    func getMetadateElementsList(metadateRef: DocumentReference) async -> [Element] {
         do {
             let collectionSnapshot = try await metadateRef.collection("elements").getDocuments()
-            let l = collectionSnapshot.documents.map { documentSnapshot in
+            var l = collectionSnapshot.documents.map { documentSnapshot in
                 let data = documentSnapshot.data()
-                return data["content"] as? String ?? ""
+                return Element(
+                    id: data["content"] as? String ?? "",
+                    content: data["content"] as? String ?? "",
+                    created: data["created"] as? TimeInterval ?? Date().timeIntervalSince1970,
+                    edited: data["edited"] as? TimeInterval ?? Date().timeIntervalSince1970
+                )
             }
+            l.sort { $0.created < $1.created }
             return l
         }
         catch {}
         return []
     }
     
-    func updateSamplesInMetadata(exerciseRef: DocumentReference, workoutDate: TimeInterval) async {
+    func elementOk(f: Filter, element: Element) -> Bool {
+        var bools: [Bool] = [element.content == f.bound, element.content != f.bound]
+        if let content = Double(element.content),
+           let f_bound = Double(f.bound) {
+            bools += [
+                content <= f_bound, content < f_bound,
+                content >= f_bound, content > f_bound
+            ]
+        }
+        
+        for (relation, bool) in zip(relations, bools) {
+            if f.relation == relation {
+                guard bool else {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    func updateSamplesInMetadata(
+        exerciseRef: DocumentReference,
+        workoutDate: TimeInterval,
+        filterMask: [Bool],
+        metadateElementsDict: [String: [Element]]
+    ) async {
         do {
             let collectionSnapshot = try await exerciseRef.collection("metadata").getDocuments()
             for documentSnapshot in collectionSnapshot.documents {
@@ -203,54 +275,66 @@ class sampleLoader {
                 let metadateId = data["id"] as? String ?? ""
                 let metadateName = data["name"] as? String ?? ""
                 
-                let metadateRef = exerciseRef.collection("metadata").document(metadateId)
-                
-                guard willUpdateSamplesInElements(metadateName: metadateName) else {
+                guard let metadateTemplate = self.id2metadateTemplate(id: self.stat.metadateTemplateId) else {
+                    continue
+                }
+                guard metadateName == metadateTemplate.name else {
                     continue
                 }
                 
-                await self.updateSamplesInElements(metadateRef: metadateRef, workoutDate: workoutDate)
+                let date = Date(timeIntervalSince1970: workoutDate)
+                    .formatted(date: .abbreviated, time: .shortened)
+                
+                guard let metadateElementsList = metadateElementsDict[metadateName] else {
+                    print("error")
+                    print("let metadateElementsList = metadateElementsDict[metadateId]")
+                    continue
+                }
+
+                await self.updateSamplesInElements(
+                    workoutDate: workoutDate,
+                    filterMask: filterMask,
+                    metdateElementsList: metadateElementsList
+                )
+                break
             }
         }
         catch {}
     }
     
-    func willUpdateSamplesInElements(metadateName: String) -> Bool {
-        guard let metadateTemplate = self.id2metadateTemplate(id: self.stat.metadateTemplateId) else {
-            return false
-        }
-        guard metadateName == metadateTemplate.name else {
-            return false
-        }
-        return true
-    }
-    
-    func updateSamplesInElements(metadateRef: DocumentReference, workoutDate: TimeInterval) async {
+    func updateSamplesInElements(
+        workoutDate: TimeInterval,
+        filterMask: [Bool],
+        metdateElementsList: [Element]
+    ) async {
         do {
-            let collectionSnapshot = try await metadateRef.collection("elements").getDocuments()
+            var data: [Double] = []
+            for (element, b) in zip(metdateElementsList, filterMask) {
+                if b && element.content != "" {
+                    if let date = Double(element.content) {
+                        data.append(date)
+                    }
+                }
+            }
             
-            let contents = collectionSnapshot.documents
-                .map { data in data["content"] as? String ?? ""}
-                .filter { $0 != "" }
-                .map { Double($0) ?? 0 }
+            guard data.count != 0 else { return }
             
             var content: Double
             switch self.stat.aggregation {
-                case "max":  content = contents.max() ?? 0.0
-                case "min":  content = contents.min() ?? 0.0
-                case "sum":  content = contents.sum() ?? 0.0
-                case "mean": content = contents.mean() ?? 0.0
+                case "max":  content = data.max() ?? 0.0
+                case "min":  content = data.min() ?? 0.0
+                case "sum":  content = data.sum() ?? 0.0
+                case "mean": content = data.mean() ?? 0.0
                 default: content = 0.0
             }
             
-            let newSampleId = UUID().uuidString
             let newSample = Sample(
-                id: newSampleId,
+                id: UUID().uuidString,
                 date: workoutDate,
                 content: content
             )
             
-            let sampleRef = self.statRef.collection("samples").document(newSampleId)
+            let sampleRef = self.statRef.collection("samples").document(newSample.id)
             try await sampleRef.setData(newSample.asDictionary())
         }
         catch {}
