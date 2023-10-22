@@ -291,10 +291,7 @@
 		8D30E0CD2AC4391600455620 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */,
-				8D30E0E02AC443B100455620 /* HeaderView.swift */,
-				8D30E0E22AC44CB300455620 /* CLButton.swift */,
-				8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */,
+				8DFF1FED2AE562B400EAE68F /* Extra */,
 				8D199DC32AC193800071894A /* MainView.swift */,
 				8D30E0D42AC43A8700455620 /* LoginView.swift */,
 				8D30E0D62AC43AA800455620 /* RegisterView.swift */,
@@ -488,6 +485,17 @@
 				8D3983142AC8CE3000B6793F /* EditMetadateTemplateView.swift */,
 			);
 			path = Metadata;
+			sourceTree = "<group>";
+		};
+		8DFF1FED2AE562B400EAE68F /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				8D41D5A32AC9886E007EDE6E /* SwiftUIView.swift */,
+				8D30E0E02AC443B100455620 /* HeaderView.swift */,
+				8D30E0E22AC44CB300455620 /* CLButton.swift */,
+				8D72E50B2ACEDE1A00EAB0ED /* CLSaved.swift */,
+			);
+			path = Extra;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
