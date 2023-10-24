@@ -130,6 +130,7 @@ class sampleLoader {
                     filterMask: filterMask,
                     metadateElementsDict: metadateElementsDict
                 )
+                break
             }
         }
         catch {}
