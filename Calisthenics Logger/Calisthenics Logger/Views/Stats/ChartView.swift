@@ -22,6 +22,8 @@ struct ChartView: View {
     @State var style = "bars"
     @State var animate: [String:Bool] = [:]
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @Binding var reloadSamples: Bool
     
     private let userId: String
@@ -139,7 +141,10 @@ struct ChartView: View {
         .background {
             if !lite {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(.white.shadow(.drop(radius: 2)))
+                    .fill(
+                        (colorScheme == .light ? Color.white : Color(.systemGray6))
+                            .shadow(.drop(radius: 2))
+                    )
             }
         }
     }
