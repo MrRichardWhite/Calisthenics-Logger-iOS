@@ -273,7 +273,6 @@ class sampleLoader {
             for documentSnapshot in collectionSnapshot.documents {
                 let data = documentSnapshot.data()
                 
-                let metadateId = data["id"] as? String ?? ""
                 let metadateName = data["name"] as? String ?? ""
                 
                 guard let metadateTemplate = self.id2metadateTemplate(id: self.stat.metadateTemplateId) else {
@@ -283,12 +282,7 @@ class sampleLoader {
                     continue
                 }
                 
-                let date = Date(timeIntervalSince1970: workoutDate)
-                    .formatted(date: .abbreviated, time: .shortened)
-                
                 guard let metadateElementsList = metadateElementsDict[metadateName] else {
-                    print("error")
-                    print("let metadateElementsList = metadateElementsDict[metadateId]")
                     continue
                 }
 
