@@ -75,4 +75,13 @@ class StatsViewViewModel: ObservableObject {
         }
         return nil
     }
+    
+    func id2exerciseTemplateCategory(exerciseTemplates: [ExerciseTemplate], id: String) -> String {
+        for exerciseTemplate in exerciseTemplates {
+            if exerciseTemplate.id == id {
+                return exerciseTemplate.category
+            }
+        }
+        return ""
+    }
 }
