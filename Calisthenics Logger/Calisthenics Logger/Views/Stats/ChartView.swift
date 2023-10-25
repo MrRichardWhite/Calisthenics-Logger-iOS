@@ -24,7 +24,7 @@ struct ChartView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    @Binding var reloadSamples: Bool
+    @Binding var reloadSamples: Int
     
     private let userId: String
     private let statId: String
@@ -41,7 +41,7 @@ struct ChartView: View {
         userId: String, statId: String,
         chartYAxisLabel: String = "",
         lite: Bool = false, details: Bool = false,
-        reloadSamples: Binding<Bool>
+        reloadSamples: Binding<Int>
     ) {
         self.userId = userId
         self.statId = statId
@@ -87,11 +87,8 @@ struct ChartView: View {
             animateGraph()
         }
         .onChange(of: reloadSamples, initial: false) { _, _  in
-            if reloadSamples {
-                viewModel.load()
-                animateGraph()
-                reloadSamples = false
-            }
+            viewModel.load()
+            animateGraph()
         }
     }
 
@@ -196,7 +193,7 @@ struct ChartView: View {
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         statId: "D5E5E158-856A-45DD-828A-0AB06CD533E9",
         reloadSamples: Binding(
-            get: { return true },
+            get: { return 0 },
             set: { _ in }
         )
     )

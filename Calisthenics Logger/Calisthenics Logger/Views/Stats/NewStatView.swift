@@ -10,14 +10,14 @@ import SwiftUI
 
 struct NewStatView: View {
     @StateObject var viewModel: NewStatViewViewModel
-    @Binding var reloadSamples: Bool
+    @Binding var reloadSamples: Int
     @Binding var newStatPresented: Bool
     
     let userId: String
     
     let userRef: DocumentReference
     
-    init(userId: String, reloadSamples: Binding<Bool>, newStatPresented: Binding<Bool>) {
+    init(userId: String, reloadSamples: Binding<Int>, newStatPresented: Binding<Bool>) {
         self.userId = userId
         self.userRef = Firestore.firestore().collection("users").document(userId)
         
@@ -59,7 +59,7 @@ struct NewStatView: View {
                 
                 CLAsyncButton(title: "Add", background: .green) {
                     await viewModel.save()
-                    reloadSamples = true
+                    reloadSamples += 1
                     newStatPresented = false
                 }
                 .padding()
@@ -72,7 +72,7 @@ struct NewStatView: View {
     NewStatView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         reloadSamples: Binding(
-            get: { return true },
+            get: { return 0 },
             set: { _ in }
         ),
         newStatPresented: Binding(

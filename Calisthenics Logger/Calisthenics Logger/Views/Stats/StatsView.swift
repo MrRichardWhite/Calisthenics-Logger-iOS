@@ -43,7 +43,8 @@ struct StatsView: View {
                     NavigationLink(
                         destination: StatView(
                             userId: userId,
-                            statId: stat.id
+                            statId: stat.id,
+                            reloadSamples: $viewModel.reloadSamples
                         )
                     ) {
                         VStack(alignment: .leading) {
@@ -86,12 +87,6 @@ struct StatsView: View {
             .navigationTitle("Stats")
             .toolbar {
                 HStack {
-                    Button {
-                        viewModel.reloadSamples = true
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                    
                     Button {
                         viewModel.showingNewStatView = true
                     } label: {

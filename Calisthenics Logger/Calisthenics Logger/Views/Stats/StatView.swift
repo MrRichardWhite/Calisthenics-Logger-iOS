@@ -14,7 +14,7 @@ struct StatView: View {
     
     @State var samples: [Sample] = []
     
-    @State var reloadSamples: Bool = false
+    @Binding var reloadSamples: Int
     
     @State var saveBG: Color = .gray
     
@@ -24,9 +24,11 @@ struct StatView: View {
     private let userRef: DocumentReference
     private let statRef: DocumentReference
     
-    init(userId: String, statId: String) {
+    init(userId: String, statId: String, reloadSamples: Binding<Int>) {
         self.userId = userId
         self.statId = statId
+        
+        self._reloadSamples = reloadSamples
         
         self.userRef = Firestore.firestore().collection("users").document(userId)
         self.statRef = userRef.collection("stats").document(statId)
@@ -224,13 +226,17 @@ struct StatView: View {
         )
         await sampleLoader.updateSamples()
         
-        reloadSamples = true
+        reloadSamples += 1
     }
 }
 
 #Preview {
     StatView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        statId: "D5E5E158-856A-45DD-828A-0AB06CD533E9"
+        statId: "D5E5E158-856A-45DD-828A-0AB06CD533E9",
+        reloadSamples: Binding(
+            get: { return 0 },
+            set: { _ in }
+        )
     )
 }
