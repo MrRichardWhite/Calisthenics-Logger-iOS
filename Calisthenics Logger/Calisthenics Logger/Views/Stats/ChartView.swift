@@ -83,13 +83,19 @@ struct ChartView: View {
                 }
             }
         }
-        .onChange(of: viewModel.loaded, initial: false) { _, _  in
-            animateGraph()
-        }
-        .onChange(of: reloadSamples, initial: false) { _, _  in
-            viewModel.load()
-            animateGraph()
-        }
+        .onChange(
+            of: viewModel.loaded,
+            perform: { _ in
+                animateGraph()
+            }
+        )
+        .onChange(
+            of: reloadSamples,
+            perform: { _ in
+                viewModel.load()
+                animateGraph()
+            }
+        )
     }
 
     @ViewBuilder

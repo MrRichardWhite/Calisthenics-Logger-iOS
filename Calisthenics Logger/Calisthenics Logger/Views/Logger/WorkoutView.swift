@@ -58,15 +58,21 @@ struct WorkoutView: View {
                 )
             }
         }
-        .onChange(of: viewModel.showingNewExerciseView) {
-            viewModel.load()
-        }
-        .onChange(of: viewModel.reloadInWorkout) {
-            if viewModel.reloadInWorkout {
+        .onChange(
+            of: viewModel.showingNewExerciseView,
+            perform: { _ in
                 viewModel.load()
-                viewModel.reloadInWorkout = false
             }
-        }
+        )
+        .onChange(
+            of: viewModel.reloadInWorkout,
+            perform: { _ in
+                if viewModel.reloadInWorkout {
+                    viewModel.load()
+                    viewModel.reloadInWorkout = false
+                }
+            }
+        )
     }
     
     @ViewBuilder

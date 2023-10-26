@@ -115,9 +115,12 @@ struct StatView: View {
             }
             .padding()
         }
-        .onChange(of: viewModel.dataIsInit) {
-            saveBG = viewModel.background
-        }
+        .onChange(
+            of: viewModel.dataIsInit,
+            perform: { _ in
+                saveBG = viewModel.background
+            }
+        )
     }
     
     @ViewBuilder

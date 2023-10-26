@@ -68,15 +68,21 @@ struct ExerciseView: View {
                 )
             }
         }
-        .onChange(of: viewModel.showingNewMetadateView) {
-            viewModel.loadMetadata()
-        }
-        .onChange(of: viewModel.reloadInExercise) {
-            if viewModel.reloadInExercise {
+        .onChange(
+            of: viewModel.showingNewMetadateView,
+            perform: { _ in
                 viewModel.loadMetadata()
-                viewModel.reloadInExercise = false
             }
-        }
+        )
+        .onChange(
+            of: viewModel.reloadInExercise,
+            perform: { _ in
+                if viewModel.reloadInExercise {
+                    viewModel.loadMetadata()
+                    viewModel.reloadInExercise = false
+                }
+            }
+        )
     }
     
     @ViewBuilder
