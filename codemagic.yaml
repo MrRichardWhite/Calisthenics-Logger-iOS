@@ -9,8 +9,7 @@ workflows:
       - name: Set up keychain to be used for code signing using Codemagic CLI 'keychain' command
         script: keychain initialize
       - name: Fetch signing files
-        script: |
-        app-store-connect fetch-signing-files "io.codemagic.app" \
+        script: app-store-connect fetch-signing-files "Team-Alpha-Bar.Calisthenics-Logger" \
           --type IOS_APP_STORE \
           --create
       - name: Set up signing certificate
@@ -18,7 +17,7 @@ workflows:
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build App
-        script: xcode-project build-ipa --workspace "IA.xcworkspace" --scheme "IA"
+        script: xcode-project build-ipa --workspace "Calisthenics Logger.xcworkspace" --scheme "Calisthenics Logger"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
