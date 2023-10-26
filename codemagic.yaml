@@ -15,7 +15,7 @@ workflows:
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build App
-        script: xcode-project build-ipa --workspace "Calisthenics Logger.xcworkspace" --scheme "Calisthenics Logger"
+        script: xcode-project build-ipa --workspace "Calisthenics Logger/Calisthenics Logger.xcworkspace" --scheme "Calisthenics Logger"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
