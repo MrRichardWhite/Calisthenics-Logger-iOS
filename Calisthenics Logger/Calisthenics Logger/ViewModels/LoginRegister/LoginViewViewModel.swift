@@ -22,7 +22,6 @@ class LoginViewViewModel: ObservableObject {
         }
         
         Auth.auth().signIn(withEmail: email, password: password)
-        
     }
     
     var canLogIn: Bool {

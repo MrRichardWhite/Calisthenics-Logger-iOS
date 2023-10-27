@@ -31,6 +31,8 @@ class RegisterViewViewModel: ObservableObject {
             
             self?.insertUserRecord(id: userId)
         }
+        
+        Auth.auth().signIn(withEmail: email, password: password)
     }
     
     private func insertUserRecord(id: String) {

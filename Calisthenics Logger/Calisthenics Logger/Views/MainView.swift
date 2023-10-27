@@ -14,7 +14,7 @@ struct MainView: View {
         if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty {
             AccountView(userId: viewModel.currentUserId)
         } else {
-            LoginView()
+            LoginRegisterView()
         }
     }
 }

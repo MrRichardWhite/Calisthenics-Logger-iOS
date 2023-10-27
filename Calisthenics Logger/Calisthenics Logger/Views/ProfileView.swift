@@ -49,7 +49,7 @@ struct ProfileView: View {
             infoField(title: "Email", content: user.email)
             infoField(title: "Member Since", content: "\(memberSince)")
             
-            CLButton(title: "Log Out", background: .red) {
+            CLButton(title: "Logout", background: .red) {
                 viewModel.logOut()
             }
             .padding()
