@@ -239,7 +239,7 @@ class StatViewViewModel: ObservableObject {
     
     var background: Color {
         if !dataIsInit {
-            return .blue
+            return .yellow
         } else {
             return .gray
         }

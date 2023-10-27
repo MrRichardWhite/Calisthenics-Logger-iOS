@@ -97,7 +97,7 @@ class EditMetadateTemplateViewViewModel: ObservableObject {
     
     var background: Color {
         if canSave && !dataIsInit {
-            return .blue
+            return .yellow
         } else {
             return .gray
         }

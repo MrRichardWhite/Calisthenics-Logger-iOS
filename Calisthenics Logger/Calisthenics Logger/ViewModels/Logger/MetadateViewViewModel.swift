@@ -178,7 +178,7 @@ class MetadateViewViewModel: ObservableObject {
     }
     
     var background: Color {
-        return canSave && !dataIsInit ? .blue : .gray
+        return canSave && !dataIsInit ? .yellow : .gray
     }
     
     var elementIds: [String] {
