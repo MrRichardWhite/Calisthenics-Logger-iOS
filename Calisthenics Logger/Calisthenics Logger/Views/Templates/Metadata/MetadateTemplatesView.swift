@@ -39,12 +39,11 @@ struct MetadateTemplatesView: View {
                     
                     .swipeActions {
                         Button {
-                            // Delete
                             viewModel.delete(metadateTemplateId: metadateTemplate.id)
                         } label: {
                             Image(systemName: "trash")
-                                .tint(Color.red)
                         }
+                        .tint(.red)
                     }
                 }
             }

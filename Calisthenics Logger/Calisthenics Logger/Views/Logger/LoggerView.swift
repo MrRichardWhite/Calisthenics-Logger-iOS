@@ -71,8 +71,8 @@ struct LoggerView: View {
                                         viewModel.delete(workoutId: workout.id)
                                     } label: {
                                         Image(systemName: "trash")
-                                            .tint(.red)
                                     }
+                                    .tint(.red)
                                 }
                             }
                         }

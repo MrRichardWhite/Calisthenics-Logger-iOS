@@ -96,8 +96,8 @@ struct StatsView: View {
                                         viewModel.delete(statId: stat.id)
                                     } label: {
                                         Image(systemName: "trash")
-                                            .tint(Color.red)
                                     }
+                                    .tint(.red)
                                 }
                             }
                         }

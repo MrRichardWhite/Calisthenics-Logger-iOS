@@ -165,8 +165,8 @@ struct StatView: View {
                         saveBG = viewModel.background
                     } label: {
                         Image(systemName: "trash")
-                            .tint(Color.red)
                     }
+                    .tint(.red)
                 }
             }
         }

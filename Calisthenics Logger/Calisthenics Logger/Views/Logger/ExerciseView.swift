@@ -128,8 +128,8 @@ struct ExerciseView: View {
                     viewModel.loadMetadata()
                 } label: {
                     Image(systemName: "trash")
-                        .tint(Color.red)
                 }
+                .tint(.red)
             }
         }
     }

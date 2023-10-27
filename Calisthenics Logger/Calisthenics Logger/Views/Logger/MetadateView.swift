@@ -99,8 +99,8 @@ struct MetadateView: View {
                     )
                 } label: {
                     Image(systemName: "trash")
-                        .tint(Color.red)
                 }
+                .tint(.red)
             }
         }
     }

@@ -38,12 +38,11 @@ struct ExerciseTemplatesView: View {
                     }
                     .swipeActions {
                         Button {
-                            // Delete
                             viewModel.delete(exerciseTemplateId: exerciseTemplate.id)
                         } label: {
                             Image(systemName: "trash")
-                                .tint(Color.red)
                         }
+                        .tint(.red)
                     }
                 }
             }

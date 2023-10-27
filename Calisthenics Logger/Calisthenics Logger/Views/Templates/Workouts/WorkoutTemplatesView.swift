@@ -42,8 +42,8 @@ struct WorkoutTemplatesView: View {
                             viewModel.delete(workoutTemplateId: workoutTemplate.id)
                         } label: {
                             Image(systemName: "trash")
-                                .tint(Color.red)
                         }
+                        .tint(.red)
                     }
                 }
             }

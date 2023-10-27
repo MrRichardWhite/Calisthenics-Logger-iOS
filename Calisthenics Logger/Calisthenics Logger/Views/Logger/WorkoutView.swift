@@ -140,8 +140,8 @@ struct WorkoutView: View {
                                     viewModel.loadExercises()
                                 } label: {
                                     Image(systemName: "trash")
-                                        .tint(Color.red)
                                 }
+                                .tint(.red)
                             }
                         }
                     }
