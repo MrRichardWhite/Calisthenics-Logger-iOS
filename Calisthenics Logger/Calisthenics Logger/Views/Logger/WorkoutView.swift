@@ -118,12 +118,16 @@ struct WorkoutView: View {
                                             let text = String(
                                                 (contents?.joined(separator: " | "))!
                                             )
-                                            if !(
+                                            let emptySingle = text == "..."
+                                            let emptyMulti = (
                                                 text.contains("|") &&
                                                 text.contains(" ") &&
                                                 text.contains(".") &&
                                                 Set(text).count == 3
-                                            ) {
+                                            )
+                                            let empty = emptySingle || emptyMulti
+                                            let fits = text.count <= 20
+                                            if !empty && fits {
                                                 Text(text)
                                                     .font(.footnote)
                                                     .foregroundColor(Color(.secondaryLabel))
