@@ -108,16 +108,7 @@ struct ExerciseView: View {
                     let text = String(
                         contents.joined(separator: " | ")
                     )
-                    let emptySingle = text == "..."
-                    let emptyMulti = (
-                        text.contains("|") &&
-                        text.contains(" ") &&
-                        text.contains(".") &&
-                        Set(text).count == 3
-                    )
-                    let empty = emptySingle || emptyMulti
-                    let fits = text.count <= 32
-                    if !empty && fits {
+                    if showText(text: text) {
                         Text(text)
                             .font(.footnote)
                             .foregroundColor(Color(.secondaryLabel))
@@ -136,6 +127,19 @@ struct ExerciseView: View {
                 .tint(.red)
             }
         }
+    }
+    
+    func showText(text: String) -> Bool {
+        let emptySingle = text == "..."
+        let emptyMulti = (
+            text.contains("|") &&
+            text.contains(" ") &&
+            text.contains(".") &&
+            Set(text).count == 3
+        )
+        let empty = emptySingle || emptyMulti
+        let fits = text.count <= 20
+        return !empty && fits
     }
 }
 

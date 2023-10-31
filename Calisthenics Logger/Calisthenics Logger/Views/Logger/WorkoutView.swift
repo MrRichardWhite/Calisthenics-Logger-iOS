@@ -92,66 +92,75 @@ struct WorkoutView: View {
                             .padding()
                     ) {
                         List(exercises) { exercise in
-                            NavigationLink(
-                                destination: ExerciseView(
-                                    userId: userId,
-                                    workoutId: workoutId,
-                                    exerciseId: exercise.id,
-                                    reloadInWorkout: $viewModel.reloadInWorkout
-                                )
-                            ) {
-                                VStack(alignment: .leading) {
-                                    Text(exercise.name)
-                                        .padding(.bottom, 5)
-                                    
-                                    ForEach(viewModel.metadata[exercise.id] ?? []) { metadate in
-                                        HStack {
-                                            Text(metadate.name)
-                                                .font(.footnote)
-                                                .foregroundColor(Color(.secondaryLabel))
-                                            
-                                            Spacer()
-                                            
-                                            let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map {
-                                                $0.content != "" ? $0.content : "..."
-                                            }
-                                            let text = String(
-                                                (contents?.joined(separator: " | "))!
-                                            )
-                                            let emptySingle = text == "..."
-                                            let emptyMulti = (
-                                                text.contains("|") &&
-                                                text.contains(" ") &&
-                                                text.contains(".") &&
-                                                Set(text).count == 3
-                                            )
-                                            let empty = emptySingle || emptyMulti
-                                            let fits = text.count <= 20
-                                            if !empty && fits {
-                                                Text(text)
-                                                    .font(.footnote)
-                                                    .foregroundColor(Color(.secondaryLabel))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            .swipeActions {
-                                Button {
-                                    viewModel.delete(
-                                        exerciseId: exercise.id
-                                    )
-                                    viewModel.loadExercises()
-                                } label: {
-                                    Image(systemName: "trash")
-                                }
-                                .tint(.red)
-                            }
+                            exerciseElementView(exercise: exercise)
                         }
                     }
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    func exerciseElementView(exercise: Exercise) -> some View {
+        NavigationLink(
+            destination: ExerciseView(
+                userId: userId,
+                workoutId: workoutId,
+                exerciseId: exercise.id,
+                reloadInWorkout: $viewModel.reloadInWorkout
+            )
+        ) {
+            VStack(alignment: .leading) {
+                Text(exercise.name)
+                    .padding(.bottom, 5)
+                
+                ForEach(viewModel.metadata[exercise.id] ?? []) { metadate in
+                    HStack {
+                        Text(metadate.name)
+                            .font(.footnote)
+                            .foregroundColor(Color(.secondaryLabel))
+                        
+                        Spacer()
+                        
+                        let contents = viewModel.elements[exercise.id]?[metadate.id, default: []].map {
+                            $0.content != "" ? $0.content : "..."
+                        }
+                        let text = String(
+                            (contents?.joined(separator: " | "))!
+                        )
+                        if showText(text: text) {
+                            Text(text)
+                                .font(.footnote)
+                                .foregroundColor(Color(.secondaryLabel))
+                        }
+                    }
+                }
+            }
+        }
+        .swipeActions {
+            Button {
+                viewModel.delete(
+                    exerciseId: exercise.id
+                )
+                viewModel.loadExercises()
+            } label: {
+                Image(systemName: "trash")
+            }
+            .tint(.red)
+        }
+    }
+    
+    func showText(text: String) -> Bool {
+        let emptySingle = text == "..."
+        let emptyMulti = (
+            text.contains("|") &&
+            text.contains(" ") &&
+            text.contains(".") &&
+            Set(text).count == 3
+        )
+        let empty = emptySingle || emptyMulti
+        let fits = text.count <= 20
+        return !empty && fits
     }
 }
 
