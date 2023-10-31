@@ -139,7 +139,7 @@ struct ExerciseView: View {
             Set(text).count == 3
         )
         let empty = emptySingle || emptyMulti
-        let fits = text.count <= 20
+        let fits = text.count <= 32
         return !empty && fits
     }
 }
@@ -147,8 +147,8 @@ struct ExerciseView: View {
 #Preview {
     ExerciseView(
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
-        workoutId: "07FCE443-3617-422E-B396-E34F05421D3E",
-        exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B",
+        workoutId: "BF86C030-9675-44ED-8C84-E1FC61C93C90",
+        exerciseId: "CEA0A767-B355-4F31-9AE4-D3919ABDFAB1",
         reloadInWorkout: Binding(
             get: { return true },
             set: { _ in }

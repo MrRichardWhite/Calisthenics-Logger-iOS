@@ -154,7 +154,7 @@ struct WorkoutView: View {
             Set(text).count == 3
         )
         let empty = emptySingle || emptyMulti
-        let fits = text.count <= 20
+        let fits = text.count <= 32
         return !empty && fits
     }
 }
