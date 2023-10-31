@@ -31,7 +31,7 @@ struct LoginView: View {
     var loginFormView: some View {
         Form {
             TextField("Email Address", text: $viewModel.email)
-                .autocorrectionDisabled()
+                .keyboardType(.emailAddress)
                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
             SecureField("Password", text: $viewModel.password)
             
