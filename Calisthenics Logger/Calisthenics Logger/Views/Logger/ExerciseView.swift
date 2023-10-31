@@ -16,7 +16,10 @@ struct ExerciseView: View {
     private let workoutId: String
     private let exerciseId: String
 
-    init(userId: String, workoutId: String, exerciseId: String, reloadInWorkout: Binding<Bool>) {
+    init(
+        userId: String, workoutId: String, exerciseId: String,
+        reloadInWorkout: Binding<Bool>
+    ) {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
@@ -57,6 +60,7 @@ struct ExerciseView: View {
                     workoutId: workoutId,
                     exerciseId: exerciseId,
                     newMetadatePresented: $viewModel.showingNewMetadateView,
+                    reloadInWorkout: $reloadInWorkout,
                     reloadInExercise: $viewModel.reloadInExercise
                 )
             }
@@ -65,7 +69,8 @@ struct ExerciseView: View {
                     userId: userId,
                     workoutId: workoutId,
                     exerciseId: exerciseId,
-                    editExercisePresented: $viewModel.showingEditExerciseView
+                    editExercisePresented: $viewModel.showingEditExerciseView,
+                    reloadInWorkout: $reloadInWorkout
                 )
             }
         }
@@ -116,6 +121,7 @@ struct ExerciseView: View {
                         metadateId: metadate.id
                     )
                     viewModel.loadMetadata()
+                    reloadInWorkout = true
                 } label: {
                     Image(systemName: "trash")
                 }

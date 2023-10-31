@@ -11,6 +11,7 @@ struct NewMetadateView: View {
     @StateObject var viewModel: NewMetadateViewViewModel
     @Binding var newMetadatePresented: Bool
     @Binding var reloadInExercise: Bool
+    @Binding var reloadInWorkout: Bool
     
     let userId: String
     let workoutId: String
@@ -19,6 +20,7 @@ struct NewMetadateView: View {
     init(
         userId: String, workoutId: String, exerciseId: String,
         newMetadatePresented: Binding<Bool>,
+        reloadInWorkout: Binding<Bool>,
         reloadInExercise: Binding<Bool>
     ) {
         self.userId = userId
@@ -26,6 +28,7 @@ struct NewMetadateView: View {
         self.exerciseId = exerciseId
         
         self._newMetadatePresented = newMetadatePresented
+        self._reloadInWorkout = reloadInWorkout
         self._reloadInExercise = reloadInExercise
         
         self._viewModel = StateObject(
@@ -60,6 +63,7 @@ struct NewMetadateView: View {
                         workoutId: workoutId,
                         exericseId: exerciseId
                     )
+                    reloadInWorkout = true
                     reloadInExercise = true
                     newMetadatePresented = false
                 }
@@ -75,6 +79,10 @@ struct NewMetadateView: View {
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
         exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1",
         newMetadatePresented: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
+        reloadInWorkout: Binding(
             get: { return true },
             set: { _ in }
         ),

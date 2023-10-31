@@ -10,16 +10,23 @@ import SwiftUI
 struct EditExerciseView: View {
     @StateObject var viewModel: EditExerciseViewViewModel
     @Binding var editExercisePresented: Bool
+    @Binding var reloadInWorkout: Bool
     
     private let userId: String
     private let workoutId: String
     private let exerciseId: String
 
-    init(userId: String, workoutId: String, exerciseId: String, editExercisePresented: Binding<Bool>) {
+    init(
+        userId: String, workoutId: String, exerciseId: String,
+        editExercisePresented: Binding<Bool>,
+        reloadInWorkout: Binding<Bool>
+    ) {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
+        
         self._editExercisePresented = editExercisePresented
+        self._reloadInWorkout = reloadInWorkout
         
         self._viewModel = StateObject(
             wrappedValue: EditExerciseViewViewModel(
@@ -40,6 +47,7 @@ struct EditExerciseView: View {
                     viewModel.save(
                         userId: userId
                     )
+                    reloadInWorkout = true
                     editExercisePresented = false
                 } else {
                     if !viewModel.canSave {
@@ -70,6 +78,10 @@ struct EditExerciseView: View {
         workoutId: "07FCE443-3617-422E-B396-E34F05421D3E",
         exerciseId: "0FE3F549-61A2-41CF-9C25-80AB0E20C78B",
         editExercisePresented: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
+        reloadInWorkout: Binding(
             get: { return true },
             set: { _ in }
         )
