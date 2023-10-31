@@ -47,7 +47,8 @@ struct WorkoutView: View {
                 NewExerciseView(
                     userId: userId,
                     workoutId: workoutId,
-                    newExercisePresented: $viewModel.showingNewExerciseView
+                    newExercisePresented: $viewModel.showingNewExerciseView,
+                    reloadInWorkout: $viewModel.reloadInWorkout
                 )
             }
             .sheet(isPresented: $viewModel.showingEditWorkoutView){
@@ -58,12 +59,6 @@ struct WorkoutView: View {
                 )
             }
         }
-        .onChange(
-            of: viewModel.showingNewExerciseView,
-            perform: { _ in
-                viewModel.load()
-            }
-        )
         .onChange(
             of: viewModel.reloadInWorkout,
             perform: { _ in

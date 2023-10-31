@@ -10,16 +10,23 @@ import SwiftUI
 struct NewMetadateView: View {
     @StateObject var viewModel: NewMetadateViewViewModel
     @Binding var newMetadatePresented: Bool
+    @Binding var reloadInExercise: Bool
     
     let userId: String
     let workoutId: String
     let exerciseId: String
     
-    init(userId: String, workoutId: String, exerciseId: String, newMetadatePresented: Binding<Bool>) {
+    init(
+        userId: String, workoutId: String, exerciseId: String,
+        newMetadatePresented: Binding<Bool>,
+        reloadInExercise: Binding<Bool>
+    ) {
         self.userId = userId
         self.workoutId = workoutId
         self.exerciseId = exerciseId
+        
         self._newMetadatePresented = newMetadatePresented
+        self._reloadInExercise = reloadInExercise
         
         self._viewModel = StateObject(
             wrappedValue: NewMetadateViewViewModel(
@@ -53,6 +60,7 @@ struct NewMetadateView: View {
                         workoutId: workoutId,
                         exericseId: exerciseId
                     )
+                    reloadInExercise = true
                     newMetadatePresented = false
                 }
                 .padding()
@@ -67,6 +75,10 @@ struct NewMetadateView: View {
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
         exerciseId: "007F5FDA-6573-4B55-847E-9E3E5D88B8E1",
         newMetadatePresented: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
+        reloadInExercise: Binding(
             get: { return true },
             set: { _ in }
         )

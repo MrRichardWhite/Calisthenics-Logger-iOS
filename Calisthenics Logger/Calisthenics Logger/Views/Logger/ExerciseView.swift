@@ -56,7 +56,8 @@ struct ExerciseView: View {
                     userId: userId,
                     workoutId: workoutId,
                     exerciseId: exerciseId,
-                    newMetadatePresented: $viewModel.showingNewMetadateView
+                    newMetadatePresented: $viewModel.showingNewMetadateView,
+                    reloadInExercise: $viewModel.reloadInExercise
                 )
             }
             .sheet(isPresented: $viewModel.showingEditExerciseView){
@@ -68,12 +69,6 @@ struct ExerciseView: View {
                 )
             }
         }
-        .onChange(
-            of: viewModel.showingNewMetadateView,
-            perform: { _ in
-                viewModel.loadMetadata()
-            }
-        )
         .onChange(
             of: viewModel.reloadInExercise,
             perform: { _ in

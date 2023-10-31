@@ -10,14 +10,21 @@ import SwiftUI
 struct NewExerciseView: View {
     @StateObject var viewModel: NewExerciseViewViewModel
     @Binding var newExercisePresented: Bool
+    @Binding var reloadInWorkout: Bool
     
     let userId: String
     let workoutId: String
     
-    init(userId: String, workoutId: String, newExercisePresented: Binding<Bool>) {
+    init(
+        userId: String, workoutId: String,
+        newExercisePresented: Binding<Bool>,
+        reloadInWorkout: Binding<Bool>
+    ) {
         self.userId = userId
         self.workoutId = workoutId
+        
         self._newExercisePresented = newExercisePresented
+        self._reloadInWorkout = reloadInWorkout
         
         self._viewModel = StateObject(
             wrappedValue: NewExerciseViewViewModel(
@@ -49,6 +56,7 @@ struct NewExerciseView: View {
                         userId: userId,
                         workoutId: workoutId
                     )
+                    reloadInWorkout = true
                     newExercisePresented = false
                 }
                 .padding()
@@ -62,6 +70,10 @@ struct NewExerciseView: View {
         userId: "kHldraThHdSyYWPAEeiu7Wkhm1y1",
         workoutId: "EC44C268-3D9F-4D11-BEA0-FCFD2745B354",
         newExercisePresented: Binding(
+            get: { return true },
+            set: { _ in }
+        ),
+        reloadInWorkout: Binding(
             get: { return true },
             set: { _ in }
         )
